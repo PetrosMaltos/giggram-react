@@ -5,6 +5,13 @@
 }
 
 body {
-  background: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background: #000000;
+  color: #ffffff;
 }
+
+header {
+  background: #000000;
+}
+
+/*--tg-theme-text-color*(--tg-theme-bg-color)*/
+
