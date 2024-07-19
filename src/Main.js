@@ -1,6 +1,8 @@
 // Main.js
 import React, { useState } from 'react';
-import { LuHome } from 'react-icons/lu';
+import { LuHome, LuList, LuMessageSquare, LuUser, LuSettings } from 'react-icons/lu'; // Пример использования других иконок
+import { GrUserExpert } from "react-icons/gr";
+import { FaRegUserCircle } from "react-icons/fa";
 import './Main.css';
 
 function Main() {
@@ -25,28 +27,28 @@ function Main() {
           className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('orders')}
         >
-          <LuHome className="nav-icon" />
+          <LuList className="nav-icon" />
           <span className="nav-text">Orders</span>
         </div>
         <div 
           className={`nav-item ${activeTab === 'messages' ? 'active' : ''}`}
           onClick={() => setActiveTab('messages')}
         >
-          <LuHome className="nav-icon" />
+          <LuMessageSquare className="nav-icon" />
           <span className="nav-text">Messages</span>
         </div>
         <div 
-          className={`nav-item ${activeTab === 'specialists' ? 'active' : ''}`}
-          onClick={() => setActiveTab('specialists')}
+          className={`nav-item ${activeTab === 'experts' ? 'active' : ''}`}
+          onClick={() => setActiveTab('Experts')}
         >
-          <LuHome className="nav-icon" />
-          <span className="nav-text">Spec</span>
+          <GrUserExpert className="nav-icon" />
+          <span className="nav-text">Experts</span>
         </div>
         <div 
           className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
           onClick={() => setActiveTab('profile')}
         >
-          <LuHome className="nav-icon" />
+          <FaRegUserCircle className="nav-icon" />
           <span className="nav-text">Profile</span>
         </div>
       </div>
