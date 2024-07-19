@@ -1,38 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-body {
-  background: #000000;
-  color: #ffffff;
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
+/* Main.css */
 .main-content {
-  padding: 20px;
   text-align: center;
-  color: #ffffff;
-}
-
-.main-content h1,
-.main-content p {
-  margin: 0;
+  padding: 20px;
 }
 
 .btn-reset {
-  background-color: #ff3b3b; /* Красный цвет для кнопки сброса */
-  color: #fff;
+  background: #ff0000;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  color: #fff;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  transition: all 0.3s, transform 0.3s;
 }
 
 .btn-reset:hover {
-  background-color: #d12f2f; /* Темно-красный цвет при наведении */
+  background: #cc0000;
+  transform: scale(1.05);
 }
