@@ -41,7 +41,8 @@ h1 {
 }
 
 .gradient-text {
-  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
+  margin-bottom: 35px;
+  background: linear-gradient(45deg, #bebbff, #7eb0ff, #3056c9);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -100,7 +101,7 @@ li::before {
 }
 
 .btn-got-it {
-  background: #4CAF50; /* Зеленый */
+  background: #4c5baf; /* Зеленый */
   color: #fff;
 }
 
