@@ -6,6 +6,7 @@ function App() {
   useEffect(() => {
     tg.ready();
     tg.setHeaderColor('#000000'); // Установите нужный вам цвет здесь
+    tg.setTitleColor('#ffffff'); // Установите нужный вам цвет здесь
   }, []);
 
   const onRegister = () => {
