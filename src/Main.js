@@ -39,7 +39,7 @@ function Main() {
         </div>
         <div 
           className={`nav-item ${activeTab === 'experts' ? 'active' : ''}`}
-          onClick={() => setActiveTab('Experts')}
+          onClick={() => setActiveTab('experts')}
         >
           <GrUserExpert className="nav-icon" />
           <span className="nav-text">Experts</span>
