@@ -37,7 +37,7 @@ body {
 
 .logo {
   width: 100px; /* Установите нужный размер для логотипа */
-  margin-bottom: 30px; /* Расстояние между логотипом и заголовком */
+  margin-bottom: 15px; /* Расстояние между логотипом и заголовком */
 }
 
 h1 {
@@ -49,7 +49,7 @@ h1 {
 }
 
 .gradient-text {
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   background: linear-gradient(45deg, #bebbff, #7eb0ff, #3056c9);
   background-clip: text;
   -webkit-background-clip: text;
@@ -113,7 +113,7 @@ li::before {
 }
 
 .btn-got-it {
-  margin-top: 20px;
+  margin-top: 10px;
   background: linear-gradient(45deg, #5686ff, #2aa6ff, #0031c6);
   color: #fff;
 }

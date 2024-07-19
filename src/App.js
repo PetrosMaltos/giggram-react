@@ -51,7 +51,6 @@ function App() {
             <li>🔍 Discover talented freelancers from various fields.</li>
             <li>💬 Communicate seamlessly within Telegram.</li>
             <li>⚡ Quick and easy payment processing.</li>
-            <li>🚀 Boost your career and grow your business.</li>
           </ul>
           <div className="button-container fade-in">
             <button className="btn btn-got-it" onClick={handleGotItClick}>Got it</button>
