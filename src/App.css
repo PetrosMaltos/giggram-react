@@ -47,14 +47,14 @@ body {
   }
 }
 
-.logo {
+.welcome-screen .logo {
   width: 120px; /* Установите нужный размер для логотипа */
   margin-bottom: 15px; /* Расстояние между логотипом и заголовком */
   animation: fadeInLeft 1s ease-out; /* Анимация появления логотипа */
 }
 
 
-h1 {
+.welcome-screen h1 {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: 600;
@@ -70,7 +70,7 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
-p {
+.welcome-screen p {
   width: 100%;
   margin-bottom: 20px;
   color: #bbbbbb;
@@ -80,7 +80,7 @@ p {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-ul {
+.welcome-screen ul {
   width: 100%;
   list-style: none;
   padding: 0;
@@ -91,13 +91,13 @@ ul {
   animation: fade-in 1s ease-out 1s forwards;
 }
 
-li {
+.welcome-screen li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
 }
 
-li::before {
+.welcome-screen li::before {
   content: '✔️';
   margin-right: 10px;
 }

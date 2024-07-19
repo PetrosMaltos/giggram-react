@@ -1,8 +1,23 @@
-.main-page {
-    padding: 20px;
-  }
-  
-  .main-page h1 {
-    color: #333;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.main-content {
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.main-content h1,
+.main-content p {
+  margin: 0;
+}

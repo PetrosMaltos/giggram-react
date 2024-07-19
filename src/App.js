@@ -4,16 +4,17 @@ import Loading from './Loading';
 import Main from './Main';
 import './App.css';
 
-const tg = window.Telegram.WebApp;
-
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    tg.ready();
-    tg.setHeaderColor('#000000'); // Установите нужный вам цвет здесь
+    // Check if "Got it" was already clicked
+    const gotItClicked = localStorage.getItem('gotItClicked');
+    if (gotItClicked) {
+      setShowWelcome(false);
+    }
 
     // Simulate loading for 3 seconds
     const timer = setTimeout(() => {
@@ -35,7 +36,7 @@ function App() {
     <div className="App">
       {showWelcome ? (
         <div className="welcome-screen">
-          <img src="/images/logo_without_bg.png" className="logo" />
+          <img src="/images/logo_without_bg.png" className="logo" alt="Logo" />
           <h1 className="fade-in gradient-text">Welcome to GigGram!</h1>
           <p className="fade-in">The first freelance platform on Telegram. Earn 100% with zero fees!</p>
           <ul className="fade-in">
