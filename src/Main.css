@@ -4,19 +4,3 @@
   padding: 20px;
 }
 
-.btn-reset {
-  background: #ff0000;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-  font-size: 16px;
-  margin-top: 20px;
-  transition: all 0.3s, transform 0.3s;
-}
-
-.btn-reset:hover {
-  background: #cc0000;
-  transform: scale(1.05);
-}
