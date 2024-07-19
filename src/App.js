@@ -4,12 +4,18 @@ import Loading from './Loading';
 import Main from './Main';
 import './App.css';
 
+// Добавьте эту строку, чтобы получить доступ к Telegram WebApp
+const tg = window.Telegram.WebApp;
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    tg.ready(); // Инициализация WebApp
+    tg.setHeaderColor('#000000'); // Установите нужный вам цвет здесь
+
     // Check if "Got it" was already clicked
     const gotItClicked = localStorage.getItem('gotItClicked');
     if (gotItClicked) {
@@ -37,15 +43,15 @@ function App() {
       {showWelcome ? (
         <div className="welcome-screen">
           <img src="/images/logo_without_bg.png" className="logo" alt="Logo" />
-          <h1 className="fade-in gradient-text">Welcome to GigGram!</h1>
-          <p className="fade-in">The first freelance platform on Telegram. Earn 100% with zero fees!</p>
-          <ul className="fade-in">
-            <li>💼 Post and find freelance jobs with ease.</li>
-            <li>🔍 Discover talented freelancers from various fields.</li>
-            <li>💬 Communicate seamlessly within Telegram.</li>
-            <li>⚡ Quick and easy payment processing.</li>
+          <h1 className="welcome-h1 gradient-text">Welcome to GigGram!</h1>
+          <p className="welcome-p">The first freelance platform on Telegram. Earn 100% with zero fees!</p>
+          <ul className="welcome-ul">
+            <li className="welcome-li">💼 Post and find freelance jobs with ease.</li>
+            <li className="welcome-li">🔍 Discover talented freelancers from various fields.</li>
+            <li className="welcome-li">💬 Communicate seamlessly within Telegram.</li>
+            <li className="welcome-li">⚡ Quick and easy payment processing.</li>
           </ul>
-          <div className="button-container fade-in">
+          <div className="button-container">
             <button className="btn btn-got-it" onClick={handleGotItClick}>Got it</button>
           </div>
         </div>
