@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
+import Main from './Main';
 import './App.css';
-
 
 const tg = window.Telegram.WebApp;
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     tg.ready();
@@ -30,6 +32,7 @@ function App() {
   const handleGotItClick = () => {
     localStorage.setItem('gotItClicked', 'true');
     setShowWelcome(false);
+    navigate('/main'); // Redirect to main content
   };
 
   return isLoading ? (
@@ -52,9 +55,9 @@ function App() {
           </div>
         </div>
       ) : (
-        <div>
-          {/* Основной контент вашего приложения */}
-        </div>
+        <Routes>
+          <Route path="/main" element={<Main />} />
+        </Routes>
       )}
     </div>
   );

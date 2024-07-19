@@ -35,10 +35,24 @@ body {
   align-items: center;
 }
 
+/* App.css or Loading.css */
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .logo {
   width: 120px; /* Установите нужный размер для логотипа */
   margin-bottom: 15px; /* Расстояние между логотипом и заголовком */
+  animation: fadeInLeft 1s ease-out; /* Анимация появления логотипа */
 }
+
 
 h1 {
   font-size: 28px;
