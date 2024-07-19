@@ -21,16 +21,16 @@ function App() {
   return (
     <div className="App">
   <div className="welcome-screen">
-    <h1>Welcome to GigGram!</h1>
-    <p>The first freelance platform on Telegram. Earn 100% with zero fees!</p>
-    <ul>
+    <h1 className="fade-in">Welcome to GigGram!</h1>
+    <p className="fade-in-delay">The first freelance platform on Telegram. Earn 100% with zero fees!</p>
+    <ul className="fade-in-list">
       <li>💼 Post and find freelance jobs with ease.</li>
       <li>🔍 Discover talented freelancers from various fields.</li>
       <li>💬 Communicate seamlessly within Telegram.</li>
       <li>⚡ Quick and easy payment processing.</li>
       <li>🚀 Boost your career and grow your business.</li>
     </ul>
-    <div className="button-container">
+    <div className="button-container fade-in-delay">
       <button className="btn btn-got-it">Got it</button>
     </div>
   </div>
