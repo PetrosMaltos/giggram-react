@@ -51,8 +51,8 @@ body {
 }
 
 .logo {
-  width: 120px;
-  margin-bottom: 15px;
+  width: 130px;
+  margin-bottom: 10px;
   animation: logoFadeIn 1.5s ease-out; /* Анимация для логотипа */
 }
 
