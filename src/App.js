@@ -36,6 +36,26 @@ function App() {
     localStorage.removeItem('gotItClicked');
     setShowWelcome(true);
   };
+  const tg = window.Telegram.WebApp;
+
+tg.MainButton.setText("Reset Welcome Screen");
+tg.MainButton.show();
+tg.MainButton.onClick(function() {
+  localStorage.removeItem('gotItClicked');
+  tg.sendData('reset_done');
+  tg.MainButton.hide();
+});
+
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+  const text = msg.text;
+
+  if (text === '/reset') {
+    bot.sendMessage(chatId, 'Welcome screen has been reset.');
+    // Сброс состояния на клиенте
+    bot.sendMessage(chatId, '/reset_done');
+  }
+});
 
   return isLoading ? (
     <Loading />
