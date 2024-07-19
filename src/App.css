@@ -28,8 +28,11 @@ body {
 
 .welcome-screen {
   padding: 30px;
-  width: 90%;
+  width: 100%;
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -49,6 +52,7 @@ h1 {
 }
 
 p {
+  width: 100%;
   margin-bottom: 20px;
   color: #bbbbbb;
   font-size: 18px;
@@ -58,6 +62,7 @@ p {
 }
 
 ul {
+  width: 100%;
   list-style: none;
   padding: 0;
   margin-bottom: 25px;
@@ -83,10 +88,11 @@ li::before {
   flex-direction: column;
   gap: 15px;
   animation: fade-in 1s ease-out 1.5s forwards;
+  width: 100%;
+  align-items: center;
 }
 
 .btn {
-  margin-top: 50px;
   background: #ff9900;
   border: none;
   padding: 14px 0;
@@ -96,11 +102,13 @@ li::before {
   font-size: 18px;
   transition: all 0.3s, transform 0.3s;
   width: 100%;
+  max-width: 300px;
   font-family: 'Poppins', sans-serif;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-got-it {
+  margin-top: 20px;
   background: #4c5baf; /* Зеленый */
   color: #fff;
 }
@@ -109,7 +117,6 @@ li::before {
   opacity: 0.9;
   transform: translateY(-2px);
 }
-
 
 @keyframes fade-in {
   0% {
