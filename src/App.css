@@ -7,11 +7,50 @@
 body {
   background: #000000;
   color: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-header {
-  background: #000000;
+.App {
+  text-align: center;
 }
 
-/*--tg-theme-text-color*(--tg-theme-bg-color)*/
+.welcome-screen {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
+h1 {
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 30px;
+  color: #bbbbbb;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  background: #ff9900;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #000;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: #e68a00;
+}
