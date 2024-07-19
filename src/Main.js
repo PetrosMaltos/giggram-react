@@ -1,5 +1,6 @@
+// Main.js
 import React, { useState } from 'react';
-import { LuHome, LuPackage, LuMessageSquare, LuUser, LuBriefcase } from "react-icons/lu";
+import { LuHome } from 'react-icons/lu';
 import './Main.css';
 
 function Main() {
@@ -13,24 +14,39 @@ function Main() {
         {/* Добавьте сюда контент главной страницы */}
       </div>
       <div className="navbar">
-        <div className={`nav-item ${activeTab === 'home' ? 'active' : ''}`} onClick={() => setActiveTab('home')}>
+        <div 
+          className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
+          onClick={() => setActiveTab('home')}
+        >
           <LuHome className="nav-icon" />
           <span className="nav-text">Home</span>
         </div>
-        <div className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => setActiveTab('orders')}>
-          <LuPackage className="nav-icon" />
+        <div 
+          className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`}
+          onClick={() => setActiveTab('orders')}
+        >
+          <LuHome className="nav-icon" />
           <span className="nav-text">Orders</span>
         </div>
-        <div className={`nav-item ${activeTab === 'messages' ? 'active' : ''}`} onClick={() => setActiveTab('messages')}>
-          <LuMessageSquare className="nav-icon" />
+        <div 
+          className={`nav-item ${activeTab === 'messages' ? 'active' : ''}`}
+          onClick={() => setActiveTab('messages')}
+        >
+          <LuHome className="nav-icon" />
           <span className="nav-text">Messages</span>
         </div>
-        <div className={`nav-item ${activeTab === 'spec' ? 'active' : ''}`} onClick={() => setActiveTab('spec')}>
-          <LuBriefcase className="nav-icon" />
+        <div 
+          className={`nav-item ${activeTab === 'specialists' ? 'active' : ''}`}
+          onClick={() => setActiveTab('specialists')}
+        >
+          <LuHome className="nav-icon" />
           <span className="nav-text">Spec</span>
         </div>
-        <div className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
-          <LuUser className="nav-icon" />
+        <div 
+          className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
+          onClick={() => setActiveTab('profile')}
+        >
+          <LuHome className="nav-icon" />
           <span className="nav-text">Profile</span>
         </div>
       </div>
