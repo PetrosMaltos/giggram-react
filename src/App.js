@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Loading from './Loading';
 import './App.css';
 
+
 const tg = window.Telegram.WebApp;
 
 function App() {
@@ -31,12 +32,18 @@ function App() {
     setShowWelcome(false);
   };
 
+  const handleResetClick = () => {
+    localStorage.removeItem('gotItClicked');
+    setShowWelcome(true);
+  };
+
   return isLoading ? (
     <Loading />
   ) : (
     <div className="App">
       {showWelcome ? (
         <div className="welcome-screen">
+          <img src="/images/logo_without_bg.png" className="logo" />
           <h1 className="fade-in gradient-text">Welcome to GigGram!</h1>
           <p className="fade-in">The first freelance platform on Telegram. Earn 100% with zero fees!</p>
           <ul className="fade-in">
