@@ -5,7 +5,7 @@ const tg = window.Telegram.WebApp;
 function App() {
   useEffect(() => {
     tg.ready();
-    tg.setHeaderColor('#ffffff'); // Установите нужный вам цвет здесь
+    tg.setHeaderColor('#000000'); // Установите нужный вам цвет здесь
   }, []);
 
   const onRegister = () => {
@@ -20,15 +20,21 @@ function App() {
 
   return (
     <div className="App">
-      <div className="welcome-screen">
-        <h1>Welcome to GigGram!</h1>
-        <p>The first freelance platform on Telegram. Earn 100% with zero fees!</p>
-        <div className="button-container">
-          <button onClick={onRegister} className="btn">Register</button>
-          <button onClick={onLogin} className="btn">Login</button>
-        </div>
-      </div>
+  <div className="welcome-screen">
+    <h1>Welcome to GigGram!</h1>
+    <p>The first freelance platform on Telegram. Earn 100% with zero fees!</p>
+    <ul>
+      <li>💼 Post and find freelance jobs with ease.</li>
+      <li>🔍 Discover talented freelancers from various fields.</li>
+      <li>💬 Communicate seamlessly within Telegram.</li>
+      <li>⚡ Quick and easy payment processing.</li>
+      <li>🚀 Boost your career and grow your business.</li>
+    </ul>
+    <div className="button-container">
+      <button className="btn btn-got-it">Got it</button>
     </div>
+  </div>
+</div>
   );
 }
 
