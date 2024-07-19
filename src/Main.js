@@ -1,20 +1,13 @@
+// Main.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Main.css'; // Импортируйте CSS файл для стилизации, если нужно
+import './Main.css';
 
 function Main() {
-  const navigate = useNavigate();
-
-  const handleResetClick = () => {
-    localStorage.clear(); // Удаляет все данные из localStorage
-    navigate('/'); // Перенаправляет обратно на главный экран
-  };
-
   return (
-    <div className="main">
+    <div className="main-content">
       <h1>Main Content</h1>
       <p>Welcome to the main area of the application.</p>
-      <button className="btn btn-reset" onClick={handleResetClick}>Reset All Data</button>
+      {/* Add more content or components here */}
     </div>
   );
 }
