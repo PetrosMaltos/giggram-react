@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-* {
+.welcome-screen * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-body {
+.welcome-screen body {
   background: #000000;
   color: #ffffff;
   font-family: 'Poppins', sans-serif;
@@ -17,7 +17,7 @@ body {
   margin: 0;
 }
 
-.App {
+.welcome-screen .App {
   text-align: center;
   width: 100%;
   height: 100%;
@@ -50,14 +50,14 @@ body {
   }
 }
 
-.logo {
+.welcome-screen .logo {
   width: 120px;
   margin-bottom: 10px;
   animation: logoFadeIn 1.5s ease-out; /* Анимация для логотипа */
 }
 
 /* Заголовок */
-h1 {
+.welcome-screen h1 {
   font-size: 27px;
   margin-bottom: 20px;
   font-weight: 600;
@@ -65,7 +65,7 @@ h1 {
 }
 
 /* Gradient Text */
-.gradient-text {
+.welcome-screen .gradient-text {
   background: linear-gradient(45deg, #bebbff, #7eb0ff, #3056c9);
   background-clip: text;
   -webkit-background-clip: text;
@@ -73,7 +73,7 @@ h1 {
 }
 
 /* Параграф */
-p {
+.welcome-screen p {
   width: 100%;
   margin-bottom: 20px;
   color: #bbbbbb;
@@ -82,7 +82,7 @@ p {
 }
 
 /* Список */
-ul {
+.welcome-screen ul {
   width: 100%;
   list-style: none;
   padding: 0;
@@ -92,13 +92,13 @@ ul {
   text-align: left;
 }
 
-li {
+.welcome-screen li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
 }
 
-li::before {
+.welcome-screen li::before {
   content: '✔️';
   margin-right: 10px;
 }
@@ -112,7 +112,7 @@ li::before {
   align-items: center;
 }
 
-.btn {
+.welcome-screen .btn {
   background: #ff9900;
   border: none;
   padding: 14px 0;

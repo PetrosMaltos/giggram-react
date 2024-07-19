@@ -1,6 +1,63 @@
 /* Main.css */
-.main-content {
-  text-align: center;
-  padding: 20px;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #000000;
 }
 
+.content {
+  flex: 1;
+  padding: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  backdrop-filter: blur(20px); /* Эффект размытия */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #64748B; /* Неактивный цвет */
+  text-align: center;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  color: #ffffff; /* Активный цвет */
+}
+
+.nav-icon {
+  font-size: 22px;
+  margin-bottom: 5px; /* Увеличиваем отступ между иконкой и текстом */
+  stroke: currentColor; /* Цвет контура иконок */
+  stroke-width: 2; /* Толщина контура */
+}
+
+.nav-text {
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
