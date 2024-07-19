@@ -1,9 +1,18 @@
 /* Main.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #000000;
+  overflow: hidden; /* Предотвращает прокрутку главного контейнера */
 }
 
 .content {
@@ -11,6 +20,7 @@
   padding: 20px;
   color: #ffffff;
   text-align: center;
+  overflow-y: auto; /* Позволяет прокручивать контент, если он превышает высоту контейнера */
 }
 
 h1 {
@@ -29,11 +39,11 @@ p {
   background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
   backdrop-filter: blur(20px); /* Эффект размытия */
   padding: 10px 20px;
+  border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: sticky;
+  position: fixed; /* Фиксирует navbar внизу экрана */
   bottom: 0;
   width: 100%;
-  margin: 0;
 }
 
 .nav-item {
