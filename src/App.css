@@ -51,14 +51,14 @@ body {
 }
 
 .logo {
-  width: 130px;
+  width: 120px;
   margin-bottom: 10px;
   animation: logoFadeIn 1.5s ease-out; /* Анимация для логотипа */
 }
 
 /* Заголовок */
 h1 {
-  font-size: 28px;
+  font-size: 27px;
   margin-bottom: 20px;
   font-weight: 600;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
