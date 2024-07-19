@@ -21,3 +21,18 @@ body {
 .main-content p {
   margin: 0;
 }
+
+.btn-reset {
+  background-color: #ff3b3b; /* Красный цвет для кнопки сброса */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-reset:hover {
+  background-color: #d12f2f; /* Темно-красный цвет при наведении */
+}

@@ -36,44 +36,32 @@ body {
   position: relative;
 }
 
-/* Smooth Fade In */
-@keyframes smoothFadeIn {
-  from {
+/* Logo Animation */
+@keyframes logoFadeIn {
+  0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(-30px);
+    filter: blur(5px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
-/* Zoom In Animation */
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Logo Animation */
-.welcome-screen .logo {
+.logo {
   width: 120px;
   margin-bottom: 15px;
-  animation: zoomIn 1s ease-out; /* Увеличение логотипа */
+  animation: logoFadeIn 1.5s ease-out; /* Анимация для логотипа */
 }
 
-/* Header Animation */
-.welcome-screen h1 {
+/* Заголовок */
+h1 {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: 600;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  animation: smoothFadeIn 1.5s ease-out; /* Плавное появление заголовка */
 }
 
 /* Gradient Text */
@@ -84,55 +72,38 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Text and List Animations */
-.welcome-screen p,
-.welcome-screen ul {
+/* Параграф */
+p {
   width: 100%;
   margin-bottom: 20px;
   color: #bbbbbb;
   font-size: 18px;
   font-weight: 400;
-  animation: smoothFadeIn 1s ease-out;
 }
 
-.welcome-screen ul {
+/* Список */
+ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
   margin-bottom: 25px;
   color: #ffffff;
   font-size: 16px;
   text-align: left;
 }
 
-.welcome-screen li {
+li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  position: relative;
-  padding-left: 25px;
 }
 
-.welcome-screen li::before {
+li::before {
   content: '✔️';
-  position: absolute;
-  left: 0;
-  font-size: 20px;
+  margin-right: 10px;
 }
 
-/* Button Animation */
-@keyframes buttonPulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-}
-
+/* Кнопка */
 .button-container {
   display: flex;
   flex-direction: column;
@@ -163,5 +134,6 @@ body {
 }
 
 .btn:hover {
-  animation: buttonPulse 1s ease-in-out;
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
