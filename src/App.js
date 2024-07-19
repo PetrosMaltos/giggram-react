@@ -15,12 +15,6 @@ function App() {
     tg.ready();
     tg.setHeaderColor('#000000'); // Установите нужный вам цвет здесь
 
-    // Check if "Got it" was already clicked
-    const gotItClicked = localStorage.getItem('gotItClicked');
-    if (gotItClicked) {
-      setShowWelcome(false);
-    }
-
     // Simulate loading for 3 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
