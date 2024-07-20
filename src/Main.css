@@ -1,13 +1,13 @@
 /* Main.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-body, html {
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   width: 100%;
   height: 100%;
-  background: #0d0d0d;
+  background: #070707;
   font-family: 'Poppins', sans-serif; /* Устанавливаем Poppins как основной шрифт */
 }
 
