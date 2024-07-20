@@ -39,7 +39,7 @@ p {
   display: flex;
   justify-content: space-around; /* Равномерно распределяет элементы */
   align-items: center;
-  background: rgba(0, 0, 0, 0.9); /* Черный фон с небольшой прозрачностью */
+  background: rgba(0, 0, 0, 0.714); /* Черный фон с небольшой прозрачностью */
   backdrop-filter: blur(10px); /* Эффект размытия фона */
   padding: 10px 0; /* Отступы сверху и снизу */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

@@ -1,31 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-.welcome-screen * {
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-
-.welcome-screen body {
-  background: #000000;
-  color: #ffffff;
   font-family: 'Poppins', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
-.welcome-screen .App {
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body {
+  background-color: #070707; /* Черный фон приложения */
+  color: #e0e0e0; /* Основной цвет текста */
 }
 
+/* Welcome Screen Styles */
 .welcome-screen {
   padding: 30px;
   width: 100%;
@@ -34,9 +21,16 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  margin: auto;
+  text-align: center;
 }
 
-/* Logo Animation */
+.welcome-screen .logo {
+  width: 120px;
+  margin-bottom: 20px;
+  animation: logoFadeIn 1.5s ease-out;
+}
+
 @keyframes logoFadeIn {
   0% {
     opacity: 0;
@@ -50,21 +44,14 @@
   }
 }
 
-.welcome-screen .logo {
-  width: 120px;
-  margin-bottom: 10px;
-  animation: logoFadeIn 1.5s ease-out; /* Анимация для логотипа */
-}
-
-/* Заголовок */
 .welcome-screen h1 {
-  font-size: 27px;
-  margin-bottom: 20px;
+  font-size: 28px;
   font-weight: 600;
+  margin-bottom: 20px;
+  color: #ffffff;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Gradient Text */
 .welcome-screen .gradient-text {
   background: linear-gradient(45deg, #bebbff, #7eb0ff, #3056c9);
   background-clip: text;
@@ -72,38 +59,31 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Параграф */
 .welcome-screen p {
-  width: 100%;
-  margin-bottom: 20px;
-  color: #bbbbbb;
   font-size: 18px;
-  font-weight: 400;
+  color: #bbbbbb;
+  margin-bottom: 20px;
 }
 
-/* Список */
 .welcome-screen ul {
-  width: 100%;
   list-style: none;
   padding: 0;
   margin-bottom: 25px;
   color: #ffffff;
   font-size: 16px;
-  text-align: left;
 }
 
 .welcome-screen li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-}
+} 
 
 .welcome-screen li::before {
   content: '✔️';
   margin-right: 10px;
 }
 
-/* Кнопка */
 .button-container {
   display: flex;
   flex-direction: column;
@@ -112,8 +92,8 @@
   align-items: center;
 }
 
-.welcome-screen .btn {
-  background: #ff9900;
+.btn {
+  background: #00a6ff;
   border: none;
   padding: 14px 0;
   border-radius: 5px;
@@ -123,12 +103,10 @@
   transition: all 0.3s;
   width: 100%;
   max-width: 300px;
-  font-family: 'Poppins', sans-serif;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-got-it {
-  margin-top: 10px;
   background: linear-gradient(45deg, #5686ff, #2aa6ff, #0031c6);
   color: #fff;
 }
@@ -136,4 +114,150 @@
 .btn:hover {
   opacity: 0.9;
   transform: translateY(-2px);
+}
+
+/* Orders Page Styles */
+.orders-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orders-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0099ff;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #2d9cdb;
+  padding-bottom: 10px;
+}
+
+.order-card {
+  background: linear-gradient(90deg, #0f0f0f, #101010);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 40px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(to bottom, #0077b2, #00528c, #159294);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  z-index: 1;
+}
+
+.order-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.order-title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgb(55, 55, 55);
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.order-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d9cdb;
+  display: flex;
+  align-items: center;
+}
+
+.order-price .money-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.order-status {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.order-status.open {
+  background: #2d9cdb;
+}
+
+.order-status.in-progress {
+  background: #f1c40f;
+}
+
+.order-status.completed {
+  background: #27ae60;
+}
+
+.order-meta {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+.order-meta-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-meta-icon {
+  font-size: 18px;
+  color: #2d9cdb;
+  margin-right: 10px;
+}
+
+.order-meta-item span {
+  color: #e0e0e0;
+}
+
+.orders-container .order-card:last-child {
+  margin-bottom: 50px;
+}
+
+@media (max-width: 400px) {
+  .order-card {
+    padding: 15px;
+  }
+
+  .order-title {
+    font-size: 20px;
+  }
+
+  .order-price {
+    font-size: 16px;
+  }
+
+  .order-meta-item .order-meta-icon {
+    font-size: 16px;
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Orders.css';
+import './App.css';
 import { FaCalendarAlt, FaClock, FaHashtag, FaEye, FaComments } from 'react-icons/fa';
 
 const orders = [
