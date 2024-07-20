@@ -4,16 +4,52 @@ import { LuHome, LuList, LuMessageSquare, LuUser, LuSettings } from 'react-icons
 import { GrUserExpert } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
 import './Main.css';
+import Orders from './Orders';
 
 function Main() {
   const [activeTab, setActiveTab] = useState('home');
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return (
+          <div>
+            <h1>Main Content</h1>
+            <p>Welcome to the main area of the application.</p>
+          </div>
+        );
+      case 'orders':
+        return <Orders />;
+      case 'messages':
+        return (
+          <div>
+            <h1>Messages</h1>
+            <p>Check your messages here.</p>
+          </div>
+        );
+      case 'experts':
+        return (
+          <div>
+            <h1>Experts</h1>
+            <p>Find experts here.</p>
+          </div>
+        );
+      case 'profile':
+        return (
+          <div>
+            <h1>Profile</h1>
+            <p>Manage your profile here.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="main-container">
       <div className="content">
-        <h1>Main Content</h1>
-        <p>Welcome to the main area of the application.</p>
-        {/* Добавьте сюда контент главной страницы */}
+        {renderContent()}
       </div>
       <div className="navbar">
         <div 

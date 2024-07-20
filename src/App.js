@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
 import Main from './Main';
+import Orders from './Orders'; // Don't forget to import Orders component
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Initialize Telegram WebApp
@@ -58,6 +59,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/main" element={<Main />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       )}
     </div>

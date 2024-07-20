@@ -7,7 +7,7 @@ body, html {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  background: #000000; /* Устанавливаем черный фон для всего приложения */
+  background: #0d0d0d;
   font-family: 'Poppins', sans-serif; /* Устанавливаем Poppins как основной шрифт */
 }
 
@@ -39,14 +39,16 @@ p {
   display: flex;
   justify-content: space-around; /* Равномерно распределяет элементы */
   align-items: center;
-  background: rgba(0, 0, 0, 0.9); /* Устанавливаем черный фон с небольшой прозрачностью */
-  padding: 10px 0; /* Сужает отступы сверху и снизу */
-  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.9); /* Черный фон с небольшой прозрачностью */
+  backdrop-filter: blur(10px); /* Эффект размытия фона */
+  padding: 10px 0; /* Отступы сверху и снизу */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: fixed; /* Фиксирует navbar внизу экрана */
+  position: fixed; /* Фиксация navbar внизу экрана */
   bottom: 0;
   width: 100%;
+  z-index: 1000; /* Обеспечивает, чтобы navbar был поверх других элементов */
 }
+
 
 .nav-item {
   display: flex;
