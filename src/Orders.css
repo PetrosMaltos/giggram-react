@@ -26,7 +26,7 @@
   .order-card {
     background: linear-gradient(90deg, #1b1b1b, #1b1b1b); /* Градиент фона */
     border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.061);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.57);
     width: 100%;
     max-width: 400px;
     margin-bottom: 40px;
@@ -109,14 +109,14 @@
     margin-bottom: 10px;
   }
   
-  .order-meta-item i {
+  .order-meta-icon {
     font-size: 18px;
     color: #2d9cdb;
     margin-right: 10px;
   }
   
   .order-meta-item span {
-    color: #acacac;
+    color: #e0e0e0;
   }
   
   .order-card .order-footer {

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Orders.css';
+import { FaCalendarAlt, FaClock, FaHashtag, FaEye, FaComments } from 'react-icons/fa';
 
 const orders = [
     {
@@ -54,23 +55,23 @@ const orders = [
             </div>
             <div className="order-meta">
               <div className="order-meta-item">
-                <i className="bx bx-calendar"></i>
+                <FaCalendarAlt className="order-meta-icon" />
                 <span>Created: {order.creationDate}</span>
               </div>
               <div className="order-meta-item">
-                <i className="bx bx-time"></i>
+                <FaClock className="order-meta-icon" />
                 <span>Estimated Time: {order.estimatedTime} hours</span>
               </div>
               <div className="order-meta-item">
-                <i className="bx bx-hashtag"></i>
+                <FaHashtag className="order-meta-icon" />
                 <span>#{order.hashtag}</span>
               </div>
               <div className="order-meta-item">
-                <i className="bx bx-eye"></i>
+                <FaEye className="order-meta-icon" />
                 <span>{order.views} Views</span>
               </div>
               <div className="order-meta-item">
-                <i className="bx bx-chat"></i>
+                <FaComments className="order-meta-icon" />
                 <span>{order.responses} Responses</span>
               </div>
             </div>
@@ -80,7 +81,5 @@ const orders = [
     );
   }
   
+  export default Orders;
 
-  
-
-export default Orders;
