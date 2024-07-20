@@ -7,6 +7,22 @@
     color: #333;
   }
   
+  .orders-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #2d9cdb, #27ae60);
+    background-clip: text; /* Стандартное свойство для обрезки фона по тексту */
+    -webkit-background-clip: text; /* Вебкит-специфичное свойство для градиента на тексте */
+    -webkit-text-fill-color: transparent; /* Прозрачный цвет текста для отображения градиента */
+    border-bottom: 2px solid #2d9cdb;
+    padding-bottom: 10px;
+  }
+  
   .order-card {
     background: #000000;
     border-radius: 12px;

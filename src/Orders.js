@@ -41,6 +41,7 @@ const orders = [
 function Orders() {
   return (
     <div className="orders-container">
+      <h1 className="orders-title">Orders</h1>
       {orders.map((order) => (
         <div className="order-card" key={order.id}>
           <h2 className="order-title">{order.title}</h2>
