@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    background-color: #0d0d0d;
-    color: #333;
+    padding: 30px;
+    background-color: #121212;
+    color: #e0e0e0;
   }
   
   .orders-title {
@@ -12,55 +12,66 @@
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 30px;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    letter-spacing: 2px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 1px;
     text-transform: uppercase;
     background: linear-gradient(90deg, #2d9cdb, #27ae60);
-    background-clip: text; /* Стандартное свойство для обрезки фона по тексту */
-    -webkit-background-clip: text; /* Вебкит-специфичное свойство для градиента на тексте */
-    -webkit-text-fill-color: transparent; /* Прозрачный цвет текста для отображения градиента */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     border-bottom: 2px solid #2d9cdb;
     padding-bottom: 10px;
   }
   
   .order-card {
-    background: #000000;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, #1b1b1b, #1b1b1b); /* Градиент фона */
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 255, 242, 0.061);
     width: 100%;
     max-width: 400px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   
-  .order-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  .order-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(to bottom, #1ed5cf, #00aaff);
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    z-index: 1;
   }
+  
+  .order-card > * {
+    position: relative;
+    z-index: 2;
+  }
+  
   
   .order-title {
     font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #efefef;
-  }
-  
-  .order-description {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: #949494;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
   }
   
   .order-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-top: 20px;
   }
   
   .order-price {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #2d9cdb;
   }
@@ -87,29 +98,35 @@
   }
   
   .order-meta {
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 14px;
-    color: #d7d7d7;
+    color: #b0b0b0;
   }
   
   .order-meta-item {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   
   .order-meta-item i {
-    font-size: 16px;
-    color: #d1d1d1;
-    margin-right: 8px;
+    font-size: 18px;
+    color: #2d9cdb;
+    margin-right: 10px;
   }
   
   .order-meta-item span {
-    color: #909090;
+    color: #acacac;
+  }
+  
+  .order-card .order-footer {
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    margin-top: 10px;
   }
   
   .orders-container .order-card:last-child {
-    margin-bottom: 70px; /* Отступ в 50px для последней карточки */
+    margin-bottom: 50px;
   }
   
   @media (max-width: 400px) {
@@ -121,16 +138,12 @@
       font-size: 20px;
     }
   
-    .order-description {
-      font-size: 14px;
-    }
-  
     .order-price {
-      font-size: 18px;
+      font-size: 16px;
     }
   
     .order-meta-item i {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   
