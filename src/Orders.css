@@ -5,20 +5,17 @@
     padding: 30px;
     background-color: #0d0d0d;
     color: #e0e0e0;
+    overflow-y: auto;
   }
   
   .orders-title {
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
+    color: #0099ff;
     margin-bottom: 30px;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     letter-spacing: 1px;
     text-transform: uppercase;
-    background: linear-gradient(90deg, #2d9cdb, #27ae60);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     border-bottom: 2px solid #2d9cdb;
     padding-bottom: 10px;
   }
@@ -27,7 +24,7 @@
     background: linear-gradient(90deg, #1b1b1b, #1b1b1b); /* Градиент фона */
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.57);
-    width: 100%;
+    width: 120%;
     max-width: 400px;
     margin-bottom: 40px;
     padding: 20px;
@@ -44,7 +41,7 @@
     left: 0;
     width: 8px;
     height: 100%;
-    background: linear-gradient(to bottom, #1ed5cf, #00aaff);
+    background: linear-gradient(to bottom, #0077b2, #00528c, #159294);
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
     z-index: 1;
@@ -121,8 +118,8 @@
   
   .order-card .order-footer {
     border-top: 1px solid #333;
-    padding-top: 10px;
-    margin-top: 10px;
+    padding-top: 20px;
+    margin-top: 5px;
   }
   
   .orders-container .order-card:last-child {

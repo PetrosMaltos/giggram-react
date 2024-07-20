@@ -43,7 +43,7 @@ const orders = [
   function Orders() {
     return (
       <div className="orders-container">
-        <div className="orders-title">Orders</div>
+        <div className="orders-title">Orders (423)</div>
         {orders.map((order) => (
           <div className="order-card" key={order.id}>
             <h2 className="order-title">{order.title}</h2>
@@ -59,20 +59,20 @@ const orders = [
                 <span>Created: {order.creationDate}</span>
               </div>
               <div className="order-meta-item">
-                <FaClock className="order-meta-icon" />
-                <span>Estimated Time: {order.estimatedTime} hours</span>
-              </div>
-              <div className="order-meta-item">
-                <FaHashtag className="order-meta-icon" />
-                <span>#{order.hashtag}</span>
+                <FaComments className="order-meta-icon" />
+                <span>{order.responses} Responses</span>
               </div>
               <div className="order-meta-item">
                 <FaEye className="order-meta-icon" />
                 <span>{order.views} Views</span>
               </div>
               <div className="order-meta-item">
-                <FaComments className="order-meta-icon" />
-                <span>{order.responses} Responses</span>
+                <FaClock className="order-meta-icon" />
+                <span>Estimated Time: {order.estimatedTime} hours</span>
+              </div>
+              <div className="order-meta-item">
+                <FaHashtag className="order-meta-icon" />
+                <span>#{order.hashtag}</span>
               </div>
             </div>
           </div>
