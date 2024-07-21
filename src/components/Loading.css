@@ -1,0 +1,30 @@
+/* src/Loading.css */
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000; /* Фон страницы загрузки */
+    color: #e0e0e0; /* Цвет текста */
+    font-family: 'Poppins', sans-serif; /* Шрифт */
+  }
+  
+  .loading-spinner {
+    border: 16px solid #000000; /* Фон спиннера */
+    border-top: 16px solid #bb86fc; /* Цвет спиннера */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1.5s linear infinite;
+    margin-right: 20px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-text {
+    font-size: 1.5rem;
+  }
+  

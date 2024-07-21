@@ -1,0 +1,8 @@
+.main-page {
+    color: #e0e0e0;
+    background-color: #000000; /* Темный фон */
+    text-align: center;
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+  }
+
+  

@@ -1,0 +1,70 @@
+/* Общие стили для navbar */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #121212; /* Темный фон для navbar */
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Легкая тень сверху */
+    border-top: 1px solid #333; /* Легкая граница сверху */
+  }
+  
+  /* Стили для ссылок в navbar */
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e0e0e0; /* Светлый текст */
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 10px;
+    border-radius: 8px; /* Округление углов */
+  }
+  
+  .nav-item.active {
+    color: #bb86fc; /* Цвет активной ссылки */
+    background-color: #1e1e1e; /* Темный фон для активного элемента */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень для активного элемента */
+  }
+  
+  .nav-icon {
+    font-size: 1.5rem; /* Размер иконок */
+  }
+  
+  .nav-text {
+    font-size: 0.8rem; /* Размер текста */
+    margin-top: 4px; /* Отступ сверху от иконки */
+  }
+  
+  /* Адаптивные стили для мобильных устройств */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 8px 0; /* Уменьшаем отступы для мобильных устройств */
+    }
+  
+    .nav-icon {
+      font-size: 1.3rem; /* Уменьшаем размер иконок */
+    }
+  
+    .nav-text {
+      font-size: 0.7rem; /* Уменьшаем размер текста */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 6px 0; /* Дополнительное уменьшение отступов для маленьких экранов */
+    }
+  
+    .nav-icon {
+      font-size: 1.2rem; /* Уменьшаем размер иконок для очень маленьких экранов */
+    }
+  
+    .nav-text {
+      font-size: 0.6rem; /* Уменьшаем размер текста */
+    }
+  }
+  
