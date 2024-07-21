@@ -9,6 +9,14 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    // Проверяем наличие Telegram Web App SDK
+    if (window.Telegram && window.Telegram.WebApp) {
+      // Устанавливаем цвет заголовка
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.setHeaderColor('#000000'); // Черный цвет
+    }
+
     // Симулируем задержку загрузки
     const timer = setTimeout(() => {
       setLoading(false);
