@@ -148,7 +148,7 @@ body {
   }
 
   .welcome-description {
-    font-size: 0.9rem; /* Еще меньший размер текста */
+    font-size: 1rem; /* Еще меньший размер текста */
   }
 
   .welcome-button {
@@ -157,7 +157,7 @@ body {
   }
 
   .welcome-logo {
-    width: 100px; /* Уменьшение размера логотипа для маленьких экранов */
+    width: 120px; /* Уменьшение размера логотипа для маленьких экранов */
   }
 
   .project-info {
