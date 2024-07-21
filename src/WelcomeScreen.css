@@ -1,0 +1,174 @@
+/* Подключаем шрифт Poppins из Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000000; /* Однородный темный фон */
+  color: #e0e0e0; /* Светлый текст */
+  overflow: hidden; /* Скрыть скроллбар, если он не нужен */
+}
+
+.welcome-screen {
+  display: flex;
+  flex-direction: column; /* Расположение элементов по колонке */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px; /* Отступы для мобильных устройств */
+  text-align: center; /* Центрирование текста */
+}
+
+.welcome-content {
+  text-align: center;
+  padding: 40px 30px;
+  border-radius: 15px;
+  max-width: 90%;
+  width: 100%;
+  max-width: 500px; /* Ограничение ширины для больших экранов */
+  transition: transform 0.3s ease-in-out;
+  /* Убираем фон и тень */
+  background: none; /* Убираем фон */
+}
+
+.welcome-content:hover {
+  transform: scale(1.02); /* Легкое увеличение при наведении */
+}
+
+.welcome-logo {
+  width: 140px; /* Размер логотипа увеличен */
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.welcome-logo:hover {
+  transform: scale(1.1); /* Увеличение логотипа при наведении */
+}
+
+.welcome-title {
+  font-size: 2rem; /* Размер заголовка */
+  margin-bottom: 15px;
+  font-weight: 700; /* Жирный шрифт */
+}
+
+.welcome-description {
+  font-size: 1.2rem; /* Размер текста */
+  margin-bottom: 25px;
+}
+
+.project-info {
+  background-color: #1e1e1e; /* Темный фон для блока с информацией */
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+  text-align: center;
+  color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень */
+  border: 1px solid #bb86fc; /* Граница фиолетового цвета */
+}
+
+.project-info h2 {
+  font-size: 1.5rem; /* Размер заголовка */
+  margin-bottom: 10px;
+  font-weight: 700; /* Жирный шрифт */
+}
+
+.project-info p {
+  font-size: 1rem; /* Размер текста */
+  margin: 0;
+}
+
+/* Кнопка */
+.welcome-button {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(45deg, #bb86fc, #9f67e7); /* Градиентный фон */
+    color: #121212; /* Темный текст на кнопке */
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px; /* Округление углов */
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 700; /* Жирный текст */
+    transition: all 0.3s;
+    margin-top: 20px; /* Уменьшение отступа сверху от блока с информацией */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Легкая тень */
+}
+  
+.welcome-button:hover {
+    background: linear-gradient(45deg, #9f67e7, #bb86fc); /* Переключение градиента при наведении */
+    transform: translateY(-3px); /* Легкое поднимание при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Увеличение тени при наведении */
+}
+  
+.welcome-button:active {
+    background: linear-gradient(45deg, #7a4ec9, #9f67e7); /* Еще темнее градиент при нажатии */
+    transform: translateY(1px); /* Легкое опускание при нажатии */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
+}
+  
+
+/* Играбельные элементы */
+.emoji {
+  font-size: 1.5rem; /* Размер смайлов */
+  margin: 0 0.2rem; /* Отступы для смайлов */
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem; /* Уменьшенный размер заголовка на мобильных устройствах */
+  }
+
+  .welcome-description {
+    font-size: 1rem; /* Уменьшенный размер текста */
+  }
+
+  .welcome-button {
+    padding: 14px 28px; /* Уменьшение размера кнопки */
+    font-size: 1.2rem;
+  }
+
+  .welcome-logo {
+    width: 100px; /* Уменьшение размера логотипа */
+  }
+  
+  .project-info h2 {
+    font-size: 1.3rem; /* Уменьшенный размер заголовка в блоке с информацией */
+  }
+
+  .project-info p {
+    font-size: 0.9rem; /* Уменьшенный размер текста */
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 1.6rem; /* Еще меньший размер заголовка */
+  }
+
+  .welcome-description {
+    font-size: 0.9rem; /* Еще меньший размер текста */
+  }
+
+  .welcome-button {
+    padding: 12px 24px; /* Дополнительное уменьшение размера кнопки */
+    font-size: 1rem;
+  }
+
+  .welcome-logo {
+    width: 100px; /* Уменьшение размера логотипа для маленьких экранов */
+  }
+
+  .project-info {
+    margin-bottom: 15px;
+  }
+
+  .project-info h2 {
+    font-size: 1.2rem; /* Размер заголовка в блоке с информацией */
+  }
+
+  .project-info p {
+    font-size: 0.8rem; /* Размер текста в блоке с информацией */
+  }
+}
