@@ -6,10 +6,12 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #121212; /* Темный фон для navbar */
+    background: rgba(0, 0, 0, 0.745); /* Полупрозрачный фон */
+  backdrop-filter: blur(10px); /* Размытие фона */
     padding: 10px 0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Легкая тень сверху */
     border-top: 1px solid #333; /* Легкая граница сверху */
+    z-index: 1000;
   }
   
   /* Стили для ссылок в navbar */

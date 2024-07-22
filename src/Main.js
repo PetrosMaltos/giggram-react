@@ -1,8 +1,8 @@
-// Main.js
 import React from 'react';
 import OrderCard from './components/OrderCard'; // Импортируем компонент OrderCard
 import Categories from './components/Categories'; // Импортируем компонент Categories
 import LogoAnimation from './components/LogoAnimation'; // Импортируем анимацию логотипа
+import Navbar from './components/Navbar'; // Импортируем компонент Navbar
 import './Main.css'; // Импортируем стили для главной страницы
 
 const Main = () => {
@@ -30,8 +30,9 @@ const Main = () => {
 
   return (
     <div className="main-page">
+      <Navbar /> {/* Добавляем компонент Navbar */}
       <header className="main-header">
-      <LogoAnimation />
+        <LogoAnimation />
         <h1>Welcome to GigGram</h1>
         <p>The best platform for freelancers. Keep 99% of your earnings and support charitable causes!</p>
       </header>

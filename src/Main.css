@@ -14,7 +14,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #121212;
+  background-color: #000000;
   color: #e0e0e0;
   overflow-y: auto; /* Добавьте вертикальную прокрутку */
 }
@@ -172,7 +172,7 @@ html, body {
   align-items: center;
   padding: 20px;
   gap: 15px; /* Расстояние между кнопками */
-  background-color: #121212; /* Фон для футера */
+  background-color: #000000; /* Фон для футера */
 }
 
 /* Основные стили для кнопок */

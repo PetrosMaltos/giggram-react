@@ -1,6 +1,6 @@
 /* components/OrderCard.css */
 .order-card {
-    background-color: #1e1e1e; /* Темный фон карточек */
+    background-color: #000000; /* Темный фон карточек */
     border-radius: 10px;
     padding: 20px;
     max-width: 300px;

@@ -4,13 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px; /* Высота логотипа */
+    height: 140px; /* Высота логотипа */
   }
   
   .animated-logo {
-    width: 130px; /* Ширина логотипа */
+    width: 120px; /* Ширина логотипа */
     height: auto;
-    animation: pulse 2s infinite;
+    animation: pulse 1s infinite;
   }
   
   @keyframes pulse {
