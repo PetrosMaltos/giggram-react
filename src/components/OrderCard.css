@@ -1,0 +1,59 @@
+/* components/OrderCard.css */
+.order-card {
+    background-color: #1e1e1e; /* Темный фон карточек */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 300px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень */
+    transition: box-shadow 0.3s ease; /* Плавное изменение тени при наведении */
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Увеличенная тень при наведении */
+  }
+  
+  .order-title {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #e0e0e0; /* Светлый текст */
+  }
+  
+  .order-description {
+    margin: 10px 0;
+    color: #b0b0b0; /* Немного светлее текст */
+  }
+  
+  .order-info {
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание */
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #b0b0b0; /* Немного светлее текст */
+  }
+  
+  .order-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .order-icon {
+    margin-right: 8px; /* Отступ между иконкой и текстом */
+  }
+  
+  .order-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .order-tag {
+    background-color: #bb86fc; /* Цвет тега */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #121212;
+    font-size: 0.9rem;
+  }
+  

@@ -1,0 +1,44 @@
+/* src/pages/CategoriesPage.css */
+.categories-page {
+    padding: 20px;
+    background-color: #121212; /* Темный фон */
+    color: #e0e0e0; /* Светлый текст */
+  }
+  
+  .categories-page h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .category-card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 300px;
+    width: 100%;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .category-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+    transform: scale(1.05);
+  }
+  
+  .category-card h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .category-card p {
+    font-size: 1rem;
+  }
+  

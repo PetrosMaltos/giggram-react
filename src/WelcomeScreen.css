@@ -1,16 +1,18 @@
 /* Подключаем шрифт Poppins из Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #000000; /* Однородный темный фон */
-  color: #e0e0e0; /* Светлый текст */
-  overflow: hidden; /* Скрыть скроллбар, если он не нужен */
+  color: #e0e0e0; /* Светлый текст */ 
+  overflow: hidden;
+
 }
 
 .welcome-screen {
+  overflow: hidden;
   display: flex;
   flex-direction: column; /* Расположение элементов по колонке */
   justify-content: center;

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
 import Loading from './components/Loading'; // Импортируем компонент Loading
+import Categories from './components/Categories'; // Импортируем страницу категорий
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/categories" element={<Categories />} />
           {/* Добавьте другие маршруты здесь */}
         </Routes>
       )}

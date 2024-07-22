@@ -1,0 +1,12 @@
+/* components/OrderDetail.css */
+.order-detail {
+    padding: 20px;
+    color: #e0e0e0;
+    background-color: #121212;
+  }
+  
+  .order-detail h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
