@@ -179,6 +179,7 @@ html, body {
 .get-started-button, .become-freelancer-button {
   padding: 15px 30px;
   font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
   border: none;
   border-radius: 30px; /* Скругленные углы для кнопок */
   background-color: #bb86fc; /* Основной цвет кнопки */
@@ -200,4 +201,8 @@ html, body {
   background-color: #7a4ec9; /* Темнее при нажатии */
   transform: scale(0.98); /* Легкое уменьшение кнопки */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
+}
+
+.become-freelancer-button {
+  margin-bottom: 100px;
 }
