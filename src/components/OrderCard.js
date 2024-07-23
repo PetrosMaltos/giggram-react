@@ -1,10 +1,10 @@
 // components/OrderCard.js
 import React from 'react';
-import { FaClock, FaDollarSign, FaCommentDots, FaStar } from 'react-icons/fa';
+import { FaClock, FaDollarSign, FaCommentDots, FaEye} from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; // Импортируем хук useNavigate
 import './OrderCard.css'; // Подключаем стили
 
-const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, rating }) => {
+const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, views }) => {
   const navigate = useNavigate(); // Инициализируем navigate
 
   const handleClick = () => {
@@ -16,6 +16,10 @@ const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, ra
       <h3 className="order-title">{title}</h3>
       <p className="order-description">{description}</p>
       <div className="order-info">
+      <div className="order-info-item">
+          <FaEye className="order-icon" />
+          <span className="order-responses">{views} views</span>
+        </div>
         <div className="order-info-item">
           <FaClock className="order-icon" />
           <span className="order-time">{timeAgo} ago</span>
@@ -27,10 +31,6 @@ const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, ra
         <div className="order-info-item">
           <FaCommentDots className="order-icon" />
           <span className="order-responses">{responses} responses</span>
-        </div>
-        <div className="order-info-item">
-          <FaStar className="order-icon" />
-          <span className="order-rating">{rating} / 5</span>
         </div>
       </div>
       <div className="order-tags">

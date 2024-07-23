@@ -1,6 +1,3 @@
-/* Подключаем шрифт Poppins из Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
 html, body {
   margin: 0;
   padding: 0;
@@ -10,19 +7,42 @@ html, body {
   overflow: auto;
 }
 
+/* Главный стиль для страницы */
 .main-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #000000;
+  background-color: #000;
   color: #e0e0e0;
-  overflow-y: auto; /* Добавьте вертикальную прокрутку */
 }
 
-/* Раздел для основного заголовка */
+/* Заголовок страницы */
 .main-header {
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
+  background:#000; /* Градиентный фон */
+}
+
+/* Header title and text */
+.main-header .gradient-text {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #ff1605, #bb86fc, #03a9f4, #f4a300); /* Gradient colors */
+  -webkit-background-clip: text; /* For Chrome and Safari */
+  background-clip: text; /* For other browsers */
+  color: transparent; /* Fallback for browsers that don't support gradient text */
+}
+
+.main-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+
+.main-header p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Раздел для поиска */
@@ -30,68 +50,61 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 24px; /* Увеличены отступы для лучшего баланса */
-  gap: 14px; /* Расстояние между полем ввода и кнопкой */
-  background-color: #1e1e1e; /* Темный фон для раздела поиска */
+  padding: 16px 24px;
+  gap: 14px;
+  background-color: #111111;
 }
 
 /* Поле ввода */
 .search-input {
-  padding: 12px 22px;
-  font-size: 1.05rem; /* Увеличен размер шрифта */
-  border-radius: 25px; /* Скругленные углы */
-  border: 1px solid #333; /* Цвет границы */
-  width: 100%;
-  font-family:'Poppins', sans-serif;
-  max-width: 480px; /* Максимальная ширина */
-  background-color: #121212; /* Темный фон для поля ввода */
-  color: #e0e0e0; /* Светлый текст */
-  outline: none; /* Убираем стандартный обвод */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Плавные изменения */
-}
-
-.search-input::placeholder {
-  color: #888; /* Цвет плейсхолдера */
-}
-
-.search-input:focus {
-  border-color: #bb86fc; /* Цвет границы при фокусе */
-  box-shadow: 0 0 8px rgba(187, 134, 252, 0.5); /* Тень при фокусе */
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+  font-size: 1.05rem;
+  border-radius: 25px;
+  border: 2px solid #bb86fcb6;
+  max-width: 480px;
+  background-color: #121212;
+  color: #e0e0e0;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Кнопка поиска */
 .search-button {
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 22px;
-  font-size: 1.05rem; /* Увеличен размер шрифта */
+  display: flex;
+  align-items: center;
+  padding: 14px 14px;
+  font-size: 1.05rem;
   border: none;
-  border-radius: 25px; /* Скругленные углы */
-  background-color: #bb86fc; /* Основной цвет кнопки */
-  color: #121212; /* Цвет текста на кнопке */
+  border-radius: 30px;
+  background-color: #bb86fc;
+  color: #121212;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные изменения */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Легкая тень */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .search-button:hover {
-  background-color: #9f67e7; /* Цвет кнопки при наведении */
-  transform: scale(1.05); /* Легкое увеличение кнопки */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Увеличение тени при наведении */
+  background-color: #9f67e7;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 .search-button:active {
-  background-color: #7a4ec9; /* Цвет кнопки при нажатии */
-  transform: scale(0.98); /* Легкое уменьшение кнопки */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
+  background-color: #7a4ec9;
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
+.search-icon {
+  font-size: 18px;
+}
 
-/* Раздел для новейших заказов, категорий и услуг */
+/* Разделы на странице */
 .featured-orders-section, .categories-section, .services-section {
   padding: 20px;
 }
 
-/* Стили для списков заказов, категорий и услуг */
 .orders-list, .categories-list, .services-list {
   display: flex;
   flex-wrap: wrap;
@@ -99,108 +112,56 @@ html, body {
   justify-content: center;
 }
 
-/* Карточки заказов, категорий и услуг */
+/* Карточки */
 .order-card, .category-card, .service-card {
-  background-color: #1e1e1e; /* Темный фон карточек */
+  background-color: #1e1e1e;
   border-radius: 10px;
   padding: 20px;
   max-width: 300px;
   width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Раздел для новейших заказов */
-.featured-orders-section {
-  padding: 20px;
+.order-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* Стили для списка заказов */
-.orders-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-/* Карточки заказов */
-.order-card {
-  background-color: #1e1e1e; /* Темный фон карточек */
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 300px;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень */
-  position: relative; /* Для абсолютного позиционирования времени и откликов */
-}
-
-/* Основной заголовок заказа */
-.order-title {
-  font-size: 1.3rem; /* Размер заголовка */
-  font-weight: 700; /* Полужирный текст */
-  margin-bottom: 10px;
-}
-
-/* Информация о заказе */
-.order-info {
-  font-size: 0.9rem; /* Размер шрифта для информации */
-  color: #ccc; /* Цвет текста */
-  margin-bottom: 10px;
-}
-
-/* Теги заказов */
-.order-tag {
-  display: block;
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #bb86fc; /* Цвет тега */
-  border-radius: 5px;
-  color: #121212;
-  text-align: center;
-}
-
-/* Информация о времени и откликах */
-.order-meta {
-  font-size: 0.8rem; /* Размер шрифта для метаданных */
-  color: #888; /* Цвет метаданных */
-  margin-top: 10px;
-}
-
-/* Раздел для кнопок внизу страницы */
+/* Раздел для кнопок в футере */
 .main-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  gap: 15px; /* Расстояние между кнопками */
-  background-color: #000000; /* Фон для футера */
+  gap: 15px;
+  background-color: #000;
 }
 
-/* Основные стили для кнопок */
+/* Основные кнопки */
 .get-started-button, .become-freelancer-button {
-  padding: 15px 30px;
-  font-size: 1.2rem;
   font-family: 'Poppins', sans-serif;
+  padding: 15px 30px;
+  font-size: 1.1rem;
   border: none;
-  border-radius: 30px; /* Скругленные углы для кнопок */
-  background-color: #bb86fc; /* Основной цвет кнопки */
+  border-radius: 30px;
+  background-color: #bb86fc;
   color: #121212;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные изменения */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Легкая тень */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Стили для кнопок при наведении */
 .get-started-button:hover, .become-freelancer-button:hover {
-  background-color: #9f67e7; /* Темнее при наведении */
-  transform: scale(1.05); /* Легкое увеличение кнопки */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Увеличение тени при наведении */
+  background-color: #9f67e7;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
-/* Стили для кнопок при нажатии */
 .get-started-button:active, .become-freelancer-button:active {
-  background-color: #7a4ec9; /* Темнее при нажатии */
-  transform: scale(0.98); /* Легкое уменьшение кнопки */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
+  background-color: #7a4ec9;
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .become-freelancer-button {
