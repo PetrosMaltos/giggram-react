@@ -6,14 +6,14 @@ html, body {
   padding: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #000000; /* Однородный темный фон */
-  color: #e0e0e0; /* Светлый текст */ 
+  color: #e0e0e0; /* Светлый текст */
   overflow: hidden;
+  height: 100vh; /* Полная высота экрана */
 }
 
 .welcome-screen {
-  overflow: hidden;
   display: flex;
-  flex-direction: column; /* Расположение элементов по колонке */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -23,46 +23,35 @@ html, body {
 
 .welcome-content {
   text-align: center;
-  padding: 40px 30px;
+  padding: 20px;
   border-radius: 15px;
-  max-width: 90%;
   width: 100%;
   max-width: 500px; /* Ограничение ширины для больших экранов */
-  transition: transform 0.3s ease-in-out;
-  /* Убираем фон и тень */
   background: none; /* Убираем фон */
-}
-
-.welcome-content:hover {
-  transform: scale(1.02); /* Легкое увеличение при наведении */
-}
-
-.welcome-logo {
-  width: 140px; /* Размер логотипа увеличен */
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-
-.welcome-logo:hover {
-  transform: scale(1.1); /* Увеличение логотипа при наведении */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%; /* Занимает большую часть высоты экрана */
+  max-height: 80vh; /* Максимальная высота */
+  box-sizing: border-box; /* Чтобы padding учитывался в высоте */
 }
 
 .welcome-title {
   font-size: 2rem; /* Размер заголовка */
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-weight: 700; /* Жирный шрифт */
 }
 
 .welcome-description {
   font-size: 1.2rem; /* Размер текста */
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .project-info {
   background-color: #1e1e1e; /* Темный фон для блока с информацией */
   border-radius: 10px;
-  padding: 20px;
-  margin-top: 30px;
+  padding: 15px;
+  margin-top: 20px;
   text-align: center;
   color: #e0e0e0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Легкая тень */
@@ -70,7 +59,7 @@ html, body {
 }
 
 .project-info h2 {
-  font-size: 1.5rem; /* Размер заголовка */
+  font-size: 1.4rem; /* Размер заголовка */
   margin-bottom: 10px;
   font-weight: 700; /* Жирный шрифт */
 }
@@ -82,32 +71,25 @@ html, body {
 
 /* Кнопка */
 .welcome-button {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #bb86fc, #9f67e7); /* Градиентный фон */
-    color: #121212; /* Темный текст на кнопке */
-    border: none;
-    padding: 16px 32px;
-    border-radius: 12px; /* Округление углов */
-    cursor: pointer;
-    font-size: 1.3rem;
-    font-weight: 700; /* Жирный текст */
-    transition: all 0.3s;
-    margin-top: 20px; /* Уменьшение отступа сверху от блока с информацией */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Легкая тень */
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(45deg, #bb86fc, #9f67e7); /* Градиентный фон */
+  color: #121212; /* Темный текст на кнопке */
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px; /* Округление углов */
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700; /* Жирный текст */
+  transition: all 0.3s;
+  margin-top: 20px; /* Отступ сверху от блока с информацией */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Легкая тень */
 }
-  
-.welcome-button:hover {
-    background: linear-gradient(45deg, #9f67e7, #bb86fc); /* Переключение градиента при наведении */
-    transform: translateY(-3px); /* Легкое поднимание при наведении */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Увеличение тени при наведении */
-}
-  
+
 .welcome-button:active {
-    background: linear-gradient(45deg, #7a4ec9, #9f67e7); /* Еще темнее градиент при нажатии */
-    transform: translateY(1px); /* Легкое опускание при нажатии */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
+  background: linear-gradient(45deg, #7a4ec9, #9f67e7); /* Еще темнее градиент при нажатии */
+  transform: translateY(1px); /* Легкое опускание при нажатии */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Уменьшение тени при нажатии */
 }
-  
 
 /* Играбельные элементы */
 .emoji {
@@ -116,9 +98,9 @@ html, body {
 }
 
 /* Адаптивные стили */
-@media (max-width: 768px) {
+@media (max-width: 420px) {
   .welcome-title {
-    font-size: 2rem; /* Уменьшенный размер заголовка на мобильных устройствах */
+    font-size: 1.8rem; /* Уменьшенный размер заголовка */
   }
 
   .welcome-description {
@@ -126,50 +108,155 @@ html, body {
   }
 
   .welcome-button {
-    padding: 14px 28px; /* Уменьшение размера кнопки */
-    font-size: 1.2rem;
-  }
-
-  .welcome-logo {
-    width: 100px; /* Уменьшение размера логотипа */
-  }
-  
-  .project-info h2 {
-    font-size: 1.3rem; /* Уменьшенный размер заголовка в блоке с информацией */
-  }
-
-  .project-info p {
-    font-size: 0.9rem; /* Уменьшенный размер текста */
-  }
-}
-
-@media (max-width: 480px) {
-  .welcome-title {
-    font-size: 1.6rem; /* Еще меньший размер заголовка */
-  }
-
-  .welcome-description {
-    font-size: 1rem; /* Еще меньший размер текста */
-  }
-
-  .welcome-button {
-    padding: 12px 24px; /* Дополнительное уменьшение размера кнопки */
+    padding: 10px 20px; /* Уменьшение размера кнопки */
     font-size: 1rem;
   }
 
-  .welcome-logo {
-    width: 120px; /* Уменьшение размера логотипа для маленьких экранов */
-  }
-
   .project-info {
-    margin-bottom: 15px;
+    margin-top: 15px; /* Уменьшение отступа сверху */
   }
 
   .project-info h2 {
-    font-size: 1.2rem; /* Размер заголовка в блоке с информацией */
+    font-size: 1.3rem; /* Уменьшение размера заголовка */
   }
 
   .project-info p {
-    font-size: 0.8rem; /* Размер текста в блоке с информацией */
+    font-size: 0.9rem; /* Уменьшение размера текста */
+  }
+}
+
+@media (max-width: 375px) {
+  .welcome-title {
+    font-size: 1.6rem; /* Размер заголовка для маленьких экранов */
+  }
+
+  .welcome-description {
+    font-size: 0.9rem; /* Размер текста для маленьких экранов */
+  }
+
+  .welcome-button {
+    padding: 8px 16px; /* Дополнительное уменьшение размера кнопки */
+    font-size: 0.9rem;
+  }
+
+  .project-info {
+    margin-top: 10px; /* Минимальный отступ сверху */
+  }
+
+  .project-info h2 {
+    font-size: 1.2rem; /* Размер заголовка */
+  }
+
+  .project-info p {
+    font-size: 0.8rem; /* Размер текста */
+  }
+}
+
+@media (max-width: 360px) {
+  .welcome-title {
+    font-size: 1.4rem; /* Размер заголовка для очень маленьких экранов */
+  }
+
+  .welcome-description {
+    font-size: 0.8rem; /* Размер текста для очень маленьких экранов */
+  }
+
+  .welcome-button {
+    padding: 6px 12px; /* Уменьшение размера кнопки */
+    font-size: 0.8rem;
+  }
+
+  .project-info {
+    margin-top: 5px; /* Минимальный отступ сверху */
+  }
+
+  .project-info h2 {
+    font-size: 1rem; /* Размер заголовка */
+  }
+
+  .project-info p {
+    font-size: 0.7rem; /* Размер текста */
+  }
+}
+
+@media (max-width: 322px) {
+  .welcome-title {
+    font-size: 1.2rem; /* Размер заголовка для самых маленьких экранов */
+  }
+
+  .welcome-description {
+    font-size: 0.7rem; /* Размер текста для самых маленьких экранов */
+  }
+
+  .welcome-button {
+    padding: 5px 10px; /* Уменьшение размера кнопки */
+    font-size: 0.7rem;
+  }
+
+  .project-info {
+    margin-top: 0; /* Убираем отступ сверху */
+  }
+
+  .project-info h2 {
+    font-size: 0.9rem; /* Размер заголовка */
+  }
+
+  .project-info p {
+    font-size: 0.6rem; /* Размер текста */
+  }
+}
+
+/* Дополнительные медиа-запросы для распространенных экранов */
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 1.6rem; /* Размер заголовка для экранов до 480px */
+  }
+
+  .welcome-description {
+    font-size: 1rem; /* Размер текста для экранов до 480px */
+  }
+
+  .welcome-button {
+    padding: 10px 20px; /* Размер кнопки для экранов до 480px */
+    font-size: 1rem;
+  }
+
+  .project-info {
+    margin-top: 15px; /* Отступ сверху для экранов до 480px */
+  }
+
+  .project-info h2 {
+    font-size: 1.2rem; /* Размер заголовка для экранов до 480px */
+  }
+
+  .project-info p {
+    font-size: 0.9rem; /* Размер текста для экранов до 480px */
+  }
+}
+
+@media (min-width: 768px) {
+  .welcome-title {
+    font-size: 2rem; /* Размер заголовка для экранов от 768px */
+  }
+
+  .welcome-description {
+    font-size: 1.2rem; /* Размер текста для экранов от 768px */
+  }
+
+  .welcome-button {
+    padding: 12px 24px; /* Размер кнопки для экранов от 768px */
+    font-size: 1.2rem;
+  }
+
+  .project-info {
+    margin-top: 20px; /* Отступ сверху для экранов от 768px */
+  }
+
+  .project-info h2 {
+    font-size: 1.4rem; /* Размер заголовка для экранов от 768px */
+  }
+
+  .project-info p {
+    font-size: 1rem; /* Размер текста для экранов от 768px */
   }
 }

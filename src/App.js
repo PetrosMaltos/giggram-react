@@ -22,7 +22,7 @@ const App = () => {
     // Симулируем задержку загрузки
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 секунды задержки
+    }, 3000); // 2 секунды задержки
 
     return () => clearTimeout(timer);
   }, []);

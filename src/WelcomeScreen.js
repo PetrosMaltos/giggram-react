@@ -1,4 +1,3 @@
-// src/WelcomeScreen.js
 import React, { useEffect } from 'react';
 import './WelcomeScreen.css'; // Импортируем стили для WelcomeScreen
 import LogoAnimation from './components/LogoAnimation'; // Импортируем анимацию логотипа
@@ -33,8 +32,8 @@ const WelcomeScreen = () => {
   return (
     <div className="welcome-screen">
       <div className="welcome-content">
-      <LogoAnimation />
-        <h1 className="welcome-title">Welcome to GigGram! 🎉</h1>
+        <LogoAnimation />
+        <h1 className="welcome-title">Welcome to GigGram!</h1>
         <p className="welcome-description">
           The first freelance platform on Telegram where freelancers keep 99% of their earnings. 💰 The remaining 1% is donated to charitable causes. ❤️
         </p>
