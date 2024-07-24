@@ -6,6 +6,7 @@ import Main from './Main';
 import Loading from './components/Loading'; // Импортируем компонент Loading
 import Categories from './components/Categories'; // Импортируем страницу категорий
 import Services from './components/Services'; // Импортируем страницу Services
+import Orders from './Orders'
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/main" element={<Main />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} /> {/* Добавляем маршрут для Services */}

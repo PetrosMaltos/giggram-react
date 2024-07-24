@@ -1,36 +1,48 @@
+/* Orders.css */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрирование карточек по горизонтали */
+  gap: 20px; /* Расстояние между карточками */
+  width: 100%;
+  max-width: 800px; /* Максимальная ширина контейнера */
+  margin: 0 auto; /* Автоматическое выравнивание по центру */
+}
+
 .order-card {
   border: 2px solid #2c2c2c;
-  background-color: #1e1e1e; /* Darker background for contrast */
+  background-color: #1e1e1e; /* Более темный фон для контраста */
   border-radius: 10px;
   padding: 20px;
   max-width: 300px;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Deeper shadow for emphasis */
-  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  width: 100%; /* Ширина карточки по умолчанию */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Глубокая тень для акцента */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+  text-align: center; /* Центрирование текста внутри карточки */
 }
 
 .order-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8); /* Stronger shadow on hover */
-  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8); /* Сильнее тень при наведении */
+  transform: translateY(-5px); /* Легкий эффект подъема */
 }
 
 .order-title {
   font-size: 1.2rem;
   margin: 0;
-  color: #e0e0e0; /* Light text for contrast */
+  color: #e0e0e0; /* Светлый текст для контраста */
 }
 
 .order-description {
   margin: 10px 0;
-  color: #b0b0b0; /* Slightly lighter text for readability */
+  color: #b0b0b0; /* Немного светлее текст для читаемости */
 }
 
 .order-info {
   display: flex;
-  flex-direction: column; /* Vertical alignment */
+  flex-direction: column; /* Вертикальное выравнивание */
   margin: 10px 0;
   font-size: 0.9rem;
-  color: #b0b0b0; /* Light text for icons and info */
+  color: #b0b0b0; /* Светлый текст для иконок и информации */
 }
 
 .order-info-item {
@@ -40,8 +52,8 @@
 }
 
 .order-icon {
-  margin-right: 8px; /* Spacing between icon and text */
-  color: #bb86fc; /* Icon color to match theme */
+  margin-right: 8px; /* Расстояние между иконкой и текстом */
+  color: #bb86fc; /* Цвет иконок для соответствия теме */
 }
 
 .order-tags {
@@ -59,8 +71,6 @@
   font-size: 0.7rem;
 }
 
-/* Special styling for the price */
 .order-price {
-  font-size: 0.9rem; /* Larger font size for emphasis */
+  font-size: 0.9rem; /* Больший размер шрифта для акцента */
 }
-
