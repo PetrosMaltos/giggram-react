@@ -1,0 +1,57 @@
+/* src/components/AuthPrompt.css */
+.auth-prompt {
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #bb86fc;
+    border-radius: 12px;
+    background-color: #121212;
+    color: #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .auth-prompt h2 {
+    font-size: 1.8rem;
+    color: #bb86fc;
+    margin-bottom: 10px;
+  }
+  
+  .auth-prompt p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .auth-button {
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    background-color: #bb86fc;
+    color: #121212;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 5px;
+  }
+  
+  .auth-button:hover {
+    background-color: #9f67e7;
+    transform: scale(1.05);
+  }
+  
+  .auth-button:active {
+    background-color: #7a4ec9;
+    transform: scale(0.98);
+  }
+  
+  .join-us-button {
+    background-color: #f4a300;
+  }
+  
+  .join-us-button:hover {
+    background-color: #d49300;
+  }
+  

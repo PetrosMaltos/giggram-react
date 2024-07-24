@@ -6,7 +6,6 @@ import './Categories.css'; // Import styles
 const CategoriesPage = () => {
   return (
     <div className="categories-page">
-      <h1>Explore Categories</h1>
       <div className="categories-list">
         <Link to="/category/web-development" className="category-card">
           <div className="category-icon"><FaCode /></div>

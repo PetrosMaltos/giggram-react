@@ -1,21 +1,10 @@
 .categories-page {
   border-radius: 10px;
   padding: 20px;
-  background: linear-gradient(145deg, #121212, #1e1e1e); /* Gradient background */
   color: #e0e0e0;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.categories-page h1 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  text-align: center;
-  color: #bb86fc;
-  font-family: 'Poppins', sans-serif;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
-
 }
 
 .categories-list {
@@ -26,6 +15,7 @@
 }
 
 .category-card {
+  border: 2px solid #2c2c2c;
   background-color: #1e1e1e;
   border-radius: 12px;
   padding: 20px;
@@ -40,10 +30,9 @@
   flex-direction: column;
 }
 
-.category-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-  transform: scale(1.05);
-  background-color: #2c2c2c; /* Темнее при наведении */
+.category-card:active {
+  transform: scale(0.98);
+  background-color: #2c2c2c;
 }
 
 .category-icon {

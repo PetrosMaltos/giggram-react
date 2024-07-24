@@ -3,7 +3,9 @@ import OrderCard from './components/OrderCard';
 import Categories from './components/Categories';
 import LogoAnimation from './components/LogoAnimation';
 import Navbar from './components/Navbar';
-import { FaSearch } from 'react-icons/fa'; // Import search icon
+import Services from './components/Services';
+import AuthPrompt from './components/auth/AuthPrompt'; // Путь должен совпадать с именем файла
+import { FaSearch } from 'react-icons/fa';
 import './Main.css';
 
 const Main = () => {
@@ -11,7 +13,7 @@ const Main = () => {
     {
       title: 'Web Development Project',
       description: 'Build a modern website for a local business.',
-      tags: ['Web Development'],
+      tags: ['Web Development', 'Front-End'],
       timeAgo: '1 minute',
       price: '500',
       responses: '10',
@@ -20,7 +22,7 @@ const Main = () => {
     {
       title: 'Logo Design',
       description: 'Create a unique logo for a startup company.',
-      tags: ['Design'],
+      tags: ['Design', 'Branding'],
       timeAgo: '10 seconds',
       price: '150',
       responses: '5',
@@ -28,6 +30,9 @@ const Main = () => {
     },
     // Add more orders as needed
   ];
+
+  // Temporary state for showing AuthPrompt
+  const isLoggedIn = false; // Change this to control visibility
 
   return (
     <div className="main-page">
@@ -60,16 +65,10 @@ const Main = () => {
       </section>
 
       <section className="services-section">
-        <h2>Services</h2>
-        <div className="services-list">
-          {/* Your services */}
-        </div>
+        <h2>Services and Prices</h2>
+        <Services />
       </section>
 
-      <footer className="main-footer">
-        <button className="get-started-button">Get Started</button>
-        <button className="become-freelancer-button">Join Us</button>
-      </footer>
     </div>
   );
 };
