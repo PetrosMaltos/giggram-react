@@ -47,8 +47,9 @@ html, body {
 
 /* Раздел для поиска */
 .search-section {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 16px 24px;
   gap: 14px;
@@ -57,12 +58,13 @@ html, body {
 
 /* Поле ввода */
 .search-input {
+  width: 60%;
   font-family: 'Poppins', sans-serif;
   padding: 10px 20px;
   font-size: 1.05rem;
   border-radius: 25px;
   border: 2px solid #bb86fcb6;
-  max-width: 480px;
+  max-width:60%;
   background-color: #121212;
   color: #e0e0e0;
   outline: none;

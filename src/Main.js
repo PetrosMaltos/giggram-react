@@ -39,7 +39,7 @@ const Main = () => {
       </header>
 
       <section className="search-section">
-        <input type="text" placeholder="Search for orders or services" className="search-input" />
+        <input type="text" placeholder="Search for orders or @users" className="search-input" />
         <button className="search-button">
           <FaSearch className="search-icon" />
         </button>
