@@ -43,7 +43,7 @@ const Main = () => {
         <p>Find great projects and connect with clients easily.</p>
       </header>
 
-      <section className="search-section">
+      <section className="search-section-main">
         <input type="text" placeholder="Search for orders or @users" className="search-input" />
         <button className="search-button">
           <FaSearch className="search-icon" />

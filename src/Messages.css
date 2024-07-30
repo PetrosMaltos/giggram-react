@@ -1,0 +1,78 @@
+.messages-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #000000;
+    color: #e0e0e0;
+    box-sizing: border-box;
+  }
+  
+  .content {
+    padding: 20px; /* Применяем padding к содержимому страницы */
+    flex: 1; /* Занимает оставшееся пространство */
+    overflow-y: auto; /* Скроллинг содержимого, если необходимо */
+  }
+  
+  .messages-header {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .messages-header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .message-card {
+    border-left: 4px solid #6e03cb; /* Фиолетовая левая граница */
+    display: flex;
+    align-items: center;
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .message-card:hover {
+    background-color: #333333;
+  }
+  
+  .avatar {
+    margin-right: 15px;
+  }
+  
+  .message-details {
+    flex: 1;
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .contact-name {
+    font-weight: bold;
+  }
+  
+  .message-time {
+    color: #888888;
+    font-size: 0.9rem;
+  }
+  
+  .message-body p {
+    margin: 0;
+    color: #e0e0e0;
+  }
+  

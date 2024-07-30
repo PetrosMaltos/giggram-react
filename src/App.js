@@ -6,7 +6,10 @@ import Main from './Main';
 import Loading from './components/Loading'; // Импортируем компонент Loading
 import Categories from './components/Categories'; // Импортируем страницу категорий
 import Services from './components/Services'; // Импортируем страницу Services
-import Orders from './Orders'
+import Orders from './Orders';
+import Messages from './Messages';
+import Profile from './Profile';
+
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -36,6 +39,8 @@ const App = () => {
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} /> {/* Добавляем маршрут для Services */}
           {/* Добавьте другие маршруты здесь */}

@@ -46,19 +46,19 @@ html, body {
 }
 
 /* Раздел для поиска */
-.search-section {
+.search-section-main {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content:center;
   align-items: center;
-  padding: 16px 24px;
+  padding: 16px 0px;
   gap: 14px;
   background-color: #111111;
 }
 
 /* Поле ввода */
 .search-input {
-  width: 60%;
+  width: 100%;
   font-family: 'Poppins', sans-serif;
   padding: 10px 20px;
   font-size: 1.05rem;
