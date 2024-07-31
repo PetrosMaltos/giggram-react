@@ -14,14 +14,15 @@
   }
   
   .messages-header {
+    margin-top: 0px;
     text-align: center;
     padding: 20px;
     margin-bottom: 20px;
   }
   
   .messages-header h1 {
+    margin-top: 0px;
     font-size: 2rem;
-    margin: 0;
     color: #ffffff;
     font-weight: bold;
   }

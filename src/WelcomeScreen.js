@@ -35,7 +35,7 @@ const WelcomeScreen = () => {
         <LogoAnimation />
         <h1 className="welcome-title">Welcome to GigGram!</h1>
         <p className="welcome-description">
-          The first freelance platform on Telegram where freelancers keep 99% of their earnings. 💰 The remaining 1% is donated to charitable causes. ❤️
+          The first freelance platform on Telegram where freelancers keep 99% of their earnings. 💰 The remaining 1% is donated to charity ❤️
         </p>
         <div className="project-info">
           <h2>About Us 🧐</h2>

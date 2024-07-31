@@ -105,7 +105,7 @@ const Orders = () => {
         <section className="search-section">
           <input 
             type="text" 
-            placeholder="Search for orders or @users" 
+            placeholder="Search for orders..." 
             className="search-input" 
             name="searchText" 
             onChange={handleInputChange} 
