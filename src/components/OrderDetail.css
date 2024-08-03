@@ -200,23 +200,3 @@
   margin-bottom: 10px;
 }
 
-.back-button {
-  font-family: 'Poppins',sans-serif;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  border: none;
-  color: #bb86fc; /* Цвет иконки */
-  cursor: pointer;
-  padding: 10px;
-  margin-bottom: 20px; /* Отступ от содержимого */
-}
-
-.back-icon {
-  margin-right: 8px;
-  font-size: 1.2rem;
-}
-
-.back-button span {
-  font-size: 0.9rem;
-}

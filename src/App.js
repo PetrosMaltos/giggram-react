@@ -16,16 +16,40 @@ import ScrollToTop from './components/ScrollToTop';
 const App = () => {
 
   const orders = [
-    { 
-      id: 1, 
-      title: 'Web Development Project', 
-      description: 'Build a modern website with responsive design and high performance. Includes front-end and back-end development, SEO optimization, and more.', 
-      tags: ['Web Development'], 
-      timeAgo: '1 minute', 
-      price: '500', 
-      responses: '10', 
-      views: 134 
+    {
+      id: 1,
+      title: 'Web Development Project',
+      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
+      tags: ['Web Development', 'Front-End'],
+      timeAgo: '1 minute',
+      price: '100',
+      responses: '12',
+      views: 134,
+      category: 'Web Development',
     },
+    {
+      id: 2,
+      title: 'Java Project',
+      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
+      tags: ['Web Development', 'Front-End'],
+      timeAgo: '1 minute',
+      price: '5000',
+      responses: '11',
+      views: 144,
+      category: 'Web Development',
+    },
+    {
+      id: 3,
+      title: 'Game on Python',
+      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
+      tags: ['Web Development', 'Front-End'],
+      timeAgo: '1 minute',
+      price: '50',
+      responses: '10',
+      views: 382,
+      category: 'Web Development',
+    },
+    
     // Добавьте другие заказы здесь
   ];
   

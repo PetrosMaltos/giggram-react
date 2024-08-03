@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaClock, FaDollarSign, FaCommentDots, FaEye, FaLock, FaArrowLeft } from 'react-icons/fa';
-import { AiFillStar } from 'react-icons/ai';
 import { format, parseISO } from 'date-fns';
-import ScrollToTop from './ScrollToTop';
-import './OrderDetail.css';
+import { AiFillStar } from 'react-icons/ai';
+import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
+import ScrollToTop from './ScrollToTop'; // Убедитесь, что этот компонент импортирован
+import './OrderDetail.css'; // Добавьте стили для компонента
 
-const OrderDetail = ({ orders, isAuthenticated }) => {
+const OrderDetail = ({ orders = [], isAuthenticated }) => {
   const { id } = useParams();
+
+  // Проверка на массив orders
+  if (!Array.isArray(orders)) {
+    return <div>Orders data is not available</div>;
+  }
+
   const order = orders.find(order => order.id === parseInt(id));
+
+  if (!order) {
+    return <div>Order not found</div>;
+  }
 
   const [response, setResponse] = useState('');
 
@@ -19,26 +29,22 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
 
-      window.Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возврат на предыдущую страницу
-      });
+      const handleBackButtonClick = () => window.history.back();
+      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
 
       return () => {
-        window.Telegram.WebApp.BackButton.offClick(); // Удаление обработчика при размонтировании
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
       };
     }
-  }, []);
 
-  useEffect(() => {
+    // Установка поведения прокрутки
     if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual'; // Prevent scroll restoration
+      window.history.scrollRestoration = 'manual';
     }
-
-    window.scrollTo(0, 0); // Scroll to top
 
     return () => {
       if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'auto'; // Restore default behavior on unmount
+        window.history.scrollRestoration = 'auto';
       }
     };
   }, []);
@@ -51,25 +57,17 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
     console.log('Response submitted:', response);
   };
 
-  if (!order) {
-    return <div>Order not found</div>;
-  }
-
-  // Example dates
+  // Примеры дат
   const exampleDate = '2024-08-02T22:55:00Z';
   const exampleExpiry = '2024-08-10T22:55:00Z';
 
-  // Format dates
+  // Форматирование дат
   const formattedDate = format(parseISO(exampleDate), 'dd MMMM yyyy, HH:mm');
   const formattedExpiry = format(parseISO(exampleExpiry), 'dd MMMM yyyy, HH:mm');
 
   return (
     <div className="order-detail">
       <ScrollToTop />
-      <button className="back-button" onClick={() => window.history.back()}>
-        <FaArrowLeft className="back-icon" />
-        <span>Back</span>
-      </button>
       <div className="order-info">
         <div className="client-profile">
           <div className="client-avatar" />
