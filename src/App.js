@@ -1,5 +1,4 @@
-// src/App.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
@@ -11,9 +10,10 @@ import Messages from './Messages';
 import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
+import ScrollToTop from './components/ScrollToTop';
+import BackButton from './components/BackButton';
 
 const App = () => {
-
   const orders = [
     { 
       id: 1, 
@@ -27,7 +27,6 @@ const App = () => {
     },
     // Добавьте другие заказы здесь
   ];
-  
 
   const [loading, setLoading] = useState(true);
   const { fetchOrders } = useOrderStore(state => ({
@@ -38,6 +37,11 @@ const App = () => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.setHeaderColor('#000000');
+
+      // Устанавливаем обработчик кнопки "Назад"
+      window.Telegram.WebApp.onEvent('backButtonClicked', () => {
+        window.history.back();
+      });
     }
 
     const timer = setTimeout(() => {
@@ -53,16 +57,19 @@ const App = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Routes>
-          <Route path="/" element={<WelcomeScreen />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/orders/:id" element={<OrderDetail orders={orders} />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/services" element={<Services />} />
-        </Routes>
+        <>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<WelcomeScreen />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:id" element={<OrderDetail orders={orders} />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/services" element={<Services />} />
+          </Routes>
+        </>
       )}
     </Router>
   );

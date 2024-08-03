@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaClock, FaDollarSign, FaCommentDots, FaEye, FaLock, FaArrowLeft } from 'react-icons/fa';
 import { AiFillStar } from 'react-icons/ai';
 import { format, parseISO } from 'date-fns';
+import ScrollToTop from './ScrollToTop';
 import './OrderDetail.css';
 
 const OrderDetail = ({ orders, isAuthenticated }) => {
@@ -10,6 +11,26 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
   const order = orders.find(order => order.id === parseInt(id));
   
   const [response, setResponse] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when component mounts
+  }, []);
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'; // Prevent scroll restoration
+    }
+  
+    window.scrollTo(0, 0); // Scroll to top
+  
+    return () => {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto'; // Restore default behavior on unmount
+      }
+    };
+  }, []);
+
+  
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
@@ -37,6 +58,7 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
 
   return (
     <div className="order-detail">
+      <ScrollToTop />
       <button className="back-button" onClick={handleBackClick}>
         <FaArrowLeft className="back-icon" />
         <span>Back</span>

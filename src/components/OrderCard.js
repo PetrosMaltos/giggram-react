@@ -23,11 +23,11 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
   return (
     <div className="order-card" onClick={handleCardClick}>
       <div className="order-header">
-        <h3 className="order-title">{title}</h3>
-        <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
+      <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
           {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
           <span>{isAssigned ? 'Assigned' : 'Not Assigned'}</span>
         </div>
+        <h3 className="order-title">{title}</h3>
       </div>
       <p className={`order-description ${isDescriptionExpanded ? 'expanded' : 'collapsed'}`}>
         {description}
