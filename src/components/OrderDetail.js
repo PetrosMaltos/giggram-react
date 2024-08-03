@@ -9,20 +9,33 @@ import './OrderDetail.css';
 const OrderDetail = ({ orders, isAuthenticated }) => {
   const { id } = useParams();
   const order = orders.find(order => order.id === parseInt(id));
-  
+
   const [response, setResponse] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top when component mounts
+
+    // Проверка и настройка кнопки "Назад"
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.BackButton.show();
+
+      window.Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back(); // Возврат на предыдущую страницу
+      });
+
+      return () => {
+        window.Telegram.WebApp.BackButton.offClick(); // Удаление обработчика при размонтировании
+      };
+    }
   }, []);
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'; // Prevent scroll restoration
     }
-  
+
     window.scrollTo(0, 0); // Scroll to top
-  
+
     return () => {
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'auto'; // Restore default behavior on unmount
@@ -30,18 +43,12 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
     };
   }, []);
 
-  
-
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
   };
 
   const handleSubmit = () => {
     console.log('Response submitted:', response);
-  };
-
-  const handleBackClick = () => {
-    window.history.back(); // Возврат на предыдущую страницу
   };
 
   if (!order) {
@@ -59,7 +66,7 @@ const OrderDetail = ({ orders, isAuthenticated }) => {
   return (
     <div className="order-detail">
       <ScrollToTop />
-      <button className="back-button" onClick={handleBackClick}>
+      <button className="back-button" onClick={() => window.history.back()}>
         <FaArrowLeft className="back-icon" />
         <span>Back</span>
       </button>
