@@ -17,14 +17,15 @@ const Orders = () => {
   });
   const [orders, setOrders] = useState([
     {
+      id: 1,
       title: 'Web Development Project',
-      description: 'Build a modern website for a local business.',
+      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
       tags: ['Web Development', 'Front-End'],
       timeAgo: '1 minute',
       price: '500',
       responses: '10',
       views: 134,
-      categories: 'Web Development',
+      category: 'Web Development',
     },
     // Add more orders as needed
   ]);
@@ -55,7 +56,6 @@ const Orders = () => {
         }
       }
 
-      console.log('Updated Filters:', newFilters);  // Debugging line
       filterOrders(newFilters);
 
       return newFilters;
@@ -90,7 +90,6 @@ const Orders = () => {
       return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
     });
 
-    console.log('Filtered Orders:', newFilteredOrders);  // Debugging line
     setFilteredOrders(newFilteredOrders);
   };
 
@@ -99,7 +98,7 @@ const Orders = () => {
       <Navbar />
       <div className="search-filters-container">
         <header className="orders-header">
-          <h1>Orders (325)</h1>
+          <h1>Orders ({filteredOrders.length})</h1>
         </header>
 
         <section className="search-section">
@@ -216,8 +215,8 @@ const Orders = () => {
 
       <section className="orders-list-section">
         <div className="orders-list">
-          {filteredOrders.map((order, index) => (
-            <OrderCard key={index} {...order} />
+          {filteredOrders.map((order) => (
+            <OrderCard key={order.id} {...order} />
           ))}
         </div>
       </section>

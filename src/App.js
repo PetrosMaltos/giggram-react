@@ -3,32 +3,50 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
-import Loading from './components/Loading'; // Импортируем компонент Loading
-import Categories from './components/Categories'; // Импортируем страницу категорий
-import Services from './components/Services'; // Импортируем страницу Services
+import Loading from './components/Loading';
+import Categories from './components/Categories';
+import Services from './components/Services';
 import Orders from './Orders';
 import Messages from './Messages';
+import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
-
+import { useOrderStore } from './store';
 
 const App = () => {
+
+  const orders = [
+    { 
+      id: 1, 
+      title: 'Web Development Project', 
+      description: 'Build a modern website with responsive design and high performance. Includes front-end and back-end development, SEO optimization, and more.', 
+      tags: ['Web Development'], 
+      timeAgo: '1 minute', 
+      price: '500', 
+      responses: '10', 
+      views: 134 
+    },
+    // Добавьте другие заказы здесь
+  ];
+  
+
   const [loading, setLoading] = useState(true);
+  const { fetchOrders } = useOrderStore(state => ({
+    fetchOrders: state.fetchOrders,
+  }));
 
   useEffect(() => {
-    // Проверяем наличие Telegram Web App SDK
     if (window.Telegram && window.Telegram.WebApp) {
-      // Устанавливаем цвет заголовка
       window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.setHeaderColor('#000000'); // Черный цвет
+      window.Telegram.WebApp.setHeaderColor('#000000');
     }
 
-    // Симулируем задержку загрузки
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000); // 2 секунды задержки
+      fetchOrders(); // Загрузите заказы при старте приложения
+    }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [fetchOrders]);
 
   return (
     <Router>
@@ -38,12 +56,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<OrderDetail orders={orders} />} />
           <Route path="/main" element={<Main />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
-          <Route path="/services" element={<Services />} /> {/* Добавляем маршрут для Services */}
-          {/* Добавьте другие маршруты здесь */}
+          <Route path="/services" element={<Services />} />
         </Routes>
       )}
     </Router>

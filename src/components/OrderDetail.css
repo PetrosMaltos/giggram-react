@@ -1,12 +1,222 @@
-/* components/OrderDetail.css */
 .order-detail {
-    padding: 20px;
-    color: #e0e0e0;
-    background-color: #000000;
-  }
-  
-  .order-detail h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #000000; /* Full black background */
+  color: #f5f5f5; /* Light text */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 100%; /* Full width for mobile */
+  margin: auto; /* Center the page */
+}
+
+.order-info {
+  margin-bottom: 20px;
+}
+
+.client-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.client-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #333;
+  margin-right: 15px;
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.client-name {
+  font-size: 1.25rem;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+.client-reviews {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.star-rating {
+  color: #ffcc00; /* Yellow stars */
+  font-size: 1.2rem;
+}
+
+.order-title {
+  font-size: 2rem;
+  margin: 0;
+  color: #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.order-description {
+  font-size: 1rem;
+  color: #b0b0b0;
+  margin-bottom: 20px;
+  white-space: pre-wrap; /* Чтобы текст переносился и не обрезался */
+  overflow-wrap: break-word; /* Разбивать длинные слова для предотвращения переполнения */
+}
+
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #b0b0b0;
+}
+
+.order-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-icon {
+  margin-right: 8px;
+  color: #bb86fc;
+}
+
+.order-info-item span {
+  color: #f5f5f5;
+}
+
+.order-date {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin-bottom: 10px;
+}
+
+.order-expiry {
+  font-size: 0.9rem;
+  color: #f5a623; /* Orange for expiration */
+  margin-bottom: 20px;
+}
+
+.order-tags {
+  margin-top: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 0.9rem;
+  color: #bb86fc;
+  background-color: #222;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #444;
+  margin: 20px 0;
+}
+
+.response-section {
+  margin-top: 20px;
+}
+
+.response-form {
+  width: 100%;
+}
+
+.response-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  resize: vertical;
+  background-color: #333; /* Darker background for the textarea */
+  color: #f5f5f5;
+  font-size: 1rem;
+}
+
+.response-textarea:focus {
+  outline: none;
+  border-color: #bb86fc;
+  box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
+}
+
+.response-button {
+  font-family: 'Poppins', sans-serif;
+  background-color: #bb86fc;
+  color: #f5f5f5;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.response-button:hover {
+  background-color: #a65bfc;
+}
+
+.response-button:active {
+  background-color: #944cfc;
+}
+
+.registration-message {
+  margin-bottom: 50px;
+  text-align: center;
+  padding: 20px;
+}
+
+.registration-message h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.registration-message p {
+  font-size: 1rem;
+}
+
+.registration-message a {
+  color: #bb86fc;
+  text-decoration: none;
+}
+
+.registration-message a:hover {
+  text-decoration: underline;
+}
+
+.lock-icon {
+  font-size: 2rem;
+  color: #bb86fc;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  font-family: 'Poppins',sans-serif;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #bb86fc; /* Цвет иконки */
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 20px; /* Отступ от содержимого */
+}
+
+.back-icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.back-button span {
+  font-size: 0.9rem;
+}

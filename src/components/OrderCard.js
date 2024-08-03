@@ -1,19 +1,41 @@
-import React from 'react';
-import { FaClock, FaDollarSign, FaCommentDots, FaEye } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import './OrderCard.css'; // Import styles
+import React, { useState } from 'react';
+import { FaClock, FaDollarSign, FaCommentDots, FaEye, FaChevronDown, FaChevronUp, FaUserCheck, FaUserTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Импортируем хук useNavigate
+import './OrderCard.css'; // Импортируем стили
 
-const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, views }) => {
-  const navigate = useNavigate(); // Initialize navigate
+const OrderCard = ({ id, title, description, tags = [], timeAgo, price, responses, views, isAssigned }) => {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const navigate = useNavigate(); // Инициализируем navigate
 
-  const handleClick = () => {
-    navigate(`/order/${id}`); // Navigate to order details page
+  const handleCardClick = () => {
+    if (id) {
+      navigate(`/orders/${id}`); // Перенаправляем на страницу с деталями заказа
+    } else {
+      console.error('Order id is missing'); // Логируем ошибку, если id отсутствует
+    }
+  };
+
+  const toggleDescription = (event) => {
+    event.stopPropagation(); // Предотвращаем всплытие события клика
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
   return (
-    <div className="order-card" onClick={handleClick}>
-      <h3 className="order-title">{title}</h3>
-      <p className="order-description">{description}</p>
+    <div className="order-card" onClick={handleCardClick}>
+      <div className="order-header">
+        <h3 className="order-title">{title}</h3>
+        <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
+          {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
+          <span>{isAssigned ? 'Assigned' : 'Not Assigned'}</span>
+        </div>
+      </div>
+      <p className={`order-description ${isDescriptionExpanded ? 'expanded' : 'collapsed'}`}>
+        {description}
+      </p>
+      <button className="toggle-description" onClick={toggleDescription}>
+        {isDescriptionExpanded ? <FaChevronUp /> : <FaChevronDown />}
+        {isDescriptionExpanded ? 'Show less' : 'Show more'}
+      </button>
       <div className="order-info">
         <div className="order-info-item">
           <FaDollarSign className="order-icon" />
@@ -33,9 +55,13 @@ const OrderCard = ({ id, title, description, tags, timeAgo, price, responses, vi
         </div>
       </div>
       <div className="order-tags">
-        {tags.map((tag, index) => (
-          <span key={index} className="order-tag"># {tag}</span>
-        ))}
+        {tags.length > 0 ? (
+          tags.map((tag, index) => (
+            <span key={index} className="order-tag"># {tag}</span>
+          ))
+        ) : (
+          <span className="order-tag">No tags</span>
+        )}
       </div>
     </div>
   );

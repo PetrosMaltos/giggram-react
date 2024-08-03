@@ -1,11 +1,10 @@
-// src/components/Navbar.js
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Импортируем useLocation для получения текущего пути
-import { Home, List, Mail, User } from 'lucide-react'; // Импортируем иконки из lucide-react
-import './Navbar.css'; // Импортируем стили для navbar
+import { Link, useLocation } from 'react-router-dom';
+import { Home, List, Mail, User } from 'lucide-react';
+import './Navbar.css';
 
 const Navbar = () => {
-  const location = useLocation(); // Получаем текущий путь
+  const location = useLocation();
 
   const getActiveTab = () => {
     switch (location.pathname) {
@@ -20,10 +19,10 @@ const Navbar = () => {
     }
   };
 
-  const [active, setActive] = useState(getActiveTab()); // Устанавливаем активный элемент на основе текущего пути
+  const [active, setActive] = useState(getActiveTab());
 
   useEffect(() => {
-    setActive(getActiveTab()); // Обновляем активный элемент при изменении пути
+    setActive(getActiveTab());
   }, [location.pathname]);
 
   return (

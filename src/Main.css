@@ -86,11 +86,6 @@ html, body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-.search-button:hover {
-  background-color: #9f67e7;
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-}
 
 .search-button:active {
   background-color: #7a4ec9;
@@ -103,7 +98,11 @@ html, body {
 }
 
 /* Разделы на странице */
-.featured-orders-section, .categories-section, .services-section {
+.categories-section, .services-section {
+  padding: 20px;
+}
+
+.featured-orders-section {
   padding: 20px;
 }
 
@@ -117,7 +116,7 @@ html, body {
 /* Карточки */
 .order-card, .category-card, .service-card {
   background-color: #1e1e1e;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
   max-width: 300px;
   width: 100%;
@@ -125,8 +124,4 @@ html, body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.order-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-}
 

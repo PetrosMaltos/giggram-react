@@ -1,320 +1,349 @@
 .orders-page {
-    padding: 0;
-    margin: 0;
-  }
-  
-  .search-filters-container {
-    padding: 20px;
-  }
-  
-  .orders-header {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  
-  .orders-header h1 {
-    font-size: 2rem;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .search-section {
-    margin-bottom: 5px;
-    border-radius: 12px;
-    width: 100%;
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    padding: 16px 0px;
-    gap: 14px;
-    background-color: #111111;
-    box-sizing: border-box;
-  }
+  padding: 0;
+  margin: 0;
+}
 
-  .search-input {
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    padding: 10px 20px;
-    font-size: 1.05rem;
-    border-radius: 25px;
-    border: 2px solid #bb86fcb6;
-    background-color: #121212;
-    color: #e0e0e0;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .search-button {
-    display: flex;
-    align-items: center;
-    padding: 14px 14px;
-    font-size: 1.05rem;
-    border: none;
-    border-radius: 30px;
-    background-color: #bb86fc;
-    color: #121212;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  }
+.search-filters-container {
+  padding: 20px;
+}
 
-  
-  .search-button:active {
-    background-color: #7a4ec9;
-    transform: scale(0.98);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  
-  .search-icon {
-    font-size: 18px;
-  }
-  
-  .filter-section {
-    margin-bottom: 0;
-  }
-  
-  .filter-toggle {
-    font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif;
-    background-color: #111111;
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    transition: border-radius 0.3s ease;
-  }
-  
-  .filter-toggle.active {
-    border-radius: 10px 10px 0 0;
-  }
-  
-  .filters {
-    background-color: #111111;
-    padding: 20px;
-    border-radius: 0 0 10px 10px;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-  }
-  
-  .filters.show {
-    max-height: 800px;
-    opacity: 1;
-  }
-  
-  .filters.hide {
-    max-height: 0;
-    opacity: 0;
-  }
-  
-  .filter-group {
-    margin-bottom: 15px;
-  }
-  
-  .filter-group h3 {
-    margin-bottom: 10px;
-  }
-  
-  .price-filter {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .price-filter input {
-    flex: 1;
-    max-width: 120px;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #444444;
-    background-color: #333333;
-    color: #e0e0e0;
-  }
-  
-  .orders-list-section {
-    margin-top: 20px;
-  }
+.orders-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
 
-  .orders-list .order-card:last-child {
-    margin-bottom: 100px;
-  }
-  
-  
-  .orders-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
+.orders-header h1 {
+  font-size: 2rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.search-section {
+  margin-bottom: 5px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  gap: 14px;
+  background-color: #111111;
+  box-sizing: border-box;
+}
+
+.search-input {
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+  font-size: 1.05rem;
+  border-radius: 25px;
+  border: 2px solid #bb86fcb6;
+  background-color: #121212;
+  color: #e0e0e0;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  padding: 14px 14px;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #bb86fc;
+  color: #121212;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.search-button:active {
+  background-color: #7a4ec9;
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.search-icon {
+  font-size: 18px;
+}
+
+.filter-section {
+  margin-bottom: 0;
+}
+
+.filter-toggle {
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  background-color: #111111;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  transition: border-radius 0.3s ease;
+}
+
+.filter-toggle.active {
+  border-radius: 10px 10px 0 0;
+}
+
+.filters {
+  background-color: #111111;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.filters.show {
+  max-height: 800px;
+  opacity: 1;
+}
+
+.filters.hide {
+  max-height: 0;
+  opacity: 0;
+}
+
+.filter-group {
+  margin-bottom: 15px;
+}
+
+.filter-group h3 {
+  margin-bottom: 10px;
+}
+
+.price-filter {
+  display: flex;
+  gap: 10px;
+}
+
+.price-filter input {
+  flex: 1;
+  max-width: 120px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #444444;
+  background-color: #333333;
+  color: #e0e0e0;
+}
+
+.orders-list-section {
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+/* Добавление отступов снаружи для карточек заказов */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0px; /* Отступы слева и справа от краев экрана */
+  box-sizing: border-box; /* Включаем отступы в ширину контейнера */
+}
+
+.orders-list .order-card:last-child {
+  margin-bottom: 130px;
+}
+
+.order-card {
+  background-color: #1e1e1e;
+  border: 2px solid #2c2c2c;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-description {
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+
+.order-description.collapsed {
+  max-height: 50px; /* Сокращенная высота для описания */
+}
+
+.order-description.expanded {
+  max-height: 500px; /* Достаточно большая высота для полного описания */
+}
+
+.toggle-description {
+  font-family: 'Poppins', sans-serif;
+  background: none;
+  border: none;
+  color: #515151; /* Цвет для кнопки */
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.toggle-description svg {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+
+@media (max-width: 375px) {
   .order-card {
-    background-color: #1e1e1e;
-    border: 2px solid #2c2c2c;
-    border-radius: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 10px;
   }
+}
 
-  @media (max-width: 375px) {
-    .order-card {
-      padding: 10px;
-    }
+@media (max-width: 360px) {
+  .order-card {
+    padding: 5px;
   }
+}
 
-  @media (max-width: 360px) {
-    .order-card {
-      padding: 5px;
-    }
+@media (max-width: 322px) {
+  .order-card {
+    padding: 0px;
   }
+}
 
-  @media (max-width: 322px) {
-    .order-card {
-      padding: 0px;
-    }
-  }
-  
-  .order-card h3 {
-    margin: 0;
-  }
-  
-  .order-card p {
-    margin: 0;
-  }
-  
-/* New styles for checkboxes */
+.order-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.order-card p {
+  margin: 0;
+}
+
+/* Новые стили для чекбоксов */
 .filter-group label {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: #e0e0e0;
-    cursor: pointer;
-    transition: color 0.3s ease; /* Smooth color transition */
-  }
-  
-  .filter-group input[type="checkbox"] {
-    appearance: none; /* Remove default checkbox styling */
-    width: 20px;
-    height: 20px;
-    border: 2px solid #444; /* Border color */
-    border-radius: 4px; /* Square corners */
-    background-color: #333; /* Background color */
-    position: relative;
-    margin-right: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
-  }
-  
-  .filter-group input[type="checkbox"]:checked {
-    background-color: #111; /* Background color when checked */
-    border-color: #bb86fc; /* Border color when checked */
-  }
-  
-  .filter-group input[type="checkbox"]:checked::after {
-    content: ''; /* Empty content */
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 2px; /* Square checkmark */
-    background-color: #bb86fc; /* Color of the checkmark */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.filter-group input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #444;
+  border-radius: 4px;
+  background-color: #333;
+  position: relative;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-group input[type="checkbox"]:checked {
+  background-color: #111;
+  border-color: #bb86fc;
+}
+
+.filter-group input[type="checkbox"]:checked::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: #bb86fc;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.filter-group .category-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group .more-button {
+  text-decoration: none;
+  margin-top: 10px;
+  background-color: #bb86fc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.filter-group .additional-categories {
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  max-height: 0;
+  opacity: 0;
+}
+
+.filter-group .additional-categories.show {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.filter-group .additional-categories.hide {
+  max-height: 0;
+  opacity: 0;
+}
+
+.additional-categories {
+  margin-top: 10px;
+}
+
+.more-button {
+  font-family: 'Poppins', sans-serif;
+  width: 50%;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.additional-categories label {
+  display: block;
+  margin-top: 5px;
+}
+
+.additional-categories.show {
+  display: block;
+}
+
+.additional-categories.hide {
+  display: none;
+}
+
+/* Media Queries for Responsive Design */
+@media (min-width: 576px) {
+  .orders-list {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
-  .filter-group .category-list {
-    display: flex;
-    flex-direction: column;
+  .order-card {
+    flex: 1 1 calc(50% - 20px);
   }
-  
-  .filter-group .more-button {
-    text-decoration: none;
-    margin-top: 10px;
-    background-color: #bb86fc;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
+}
 
-  
-  .filter-group .additional-categories {
-    overflow: hidden; /* Hide content that overflows */
-    transition: max-height 0.5s ease, opacity 0.5s ease; /* Smooth transitions */
-    max-height: 0; /* Initially hide the additional categories */
-    opacity: 0;
+@media (min-width: 768px) {
+  .order-card {
+    flex: 1 1 calc(33.333% - 20px);
   }
-  
-  .filter-group .additional-categories.show {
-    max-height: 500px; /* Adjust according to content size */
-    opacity: 1;
+}
+
+@media (min-width: 992px) {
+  .order-card {
+    flex: 1 1 calc(25% - 20px);
   }
-  
-  .filter-group .additional-categories.hide {
-    max-height: 0;
-    opacity: 0;
-  }
-  
-  .additional-categories {
-    margin-top: 10px;
-  }
-  
-  .more-button {
-    font-family: 'Poppins', sans-serif;
-    width: 50%;
-    background: none;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-  }
-  
-  .additional-categories label {
-    display: block;
-    margin-top: 5px;
-  }
-  
-  .additional-categories.show {
-    display: block;
-  }
-  
-  .additional-categories.hide {
-    display: none;
-  }
-  
-  
-  /* Media Queries for Responsive Design */
-  @media (min-width: 576px) {
-    .orders-list {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  
-    .order-card {
-      flex: 1 1 calc(50% - 20px);
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .order-card {
-      flex: 1 1 calc(33.333% - 20px);
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .order-card {
-      flex: 1 1 calc(25% - 20px);
-    }
-  }
-  
+}

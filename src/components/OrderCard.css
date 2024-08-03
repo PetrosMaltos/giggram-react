@@ -1,4 +1,3 @@
-/* Orders.css */
 .orders-list {
   display: flex;
   flex-direction: column;
@@ -7,41 +6,74 @@
   width: 100%;
   max-width: 800px; /* Максимальная ширина контейнера */
   margin: 0 auto; /* Автоматическое выравнивание по центру */
+  padding: 10px; /* Отступы внутри контейнера */
 }
 
 .order-card {
   border: 2px solid #2c2c2c;
   background-color: #1e1e1e; /* Более темный фон для контраста */
   border-radius: 10px;
-  padding: 20px;
-  max-width: 300px;
+  padding: 15px; /* Уменьшил отступы для мобильных устройств */
   width: 100%; /* Ширина карточки по умолчанию */
+  max-width: 300px; /* Максимальная ширина карточки */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Глубокая тень для акцента */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Плавные переходы */
   text-align: center; /* Центрирование текста внутри карточки */
+  margin: 0; /* Убедитесь, что отступы вокруг карточки равны нулю */
 }
 
-.order-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8); /* Сильнее тень при наведении */
-  transform: translateY(-5px); /* Легкий эффект подъема */
+/* Остальные стили остаются без изменений */
+
+
+.order-header {
+  display: flex;
+  flex-direction: column; /* Вертикальное выравнивание для мобильных устройств */
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .order-title {
-  font-size: 1.2rem;
+  font-size: 1rem; /* Уменьшил размер шрифта для мобильных устройств */
   margin: 0;
   color: #e0e0e0; /* Светлый текст для контраста */
+}
+
+.order-status {
+  font-size: 0.8rem; /* Уменьшил размер шрифта для мобильных устройств */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffffff; /* Цвет текста для контраста */
+  margin-top: 5px; /* Отступ сверху от заголовка */
+}
+
+.order-status.assigned {
+  color: #4caf50; /* Зеленый для назначенных заказов */
+}
+
+.order-status.not-assigned {
+  color: #f44336; /* Красный для неназначенных заказов */
 }
 
 .order-description {
   margin: 10px 0;
   color: #b0b0b0; /* Немного светлее текст для читаемости */
+  font-size: 0.85rem; /* Уменьшил размер шрифта для мобильных устройств */
+}
+
+.toggle-description {
+  background: none;
+  border: none;
+  color: #bb86fc;
+  cursor: pointer;
+  font-size: 0.8rem; /* Уменьшил размер шрифта для кнопки */
 }
 
 .order-info {
   display: flex;
   flex-direction: column; /* Вертикальное выравнивание */
   margin: 10px 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* Уменьшил размер шрифта для мобильных устройств */
   color: #b0b0b0; /* Светлый текст для иконок и информации */
 }
 
@@ -52,7 +84,7 @@
 }
 
 .order-icon {
-  margin-right: 8px; /* Расстояние между иконкой и текстом */
+  margin-right: 5px; /* Уменьшил расстояние между иконкой и текстом */
   color: #bb86fc; /* Цвет иконок для соответствия теме */
 }
 
@@ -72,5 +104,13 @@
 }
 
 .order-price {
-  font-size: 0.9rem; /* Больший размер шрифта для акцента */
+  font-size: 0.85rem; /* Уменьшил размер шрифта для мобильных устройств */
+}
+
+/* Медиа-запросы для улучшения адаптивности */
+@media (min-width: 600px) {
+  .order-card {
+    padding: 20px; /* Увеличение отступов на более широких экранах */
+    max-width: 300px; /* Максимальная ширина для средних и больших экранов */
+  }
 }
