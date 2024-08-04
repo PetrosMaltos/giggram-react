@@ -23,10 +23,9 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
   const [response, setResponse] = useState('');
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top when component mounts
-
     // Проверка и настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
+      // Отобразить кнопку "Назад" только для OrderDetail
       window.Telegram.WebApp.BackButton.show();
 
       const handleBackButtonClick = () => window.history.back();
@@ -34,20 +33,17 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
 
       return () => {
         window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+        // Убрать кнопку "Назад" при размонтировании компонента
+        window.Telegram.WebApp.BackButton.hide();
       };
     }
 
-    // Установка поведения прокрутки
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-
     return () => {
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'auto';
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
       }
     };
-  }, []);
+  }, [id]); // Добавьте зависимость id, чтобы кнопка обновлялась при изменении id
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
