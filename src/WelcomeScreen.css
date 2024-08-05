@@ -234,29 +234,34 @@ html, body {
   }
 }
 
-@media (min-width: 768px) {
+/* Адаптация для высоты экрана от 600px и ширины экрана от 768px */
+@media (max-width: 768px) and (max-height: 600px) {
   .welcome-title {
-    font-size: 2rem; /* Размер заголовка для экранов от 768px */
+    font-size: 1.8rem; /* Уменьшенный размер заголовка */
+  }
+
+  .logo-animation {
+    margin-bottom: -10px;
   }
 
   .welcome-description {
-    font-size: 1.2rem; /* Размер текста для экранов от 768px */
+    font-size: 1rem; /* Уменьшенный размер текста */
   }
 
   .welcome-button {
-    padding: 12px 24px; /* Размер кнопки для экранов от 768px */
-    font-size: 1.2rem;
+    padding: 10px 20px; /* Уменьшение размера кнопки */
+    font-size: 1rem;
   }
 
   .project-info {
-    margin-top: 20px; /* Отступ сверху для экранов от 768px */
+    margin-top: 15px; /* Уменьшение отступа сверху */
   }
 
   .project-info h2 {
-    font-size: 1.4rem; /* Размер заголовка для экранов от 768px */
+    font-size: 1.3rem; /* Уменьшение размера заголовка */
   }
 
   .project-info p {
-    font-size: 1rem; /* Размер текста для экранов от 768px */
+    font-size: 0.9rem; /* Уменьшение размера текста */
   }
 }

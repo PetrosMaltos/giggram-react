@@ -4,7 +4,7 @@ import Categories from './components/Categories';
 import LogoAnimation from './components/LogoAnimation';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
-import AuthPrompt from './components/auth/AuthPrompt'; // Путь должен совпадать с именем файла
+import AuthPrompt from './components/auth/Login';
 import { FaSearch } from 'react-icons/fa';
 import './Main.css';
 

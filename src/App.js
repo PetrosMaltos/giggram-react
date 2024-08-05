@@ -11,7 +11,8 @@ import Messages from './Messages';
 import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
-import ScrollToTop from './components/ScrollToTop';
+import Login from './components/auth/Login';
+
 
 const App = () => {
 
@@ -87,6 +88,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/auth" element={<Login />} /> {/* Обновленный путь */}
         </Routes>
       )}
     </Router>
