@@ -7,7 +7,7 @@ const WelcomeScreen = () => {
     // Устанавливаем стили для body и html только для этого компонента
     document.body.style.margin = '0';
     document.body.style.padding = '0';
-    document.body.style.fontFamily = "'Poppins', sans-serif";
+    document.body.style.fontFamily = "'Montserrat', sans-serif";
     document.body.style.backgroundColor = '#000000';
     document.body.style.color = '#e0e0e0';
     document.body.style.overflow = 'hidden';
@@ -33,15 +33,15 @@ const WelcomeScreen = () => {
     <div className="welcome-screen">
       <div className="welcome-content">
         <LogoAnimation />
-        <h1 className="welcome-title">Welcome to GigGram!</h1>
+        <h1 className="welcome-title">Добро пожаловать в GigGram!</h1>
         <p className="welcome-description">
-          The first freelance platform on Telegram where freelancers keep 99% of their earnings. 💰 The remaining 1% is donated to charity ❤️
+          Первая платформа фриланса в Telegram, где фрилансеры сохраняют 99% своих доходов. 💰 Оставшийся 1% перечисляется на благотворительность ❤️
         </p>
         <div className="project-info">
-          <h2>About Us 🧐</h2>
-          <p>GigGram is the first freelance platform on Telegram. We charge no fees—freelancers keep 99% of their earnings, and 1% is donated to charitable foundations. Experience the freedom and support of working with us. 🙌</p>
+          <h2>О нас 🧐</h2>
+          <p>GigGram - это первая платформа фриланса в Telegram. Мы не взимаем комиссий — фрилансеры сохраняют 99% своих доходов, а 1% перечисляется в благотворительные фонды. Оцените свободу и поддержку работы с нами. 🙌</p>
         </div>
-        <button className="welcome-button" onClick={handleGetStarted}>Get Started 🚀</button>
+        <button className="welcome-button" onClick={handleGetStarted}>Начать 🚀</button>
       </div>
     </div>
   );

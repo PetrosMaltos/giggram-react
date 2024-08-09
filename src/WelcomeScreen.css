@@ -1,13 +1,12 @@
-/* Подключаем шрифт Poppins из Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif; /* Устанавливаем шрифт Montserrat для всего текста на странице */
   background-color: #000000; /* Однородный темный фон */
   color: #e0e0e0; /* Светлый текст */
-  overflow: hidden;
+  overflow: hidden; /* Отключаем прокрутку */
   height: 100vh; /* Полная высота экрана */
 }
 
@@ -71,7 +70,7 @@ html, body {
 
 /* Кнопка */
 .welcome-button {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background: linear-gradient(45deg, #bb86fc, #9f67e7); /* Градиентный фон */
   color: #121212; /* Темный текст на кнопке */
   border: none;

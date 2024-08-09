@@ -1,12 +1,12 @@
 import React from 'react';
-import './Messages.css'; // Импортируем стили для сообщений
+import './Messages.css'; // Импорт стилей для сообщений
 import { FaUserCircle, FaClock } from 'react-icons/fa';
 import Navbar from './components/Navbar';
 
 const chats = [
-  { id: 1, name: 'Alice Johnson', lastMessage: 'Hey, are we still on for today?', time: '10:30 AM' },
-  { id: 2, name: 'Bob Smith', lastMessage: 'Can you send me the report?', time: 'Yesterday' },
-  { id: 3, name: 'Charlie Brown', lastMessage: 'What time are we meeting?', time: '2 days ago' },
+  { id: 1, name: 'Alice Johnson', lastMessage: 'Привет, мы все еще в планах на сегодня?', time: '10:30' },
+  { id: 2, name: 'Bob Smith', lastMessage: 'Можешь прислать мне отчет?', time: 'Вчера' },
+  { id: 3, name: 'Charlie Brown', lastMessage: 'Во сколько мы встречаемся?', time: '2 дня назад' },
 ];
 
 const Messages = () => {
@@ -15,7 +15,7 @@ const Messages = () => {
       <Navbar />
       <div className="content">
         <header className="messages-header">
-          <h1>Messages</h1>
+          <h1>Сообщения</h1>
         </header>
         <div className="messages-list">
           {chats.map(chat => (

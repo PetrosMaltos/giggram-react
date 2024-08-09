@@ -40,14 +40,14 @@
 .service-card h2 {
   margin: 0;
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .service-card p {
   color: #9d9d9d;
   font-size: 1rem;
   margin-top: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Subscription banner */

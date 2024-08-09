@@ -9,7 +9,12 @@
   padding: 10px; /* Отступы внутри контейнера */
 }
 
-.order-card {
+/* Отступ 50px только для последнего элемента */
+.orders-list .order-card:last-child {
+  margin-bottom: 125px; /* Добавление отступа снизу для последней карточки */
+}
+
+.order-card { 
   border: 2px solid #2c2c2c;
   background-color: #1e1e1e; /* Более темный фон для контраста */
   border-radius: 10px;
@@ -23,14 +28,11 @@
 }
 
 /* Остальные стили остаются без изменений */
-
-
 .order-header {
   display: flex;
   flex-direction: column; /* Вертикальное выравнивание для мобильных устройств */
   align-items: center;
 }
-
 
 .order-title {
   font-size: 1rem; /* Уменьшил размер шрифта для мобильных устройств */
@@ -63,6 +65,7 @@
 }
 
 .toggle-description {
+  font-family: 'Montserrat', sans-serif;
   background: none;
   border: none;
   color: #bb86fc;

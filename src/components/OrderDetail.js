@@ -5,27 +5,28 @@ import { AiFillStar } from 'react-icons/ai';
 import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
 import ScrollToTop from './ScrollToTop'; // Убедитесь, что этот компонент импортирован
 import './OrderDetail.css'; // Добавьте стили для компонента
+import { ru } from 'date-fns/locale'; // Импортируем русскую локализацию
+
 
 const OrderDetail = ({ orders = [], isAuthenticated }) => {
   const { id } = useParams();
 
-  // Проверка на массив orders
+  // Проверка наличия данных о заказах
   if (!Array.isArray(orders)) {
-    return <div>Orders data is not available</div>;
+    return <div>Данные о заказах недоступны</div>;
   }
 
   const order = orders.find(order => order.id === parseInt(id));
 
   if (!order) {
-    return <div>Order not found</div>;
+    return <div>Заказ не найден</div>;
   }
 
   const [response, setResponse] = useState('');
 
   useEffect(() => {
-    // Проверка и настройка кнопки "Назад"
+    // Настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
-      // Отобразить кнопку "Назад" только для OrderDetail
       window.Telegram.WebApp.BackButton.show();
 
       const handleBackButtonClick = () => window.history.back();
@@ -33,7 +34,6 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
 
       return () => {
         window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        // Убрать кнопку "Назад" при размонтировании компонента
         window.Telegram.WebApp.BackButton.hide();
       };
     }
@@ -43,23 +43,24 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
         window.Telegram.WebApp.BackButton.hide();
       }
     };
-  }, [id]); // Добавьте зависимость id, чтобы кнопка обновлялась при изменении id
+  }, [id]);
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
   };
 
   const handleSubmit = () => {
-    console.log('Response submitted:', response);
+    console.log('Ответ отправлен:', response);
   };
 
-  // Примеры дат
-  const exampleDate = '2024-08-02T22:55:00Z';
-  const exampleExpiry = '2024-08-10T22:55:00Z';
+ // Примеры дат
+ const exampleDate = '2024-08-02T22:55:00Z';
+ const exampleExpiry = '2024-08-10T22:55:00Z';
 
-  // Форматирование дат
-  const formattedDate = format(parseISO(exampleDate), 'dd MMMM yyyy, HH:mm');
-  const formattedExpiry = format(parseISO(exampleExpiry), 'dd MMMM yyyy, HH:mm');
+ // Форматирование дат
+ const formattedDate = format(parseISO(exampleDate), 'dd MMMM yyyy, HH:mm', { locale: ru });
+ const formattedExpiry = format(parseISO(exampleExpiry), 'dd MMMM yyyy, HH:mm', { locale: ru });
+
 
   return (
     <div className="order-detail">
@@ -68,7 +69,7 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
         <div className="client-profile">
           <div className="client-avatar" />
           <div className="client-info">
-            <div className="client-name">Client Name</div>
+            <div className="client-name">Имя клиента</div>
             <div className="client-reviews">
               <AiFillStar className="star-rating" />
               <span>4.4</span>
@@ -80,25 +81,25 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
         <div className="order-details">
           <div className="order-info-item">
             <FaDollarSign className="order-icon" />
-            <span>${order.price}</span>
+            <span>{order.price} руб</span>
           </div>
           <div className="order-info-item">
             <FaEye className="order-icon" />
-            <span>{order.views} views</span>
+            <span>{order.views} просмотров</span>
           </div>
           <div className="order-info-item">
             <FaClock className="order-icon" />
-            <span>{order.timeAgo} ago</span>
+            <span>{order.timeAgo} назад</span>
           </div>
           <div className="order-info-item">
             <FaCommentDots className="order-icon" />
-            <span>{order.responses} responses</span>
+            <span>{order.responses} откликов</span>
           </div>
           <div className="order-date">
-            Order Date: {formattedDate}
+            Дата заказа: {formattedDate}
           </div>
           <div className="order-expiry">
-            Expiry: {formattedExpiry}
+            Срок окончания: {formattedExpiry}
           </div>
           <div className="order-tags">
             {order.tags && order.tags.length > 0 && (
@@ -117,17 +118,17 @@ const OrderDetail = ({ orders = [], isAuthenticated }) => {
           <div className="response-form">
             <textarea
               className="response-textarea"
-              placeholder="Write your response here..."
+              placeholder="Напишите ваш ответ здесь..."
               value={response}
               onChange={handleResponseChange}
             />
-            <button className="response-button" onClick={handleSubmit}>Submit Response</button>
+            <button className="response-button" onClick={handleSubmit}>Отправить ответ</button>
           </div>
         ) : (
           <div className="registration-message">
             <FaLock className="lock-icon" />
-            <h2>Please Register to Submit a Response</h2>
-            <p>You need to be registered to submit a response to this order. Please <a href="/register">register</a> to continue.</p>
+            <h2>Пожалуйста, зарегистрируйтесь</h2>
+            <p>Для отправки отклика на этот заказ необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
           </div>
         )}
       </div>

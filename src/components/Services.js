@@ -1,23 +1,23 @@
 import React from 'react';
-import { FaClock, FaArchive, FaDollarSign, FaStar, FaStarHalfAlt } from 'react-icons/fa'; // Import icons
-import { IoDiamond } from "react-icons/io5";
-import './Services.css'; // Import styles
+import { FaDollarSign, FaStar, FaArchive } from 'react-icons/fa'; // Импорт иконок
+import { IoDiamond } from 'react-icons/io5';
+import './Services.css'; // Импорт стилей
 
 const Services = () => {
   const services = [
     {
-      title: 'Free Order Placement',
-      description: 'Post your orders without any cost. Reach out to freelancers easily.',
+      title: 'Бесплатные заказы',
+      description: 'Размещайте заказы бесплатно и находите исполнителей без затрат.',
       icon: <FaDollarSign />,
     },
     {
-      title: '5 Free Responses Per Day',
-      description: 'Freelancers can respond to up to 5 orders per day for free.',
+      title: '5 бесплатных откликов в день',
+      description: 'Фрилансеры могут бесплатно откликаться на 5 заказов в день.',
       icon: <FaStar />,
     },
     {
-      title: 'Automatic Archiving',
-      description: 'Orders are automatically archived after their expiration time.',
+      title: 'Автоматическое архивирование',
+      description: 'Заказы архивируются автоматически после истечения срока.',
       icon: <FaArchive />,
     },
   ];
@@ -41,9 +41,9 @@ const Services = () => {
           <div className="subscription-icon">
             <IoDiamond />
           </div>
-          <h2>Unlock Unlimited Responses with <span className="highlight">UnlimitPro</span></h2>
-          <p>Remove daily response limits and enjoy unrestricted interactions with freelancers. Maximize your reach and engagement now!</p>
-          <a href="/subscribe" className="subscribe-button">Upgrade Now</a>
+          <h2>Неограниченные отклики с <span className="highlight">UnlimitPro</span></h2>
+          <p>Снимите лимиты на отклики и взаимодействуйте с фрилансерами без ограничений. Увеличьте охват и вовлеченность прямо сейчас!</p>
+          <a href="/subscribe" className="subscribe-button">Оформить подписку</a>
         </div>
       </div>
     </div>

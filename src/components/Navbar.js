@@ -33,7 +33,7 @@ const Navbar = () => {
         onClick={() => setActive('home')}
       >
         <Home className="nav-icon" />
-        <span className="nav-text">Home</span>
+        <span className="nav-text">Главная</span>
       </Link>
       <Link 
         to="/orders" 
@@ -41,7 +41,7 @@ const Navbar = () => {
         onClick={() => setActive('orders')}
       >
         <List className="nav-icon" />
-        <span className="nav-text">Orders</span>
+        <span className="nav-text">Заказы</span>
       </Link>
       <Link 
         to="/messages" 
@@ -49,7 +49,7 @@ const Navbar = () => {
         onClick={() => setActive('messages')}
       >
         <Mail className="nav-icon" />
-        <span className="nav-text">Messages</span>
+        <span className="nav-text">Сообщения</span>
       </Link>
       <Link 
         to="/profile" 
@@ -57,7 +57,7 @@ const Navbar = () => {
         onClick={() => setActive('profile')}
       >
         <User className="nav-icon" />
-        <span className="nav-text">Profile</span>
+        <span className="nav-text">Профиль</span>
       </Link>
     </nav>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import OrderCard from './components/OrderCard';
 import { FaSearch, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Navbar from './components/Navbar';
+import { FaPlus } from 'react-icons/fa';
 import './Orders.css';
 
 const Orders = () => {
@@ -18,77 +19,63 @@ const Orders = () => {
   const [orders, setOrders] = useState([
     {
       id: 1,
-      title: 'Web Development Project',
-      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
-      tags: ['Web Development', 'Front-End'],
-      timeAgo: '1 minute',
+      title: 'Проект по веб-разработке',
+      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
+      tags: ['Веб-разработка', 'Front-End'],
+      timeAgo: '1 мин',
       price: '100',
       responses: '12',
       views: 134,
-      category: 'Web Development',
+      category: 'Веб-разработка',
     },
     {
       id: 2,
-      title: 'Java Project',
-      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
-      tags: ['Web Development', 'Front-End'],
-      timeAgo: '1 minute',
+      title: 'Проект на Java',
+      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
+      tags: ['Веб-разработка', 'Front-End'],
+      timeAgo: '1 мин',
       price: '5000',
       responses: '11',
       views: 144,
-      category: 'Web Development',
+      category: 'Веб-разработка',
     },
     {
       id: 3,
-      title: 'Game on Python',
-      description: 'Transform your ideas into reality with this exclusive offer! Get expert support for your project, with tailored solutions and unmatched quality. Act now!',
-      tags: ['Web Development', 'Front-End'],
-      timeAgo: '1 minute',
+      title: 'Игра на Python',
+      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
+      tags: ['Веб-разработка', 'Front-End'],
+      timeAgo: '1 мин',
       price: '50',
       responses: '10',
       views: 382,
-      category: 'Web Development',
+      category: 'Веб-разработка',
     },
-    // Add more orders as needed
+    // Добавьте больше заказов по мере необходимости
   ]);
   const [filteredOrders, setFilteredOrders] = useState(orders);
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
-
-    setFilters((prevFilters) => {
-      const newFilters = { ...prevFilters };
-
+    setFilters(prev => {
+      const newFilters = { ...prev };
       if (name === 'categories') {
-        const newCategories = [...newFilters.categories];
-        if (newCategories.includes(value)) {
-          newFilters.categories = newCategories.filter(category => category !== value);
-        } else {
-          newFilters.categories.push(value);
-        }
+        newFilters.categories = newFilters.categories.includes(value)
+          ? newFilters.categories.filter(cat => cat !== value)
+          : [...newFilters.categories, value];
       } else {
-        if (!Array.isArray(newFilters[name])) {
-          newFilters[name] = [];
-        }
-
-        if (newFilters[name].includes(value)) {
-          newFilters[name] = newFilters[name].filter(item => item !== value);
-        } else {
-          newFilters[name].push(value);
-        }
+        newFilters[name] = newFilters[name].includes(value)
+          ? newFilters[name].filter(item => item !== value)
+          : [...(Array.isArray(newFilters[name]) ? newFilters[name] : []), value];
       }
-
       filterOrders(newFilters);
-
       return newFilters;
     });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    setFilters((prevFilters) => {
-      const newFilters = { ...prevFilters, [name]: value };
+    setFilters(prev => {
+      const newFilters = { ...prev, [name]: value };
       filterOrders(newFilters);
       return newFilters;
     });
@@ -96,16 +83,13 @@ const Orders = () => {
 
   const filterOrders = (filters) => {
     const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
+    const lowerSearchText = searchText.toLowerCase();
 
     const newFilteredOrders = orders.filter(order => {
-      const matchesCategory = categories.length === 0 || categories.includes(order.category);
-      const matchesSearchIn = searchIn.length === 0 || searchIn.some(search => order.tags.includes(search));
-      const matchesTime = time.length === 0 || time.includes(order.timeAgo.toLowerCase());
-      const matchesSearchText = searchText ? 
-        order.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        order.description.toLowerCase().includes(searchText.toLowerCase()) ||
-        order.tags.some(tag => tag.toLowerCase().includes(searchText.toLowerCase()))
-        : true;
+      const matchesCategory = !categories.length || categories.includes(order.category);
+      const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
+      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
+      const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
       const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
         (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
 
@@ -115,18 +99,22 @@ const Orders = () => {
     setFilteredOrders(newFilteredOrders);
   };
 
+  const handleCreateOrderClick = () => {
+    window.location.href = '/create';
+  };
+
   return (
     <div className="orders-page">
       <Navbar />
       <div className="search-filters-container">
         <header className="orders-header">
-          <h1>Orders ({filteredOrders.length})</h1>
+          <h1>Заказы ({filteredOrders.length})</h1>
         </header>
 
         <section className="search-section">
           <input 
             type="text" 
-            placeholder="Search for orders..." 
+            placeholder="Поиск заказов..." 
             className="search-input" 
             name="searchText" 
             onChange={handleInputChange} 
@@ -141,98 +129,103 @@ const Orders = () => {
             className={`filter-toggle ${showFilters ? 'active' : ''}`}
             onClick={() => setShowFilters(!showFilters)}
           >
-            Filters {showFilters ? <FaAngleUp /> : <FaAngleDown />}
+            Фильтры {showFilters ? <FaAngleUp /> : <FaAngleDown />}
           </button>
 
           <div className={`filters ${showFilters ? 'show' : 'hide'}`}>
             <div className="filter-group">
-              <h3>Search In</h3>
+              <h3>Искать в</h3>
               <label>
-                <input type="checkbox" name="searchIn" value="tags" onChange={handleCheckboxChange} /> Tags
+                <input type="checkbox" name="searchIn" value="tags" onChange={handleCheckboxChange} /> Теги
               </label>
               <label>
-                <input type="checkbox" name="searchIn" value="titles" onChange={handleCheckboxChange} /> Titles
+                <input type="checkbox" name="searchIn" value="titles" onChange={handleCheckboxChange} /> Названия
               </label>
               <label>
-                <input type="checkbox" name="searchIn" value="descriptions" onChange={handleCheckboxChange} /> Descriptions
+                <input type="checkbox" name="searchIn" value="descriptions" onChange={handleCheckboxChange} /> Описания
               </label>
             </div>
 
             <div className="filter-group">
-              <h3>Categories</h3>
+              <h3>Категории</h3>
               <div className="category-list">
                 <label>
-                  <input type="checkbox" name="categories" value="Web Development" onChange={handleCheckboxChange} /> Web Development
+                  <input type="checkbox" name="categories" value="Веб-разработка" onChange={handleCheckboxChange} /> Веб-разработка
                 </label>
                 <label>
-                  <input type="checkbox" name="categories" value="Graphic Design" onChange={handleCheckboxChange} /> Graphic Design
+                  <input type="checkbox" name="categories" value="Графический дизайн" onChange={handleCheckboxChange} /> Графический дизайн
                 </label>
                 <label>
-                  <input type="checkbox" name="categories" value="Content Writing" onChange={handleCheckboxChange} /> Content Writing
+                  <input type="checkbox" name="categories" value="Копирайтинг" onChange={handleCheckboxChange} /> Копирайтинг
                 </label>
                 {showMore && (
                   <>
                     <label>
-                      <input type="checkbox" name="categories" value="Digital Marketing" onChange={handleCheckboxChange} /> Digital Marketing
+                      <input type="checkbox" name="categories" value="Цифровой маркетинг" onChange={handleCheckboxChange} /> Цифровой маркетинг
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="SEO Services" onChange={handleCheckboxChange} /> SEO Services
+                      <input type="checkbox" name="categories" value="SEO-услуги" onChange={handleCheckboxChange} /> SEO-услуги
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Mobile App Development" onChange={handleCheckboxChange} /> Mobile App Development
+                      <input type="checkbox" name="categories" value="Разработка мобильных приложений" onChange={handleCheckboxChange} /> Разработка мобильных приложений
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Video Editing" onChange={handleCheckboxChange} /> Video Editing
+                      <input type="checkbox" name="categories" value="Видеомонтаж" onChange={handleCheckboxChange} /> Видеомонтаж
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Virtual Assistance" onChange={handleCheckboxChange} /> Virtual Assistance
+                      <input type="checkbox" name="categories" value="Виртуальная помощь" onChange={handleCheckboxChange} /> Виртуальная помощь
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="UX/UI Design" onChange={handleCheckboxChange} /> UX/UI Design
+                      <input type="checkbox" name="categories" value="UX/UI дизайн" onChange={handleCheckboxChange} /> UX/UI дизайн
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Data Entry" onChange={handleCheckboxChange} /> Data Entry
+                      <input type="checkbox" name="categories" value="Ввод данных" onChange={handleCheckboxChange} /> Ввод данных
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Translation Services" onChange={handleCheckboxChange} /> Translation Services
+                      <input type="checkbox" name="categories" value="Услуги перевода" onChange={handleCheckboxChange} /> Услуги перевода
                     </label>
                   </>
                 )}
                 <button className="more-button" onClick={() => setShowMore(!showMore)}>
-                  {showMore ? 'Hide <' : 'More >'}
+                  {showMore ? 'Скрыть <' : 'Больше >'}
                 </button>
               </div>
             </div>
 
             <div className="filter-group">
-              <h3>Price Range</h3>
+              <h3>Ценовой диапазон</h3>
               <div className="price-filter">
                 <input 
                   type="number" 
                   name="priceFrom" 
-                  placeholder="From" 
+                  placeholder="От" 
                   onChange={handleInputChange} 
                 />
                 <input 
                   type="number" 
                   name="priceTo" 
-                  placeholder="To" 
+                  placeholder="До" 
                   onChange={handleInputChange} 
                 />
               </div>
             </div>
 
             <div className="filter-group margin-bottom-20">
-              <h3>Time</h3>
+              <h3>Время</h3>
               <label>
-                <input type="checkbox" name="time" value="newest" onChange={handleCheckboxChange} /> Newest
+                <input type="checkbox" name="time" value="newest" onChange={handleCheckboxChange} /> Новые
               </label>
               <label>
-                <input type="checkbox" name="time" value="oldest" onChange={handleCheckboxChange} /> Oldest
+                <input type="checkbox" name="time" value="oldest" onChange={handleCheckboxChange} /> Старые
               </label>
             </div>
           </div>
         </section>
+        <div className='create-order-button-container'>
+        <button className="create-order-button" onClick={handleCreateOrderClick}>
+          <FaPlus className="create-order-icon" /> Создать свой заказ
+        </button>
+        </div>
       </div>
 
       <section className="orders-list-section">

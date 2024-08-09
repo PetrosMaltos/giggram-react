@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCode, FaPalette, FaBook } from 'react-icons/fa'; // Importing icons
-import './Categories.css'; // Import styles
+import { FaCode, FaPalette, FaBook } from 'react-icons/fa'; // Импорт иконок
+import './Categories.css'; // Импорт стилей
 
 const CategoriesPage = () => {
   return (
@@ -10,25 +10,25 @@ const CategoriesPage = () => {
         <Link to="/category/web-development" className="category-card">
           <div className="category-icon"><FaCode /></div>
           <div className="category-content">
-            <h2>Web Development</h2>
-            <p>Find experts to build websites and web apps.</p>
+            <h2>Веб-разработка</h2>
+            <p>Найдите экспертов для создания веб-сайтов и веб-приложений.</p>
           </div>
         </Link>
         <Link to="/category/graphic-design" className="category-card">
           <div className="category-icon"><FaPalette /></div>
           <div className="category-content">
-            <h2>Graphic Design</h2>
-            <p>Hire designers for logos, banners, and more.</p>
+            <h2>Графический Дизайн</h2>
+            <p>Найдите дизайнеров для логотипов, баннеров и других графических материалов.</p>
           </div>
         </Link>
         <Link to="/category/writing-translation" className="category-card">
           <div className="category-icon"><FaBook /></div>
           <div className="category-content">
-            <h2>Writing & Translation</h2>
-            <p>Get help with content creation and translations.</p>
+            <h2>Письмо и Перевод</h2>
+            <p>Получите помощь в создании контента и переводах.</p>
           </div>
         </Link>
-        {/* Add more categories as needed */}
+        {/* Добавьте больше категорий по мере необходимости */}
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
       <div className="order-header">
       <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
           {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
-          <span>{isAssigned ? 'Assigned' : 'Not Assigned'}</span>
+          <span>{isAssigned ? 'Исполнитель выбран' : 'Исполнитель не выбран'}</span>
         </div>
         <h3 className="order-title">{title}</h3>
       </div>
@@ -34,24 +34,24 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
       </p>
       <button className="toggle-description" onClick={toggleDescription}>
         {isDescriptionExpanded ? <FaChevronUp /> : <FaChevronDown />}
-        {isDescriptionExpanded ? 'Show less' : 'Show more'}
+        {isDescriptionExpanded ? 'Скрыть' : 'Больше'}
       </button>
       <div className="order-info">
         <div className="order-info-item">
           <FaDollarSign className="order-icon" />
-          <span className="order-price">${price}</span>
+          <span className="order-price">{price} руб</span>
         </div>
         <div className="order-info-item">
           <FaEye className="order-icon" />
-          <span className="order-views">{views} views</span>
+          <span className="order-views">{views} просмотров</span>
         </div>
         <div className="order-info-item">
           <FaClock className="order-icon" />
-          <span className="order-time">{timeAgo} ago</span>
+          <span className="order-time">{timeAgo} назад</span>
         </div>
         <div className="order-info-item">
           <FaCommentDots className="order-icon" />
-          <span className="order-responses">{responses} responses</span>
+          <span className="order-responses">{responses} откликов</span>
         </div>
       </div>
       <div className="order-tags">
@@ -60,7 +60,7 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
             <span key={index} className="order-tag"># {tag}</span>
           ))
         ) : (
-          <span className="order-tag">No tags</span>
+          <span className="order-tag">Нет тегов</span>
         )}
       </div>
     </div>

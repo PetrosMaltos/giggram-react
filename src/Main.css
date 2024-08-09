@@ -1,7 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #000000; /* Однородный темный фон */
   color: #e0e0e0; /* Светлый текст */ 
   overflow: auto;
@@ -25,7 +25,7 @@ html, body {
 
 /* Header title and text */
 .main-header .gradient-text {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   margin-bottom: 10px;
   background: linear-gradient(135deg, #ff1605, #bb86fc, #03a9f4, #f4a300); /* Gradient colors */
   -webkit-background-clip: text; /* For Chrome and Safari */
@@ -33,8 +33,9 @@ html, body {
   color: transparent; /* Fallback for browsers that don't support gradient text */
 }
 
+
 .main-header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
@@ -59,7 +60,7 @@ html, body {
 /* Поле ввода */
 .search-input {
   width: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
   padding: 10px 20px;
   font-size: 1.05rem;
   border-radius: 25px;

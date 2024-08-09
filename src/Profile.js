@@ -4,12 +4,12 @@ import Navbar from './components/Navbar';
 
 const Profile = () => {
   const user = {
-    name: 'Ricky Park',
-    description: 'User interface designer and front-end developer',
-    skills: ['UI / UX', 'Front End Development', 'HTML', 'CSS', 'JavaScript', 'React', 'Node'],
+    name: 'Рики Парк',
+    description: 'Дизайнер пользовательских интерфейсов и фронтенд-разработчик',
+    skills: ['UI / UX', 'Фронтенд-разработка', 'HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
     currentOrders: 5,
     archivedOrders: 12,
-    userType: 'Freelancer'
+    userType: 'Фрилансер'
   };
 
   return (
@@ -27,15 +27,15 @@ const Profile = () => {
           <p>{user.description}</p>
           {user.currentOrders > 0 && (
             <div className="active-orders">
-              <a href="/active-orders">Active Orders ({user.currentOrders})</a>
+              <a href="/active-orders">Активные заказы ({user.currentOrders})</a>
             </div>
           )}
           <div className="button-group">
-            <button className="primary">Message</button>
-            <button className="primary ghost">Following</button>
+            <button className="primary">Сообщение</button>
+            <button className="primary ghost">Вы подписаны</button>
           </div>
           <div className="skills">
-            <h6>Skills</h6>
+            <h6>Навыки</h6>
             <ul>
               {user.skills.map((skill, index) => (
                 <li key={index}>{skill}</li>
@@ -43,12 +43,12 @@ const Profile = () => {
             </ul>
           </div>
           <div className="user-info">
-            <h6>Additional Information</h6>
+            <h6>Дополнительная информация</h6>
             <div className="info-item">
-              <span>Archived Orders:</span> {user.archivedOrders}
+              <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-              <span>Role:</span> {user.userType}
+              <span>Роль:</span> {user.userType}
             </div>
           </div>
         </div>

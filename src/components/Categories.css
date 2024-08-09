@@ -48,14 +48,14 @@
 .category-card h2 {
   margin: 0;
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .category-card p {
   color: #9d9d9d;
   font-size: 1rem;
   margin-top: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Медиазапросы для мобильных устройств */
