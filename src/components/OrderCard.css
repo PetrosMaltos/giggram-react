@@ -68,7 +68,7 @@
   font-family: 'Montserrat', sans-serif;
   background: none;
   border: none;
-  color: #bb86fc;
+  color: #6200ee;
   cursor: pointer;
   font-size: 0.8rem; /* Уменьшил размер шрифта для кнопки */
 }
@@ -89,7 +89,7 @@
 
 .order-icon {
   margin-right: 5px; /* Уменьшил расстояние между иконкой и текстом */
-  color: #bb86fc; /* Цвет иконок для соответствия теме */
+  color: #6200ee; /* Цвет иконок для соответствия теме */
 }
 
 .order-tags {

@@ -1,64 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, List, Mail, User } from 'lucide-react';
+import { Home, List, Mail, User, Settings, HelpCircle, Hand, Users, Briefcase } from 'lucide-react';
 import './Navbar.css';
+
+const NAV_ITEMS = [
+  { to: '/main', icon: <Home />, text: 'Главная', key: 'home' },
+  { to: '/orders', icon: <List />, text: 'Заказы', key: 'orders' },
+  { to: '/messages', icon: <Mail />, text: 'Чаты', key: 'messages' },
+  { to: '/profile', icon: <User />, text: 'Профиль', key: 'profile' },
+  { to: '/favors', icon: <Hand />, text: 'Услуги', key: 'favors' },
+  { to: '/specialists', icon: <Users />, text: 'Специалисты', key: 'specialists' },
+  { to: '/projects', icon: <Briefcase />, text: 'Проекты', key: 'projects' },
+  { to: '/settings', icon: <Settings />, text: 'Настройки', key: 'settings' },
+  { to: '/help', icon: <HelpCircle />, text: 'Помощь', key: 'help' },
+];
 
 const Navbar = () => {
   const location = useLocation();
-
-  const getActiveTab = () => {
-    switch (location.pathname) {
-      case '/orders':
-        return 'orders';
-      case '/messages':
-        return 'messages';
-      case '/profile':
-        return 'profile';
-      default:
-        return 'home';
-    }
-  };
-
-  const [active, setActive] = useState(getActiveTab());
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    setActive(getActiveTab());
+    const activeTab = NAV_ITEMS.find(item => item.to === location.pathname)?.key || 'home';
+    setActive(activeTab);
   }, [location.pathname]);
 
   return (
-    <nav className="navbar">
-      <Link 
-        to="/main" 
-        className={`nav-item ${active === 'home' ? 'active' : ''}`}
-        onClick={() => setActive('home')}
-      >
-        <Home className="nav-icon" />
-        <span className="nav-text">Главная</span>
-      </Link>
-      <Link 
-        to="/orders" 
-        className={`nav-item ${active === 'orders' ? 'active' : ''}`}
-        onClick={() => setActive('orders')}
-      >
-        <List className="nav-icon" />
-        <span className="nav-text">Заказы</span>
-      </Link>
-      <Link 
-        to="/messages" 
-        className={`nav-item ${active === 'messages' ? 'active' : ''}`}
-        onClick={() => setActive('messages')}
-      >
-        <Mail className="nav-icon" />
-        <span className="nav-text">Сообщения</span>
-      </Link>
-      <Link 
-        to="/profile" 
-        className={`nav-item ${active === 'profile' ? 'active' : ''}`}
-        onClick={() => setActive('profile')}
-      >
-        <User className="nav-icon" />
-        <span className="nav-text">Профиль</span>
-      </Link>
+    <nav className="navbar" aria-label="Main navigation">
+      <div className="nav-wrapper">
+        {NAV_ITEMS.map(({ to, icon, text, key }) => (
+          <Link
+            key={key}
+            to={to}
+            className={`nav-item ${active === key ? 'active' : ''}`}
+            onClick={() => setActive(key)}
+            aria-current={active === key ? 'page' : undefined}
+          >
+            {icon}
+            <span className="nav-text">{text}</span>
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 };

@@ -38,7 +38,7 @@
   padding: 10px 20px;
   font-size: 1rem;
   border-radius: 25px;
-  border: 2px solid #bb86fc;
+  border: 2px solid #6200ee;
   background-color: #121212;
   color: #e0e0e0;
   outline: none;
@@ -46,7 +46,7 @@
 }
 
 .search-input:focus {
-  border-color: #bb86fc;
+  border-color: #6200ee;
   box-shadow: 0 0 8px rgba(187, 134, 252, 0.5);
 }
 
@@ -57,16 +57,13 @@
   font-size: 1rem;
   border: none;
   border-radius: 30px;
-  background-color: #bb86fc;
+  background-color: #6200ee;
   color: #121212;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.search-button:hover {
-  background-color: #9b6ed6;
-}
 
 .search-button:active {
   background-color: #7a4ec9;
@@ -173,7 +170,7 @@
 
 .filter-group input[type="checkbox"]:checked {
   background-color: #111;
-  border-color: #bb86fc;
+  border-color: #6200ee;
 }
 
 .filter-group input[type="checkbox"]:checked::after {
@@ -182,7 +179,7 @@
   width: 10px;
   height: 10px;
   border-radius: 2px;
-  background-color: #bb86fc;
+  background-color: #6200ee;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -197,7 +194,7 @@
 .filter-group .more-button {
   text-decoration: none;
   margin-top: 10px;
-  background-color: #bb86fc;
+  background-color: #6200ee;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -207,9 +204,6 @@
   transition: background-color 0.3s ease;
 }
 
-.filter-group .more-button:hover {
-  background-color: #9b6ed6;
-}
 
 .filter-group .additional-categories {
   overflow: hidden;
@@ -260,7 +254,7 @@
 /* Кнопка создания заказа */
 .create-order-button {
   font-family: 'Montserrat', sans-serif;
-  background-color: #bb86fc; /* Основной цвет кнопки */
+  background-color: #6200ee; /* Основной цвет кнопки */
   color: #1a1a1a; /* Цвет текста */
   border: none;
   border-radius: 12px; /* Слегка округлённые углы */

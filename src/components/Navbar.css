@@ -1,36 +1,38 @@
-/* Общие стили для navbar */
 .navbar {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   position: fixed;
-  bottom: 20px; /* Отступ от нижнего края экрана */
-  left: 20px; /* Отступ от левого края экрана */
-  right: 20px; /* Отступ от правого края экрана */
-  background: rgba(42, 42, 42, 0.7); /* Полупрозрачный фон */
-  border-radius: 20px; /* Скругление углов */
-  padding: 10px 20px; /* Отступы внутри контейнера */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Тень для эффекта */
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(42, 42, 42, 0.7);
+  border-radius: 20px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
   z-index: 1000;
+  overflow-x: auto;
+  overflow-y: hidden;
   transition: transform 0.3s ease-in-out;
-  backdrop-filter: blur(20px); /* Эффект размытия */
 }
 
-/* Стили для ссылок в navbar */
-.nav-item {
+.nav-wrapper {
   display: flex;
+}
+
+.nav-item {
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   color: #e0e0e0;
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s, transform 0.3s;
-  padding: 12px 16px; /* Отступы вокруг иконки и текста */
-  border-radius: 20px; /* Округление углов для ссылок */
+  padding: 12px 16px;
+  border-radius: 20px;
 }
 
 .nav-item.active {
-  color: #bb86fc;
-  background-color: #0e0e0ea1;
+  color: #6200ee;
+  background-color: rgba(14, 14, 14, 0.7);
 }
 
 .nav-icon {
@@ -42,11 +44,10 @@
   margin-top: 4px;
 }
 
-/* Адаптивные стили для мобильных устройств */
 @media (max-width: 768px) {
   .navbar {
-    padding: 8px 16px; /* Отступы для мобильных устройств */
-    left: 10px; /* Уменьшаем отступы от краев экрана для мобильных устройств */
+    padding: 8px 16px;
+    left: 10px;
     right: 10px;
   }
 
@@ -61,8 +62,8 @@
 
 @media (max-width: 480px) {
   .navbar {
-    padding: 6px 12px; /* Дополнительное уменьшение отступов для маленьких экранов */
-    left: 5px; /* Минимальные отступы от краев экрана */
+    padding: 6px 12px;
+    left: 5px;
     right: 5px;
   }
 

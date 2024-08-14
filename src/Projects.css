@@ -1,0 +1,157 @@
+.projects-page {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Заполняет весь экран по высоте */
+    background-color: #000000; /* Темный фон */
+  }
+  
+  .projects-header {
+    margin-bottom: 5px;
+    color: #fefefe; /* Цвет текста заголовка */
+  }
+  
+  .projects-list {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам оборачиваться на новую строку */
+    justify-content: center; /* Выравнивание карточек по центру */
+    gap: 20px; /* Отступы между карточками */
+  }
+  
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #4c4c4c;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    width: 330px; /* Фиксированная ширина карточки */
+    max-width: 100%; /* Позволяет карточке не выходить за границы контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-card:last-child {
+    margin-bottom: 100px;
+  }
+
+  .project-image-wrapper {
+    height: 200px; /* Фиксированная высота изображения */
+    overflow: hidden;
+  }
+  
+  .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обеспечивает, чтобы изображение заполняло пространство */
+  }
+  
+  .project-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Позволяет содержимому занимать оставшееся пространство */
+  }
+  
+  .author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .author-name {
+    font-size: 14px;
+    color: #fefefe;
+  }
+  
+  .project-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fefefe;
+  }
+  
+  .project-description {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+    flex-grow: 1; /* Позволяет описанию занимать оставшееся пространство */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  
+  .like-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff2f2f;
+    position: relative;
+    outline: none;
+  }
+  
+  .like-button:active {
+    background: none; /* Убирает фон при нажатии */
+    border: none; /* Убирает границу при нажатии */
+    box-shadow: none; /* Убирает тень при нажатии */
+  }
+  
+  
+  
+  .like-button .like-count {
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  
+  .like-button.liked .like-icon {
+    color: red;
+    transform: scale(1.2); /* Увеличение и анимация при нажатии */
+    animation: pulse 0.6s ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .search-section3 {
+    margin-bottom: 30px;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 14px;
+    background-color: #111111;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }

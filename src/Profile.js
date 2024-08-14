@@ -1,15 +1,20 @@
 import React from 'react';
 import './Profile.css';
 import Navbar from './components/Navbar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = () => {
+  const avatarUrl = "https://www.ajc.org/sites/default/files/inline-images/Term%208%20-%20Pepe%20the%20FrogInline-300xflex.jpg"; 
+
   const user = {
     name: 'Рики Парк',
     description: 'Дизайнер пользовательских интерфейсов и фронтенд-разработчик',
     skills: ['UI / UX', 'Фронтенд-разработка', 'HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
     currentOrders: 5,
     archivedOrders: 12,
-    userType: 'Фрилансер'
+    userType: 'Фрилансер',
+    avatar: avatarUrl
   };
 
   return (
@@ -17,10 +22,12 @@ const Profile = () => {
       <Navbar />
       <div className="profile-content">
         <div className="card-container">
-          <span className="pro">UPRO</span>
+          <span className="pro">
+            <FontAwesomeIcon icon={faStar} className="pro-icon" /> PRO
+          </span>
           <img
             className="round"
-            src="https://randomuser.me/api/portraits/women/79.jpg"
+            src={user.avatar}
             alt="user"
           />
           <h3>{user.name}</h3>

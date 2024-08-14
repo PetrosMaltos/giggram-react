@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaClock, FaDollarSign, FaCommentDots, FaEye, FaChevronDown, FaChevronUp, FaUserCheck, FaUserTimes } from 'react-icons/fa';
+import { FaClock, FaCommentDots, FaEye, FaChevronDown, FaChevronUp, FaUserCheck, FaUserTimes } from 'react-icons/fa';
+import { FaRubleSign } from "react-icons/fa"; 
 import { useNavigate } from 'react-router-dom'; // Импортируем хук useNavigate
 import './OrderCard.css'; // Импортируем стили
 
@@ -38,8 +39,8 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
       </button>
       <div className="order-info">
         <div className="order-info-item">
-          <FaDollarSign className="order-icon" />
-          <span className="order-price">{price} руб</span>
+          <FaRubleSign className="order-icon" />
+          <span className="order-price">{price} руб.</span>
         </div>
         <div className="order-info-item">
           <FaEye className="order-icon" />

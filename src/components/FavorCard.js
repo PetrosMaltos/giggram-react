@@ -1,0 +1,39 @@
+import React from 'react';
+import { FaTag, FaRubleSign, FaCommentDots, FaCheckCircle } from 'react-icons/fa';
+import './FavorCard.css';
+
+const FavorCard = ({ title, tags, price, responses, category, imagePaths = [], userAvatar, isVerified }) => {
+  return (
+    <div className="favor-card">
+      <div className="favor-card-header">
+        <div className="favor-card-user-info">
+          <img src={userAvatar} alt="User Avatar" className="favor-card-user-avatar" />
+          {isVerified && <FaCheckCircle className="verified-icon" />}
+        </div>
+        <h2 className="favor-card-title">{title}</h2>
+      </div>
+      <div className="favor-card-images">
+        {imagePaths.slice(0, 2).map((imageDataURL, index) => (
+          <img key={index} src={imageDataURL} alt={`Favor ${index + 1}`} className="favor-card-image" />
+        ))}
+      </div>
+      <div className="favor-card-tags">
+        {tags.map((tag, index) => (
+          <span key={index} className="favor-card-tag">
+            <FaTag className="tag-icon" /> #{tag}
+          </span>
+        ))}
+      </div>
+      <div className="favor-card-footer">
+        <div className="favor-card-footer-item">
+          <FaRubleSign className="footer-icon" /> {price}
+        </div>
+        <div className="favor-card-footer-item">
+          <FaCommentDots className="footer-icon" /> {responses} откликов
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FavorCard;

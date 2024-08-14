@@ -34,7 +34,7 @@
   }
   
   .message-card {
-    border-left: 4px solid #6e03cb; /* Фиолетовая левая граница */
+    border-left: 4px solid #6200ee; /* Фиолетовая левая граница */
     display: flex;
     align-items: center;
     background-color: #1e1e1e;

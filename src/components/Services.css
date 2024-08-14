@@ -30,7 +30,7 @@
 .service-icon {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #bb86fc;
+  color: #6200ee;
 }
 
 .service-content {
@@ -52,7 +52,7 @@
 
 /* Subscription banner */
 .subscription-banner {
-  border: 2px solid rgb(203, 98, 255);
+  border: 2px solid #6200ee;
   background: linear-gradient(rgba(0, 0, 0, 0.692), rgba(0, 0, 0, 0.5)), url('/public/images/subscribe_offer.png');
   background-size: cover;
   background-position: center;
@@ -73,13 +73,13 @@
 
 .subscription-icon {
   font-size: 3rem;
-  color: #bb86fc;
+  color: #6200ee;
   margin-bottom: 20px;
 }
 
 .subscription-content h2 {
   font-size: 2.2rem; /* Slightly larger font size for emphasis */
-  color: #bb86fc; /* Purple color */
+  color: #6a00ff; /* Purple color */
   margin-bottom: 15px; /* Increased margin for better spacing */
   font-weight: 700; /* Bold font weight for emphasis */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
@@ -90,20 +90,21 @@
 .highlight {
   margin-top: 10px; /* Отступ сверху */
   padding: 0px 10px; /* Отступы внутри */
-  border: 2px solid #bb86fc; /* Цвет и стиль границы */
-  color: #bb86fc; /* Цвет текста */
+  border: 2px solid #6200ee; /* Цвет и стиль границы */
+  color: #6200ee; /* Цвет текста */
   border-radius: 12px; /* Закругленные углы */
   display: inline-block; /* Обеспечивает правильное отображение отступов и padding */
   font-weight: 700; /* Жирный шрифт */
 }
 
 .subscription-content p {
+  color: #e0e0e0;
   font-size: 1.2rem;
   margin-bottom: 30px; /* Decreased space between text and button */
 }
 
 .subscribe-button {
-  background: linear-gradient(145deg, #bb86fc, #9a67ea); /* Smooth gradient */
+  background: linear-gradient(145deg, #6200ee, #9a67ea); /* Smooth gradient */
   color: #fff;
   padding: 10px 25px;
   border-radius: 12px;

@@ -1,15 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate для навигации
 import './Messages.css'; // Импорт стилей для сообщений
 import { FaUserCircle, FaClock } from 'react-icons/fa';
 import Navbar from './components/Navbar';
 
 const chats = [
-  { id: 1, name: 'Alice Johnson', lastMessage: 'Привет, мы все еще в планах на сегодня?', time: '10:30' },
-  { id: 2, name: 'Bob Smith', lastMessage: 'Можешь прислать мне отчет?', time: 'Вчера' },
-  { id: 3, name: 'Charlie Brown', lastMessage: 'Во сколько мы встречаемся?', time: '2 дня назад' },
+  { username: 'alicejohnson', name: 'Alice Johnson', lastMessage: 'Привет, мы все еще в планах на сегодня?', time: '10:30' },
+  { username: 'bobsmith', name: 'Bob Smith', lastMessage: 'Можешь прислать мне отчет?', time: 'Вчера' },
+  { username: 'charliebrown', name: 'Charlie Brown', lastMessage: 'Во сколько мы встречаемся?', time: '2 дня назад' },
 ];
 
 const Messages = () => {
+  const navigate = useNavigate(); // Используем useNavigate для навигации
+
+  const handleChatClick = (username) => {
+    navigate(`/chat/${username}`); // Переход на страницу чата
+  };
+
   return (
     <div className="messages-page">
       <Navbar />
@@ -19,7 +26,11 @@ const Messages = () => {
         </header>
         <div className="messages-list">
           {chats.map(chat => (
-            <div key={chat.id} className="message-card">
+            <div
+              key={chat.username}
+              className="message-card"
+              onClick={() => handleChatClick(chat.username)} // Обработчик клика для перехода на страницу чата
+            >
               <div className="avatar">
                 <FaUserCircle size={50} />
               </div>

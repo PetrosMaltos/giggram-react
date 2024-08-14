@@ -11,7 +11,7 @@
     max-width: 600px;
     margin: 0 auto; 
     background-color: #000000; /* Черный фон контейнера */
-    padding: 30px; /* Увеличенные отступы для контейнера */
+    padding: 15px; /* Увеличенные отступы для контейнера */
     border-radius: 12px; /* Округлые углы контейнера */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Тень для глубины */
   }
@@ -58,19 +58,14 @@
     font-size: 1rem; /* Размер шрифта */
     border: none;
     border-radius: 12px; /* Округлые углы */
-    background-color: #bb86fc; /* Основной цвет кнопки */
-    color: #121212; /* Цвет текста кнопки */
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #ffffff; /* Цвет текста кнопки */
     cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тень для кнопки */
   }
   
-  /* Эффекты при наведении */
-  .submit-button:hover {
-    background-color: #9b6ed6; /* Темнее при наведении */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Более выраженная тень при наведении */
-  }
   
   /* Эффекты при нажатии */
   .submit-button:active {

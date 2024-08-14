@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CreateOrder.css';
+import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit } from 'react-icons/fa';
 
 const CreateOrder = () => {
   const [formData, setFormData] = useState({
@@ -39,10 +40,10 @@ const CreateOrder = () => {
   return (
     <div className="create-order-page">
       <div className="create-order-container">
-        <h1>Создать новый заказ</h1>
+        <h1><FaRegClipboard /> Создать новый заказ</h1>
         <form onSubmit={handleSubmit} className="create-order-form">
           <label>
-            Заголовок
+            <FaRegEdit /> Заголовок
             <input
               type="text"
               name="title"
@@ -52,7 +53,7 @@ const CreateOrder = () => {
             />
           </label>
           <label>
-            Описание
+            <FaListUl /> Описание
             <textarea
               name="description"
               value={formData.description}
@@ -61,7 +62,7 @@ const CreateOrder = () => {
             />
           </label>
           <label>
-            Категория
+            <FaTag /> Категория
             <input
               type="text"
               name="category"
@@ -71,7 +72,7 @@ const CreateOrder = () => {
             />
           </label>
           <label>
-            Цена
+            <FaDollarSign /> Цена
             <input
               type="number"
               name="price"
@@ -81,7 +82,7 @@ const CreateOrder = () => {
             />
           </label>
           <label>
-            Хэштеги (через запятую)
+            <FaTag /> Хэштеги (через запятую)
             <input
               type="text"
               name="tags"
@@ -89,7 +90,7 @@ const CreateOrder = () => {
               onChange={handleInputChange}
             />
           </label>
-          <button type="submit" className="submit-button">Создать заказ</button>
+          <button type="submit" className="submit-button">Создать заказ!</button>
         </form>
       </div>
     </div>

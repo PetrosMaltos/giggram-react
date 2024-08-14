@@ -7,11 +7,16 @@ import Categories from './components/Categories';
 import Services from './components/Services';
 import Orders from './Orders';
 import Messages from './Messages';
+import Chat from './components/Chat';
 import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
 import CreateOrder from './CreateOrder'
 import Login from './components/auth/Login';
+import Favors from './Favors';
+import Projects from './Projects'
+import Specialists from './Specialists';
+import Settings from './Settings';
 
 const App = () => {
 
@@ -84,10 +89,15 @@ const App = () => {
           <Route path="/create" element={<CreateOrder />} />
           <Route path="/main" element={<Main />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/favors" element={<Favors />} />
+          <Route path="/chat/:username" element={<Chat />} /> {/* Обновляем маршрут для страницы чата */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} />
           <Route path="/auth" element={<Login />} /> {/* Обновленный путь */}
+          <Route path="/specialists" element={<Specialists />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       )}
     </Router>
