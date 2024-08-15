@@ -83,7 +83,7 @@
     border-radius: 12px;
     padding: 4px 8px;
     font-size: 0.8rem;
-    border: 1px solid #bb86fc;
+    border: 1px solid #6200ee;
     white-space: nowrap;
   }
   
@@ -102,7 +102,7 @@
   .specialist-price {
     font-size: 1rem;
     font-weight: 600;
-    color: #bb86fc;
+    color: #6200ee;
     margin-top: 8px;
   }
   

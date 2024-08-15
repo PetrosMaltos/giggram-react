@@ -1,4 +1,4 @@
-/* General Styles */
+/* Общие стили */
 .settings-container {
     padding: 20px;
     height: 100vh;
@@ -78,7 +78,7 @@
     background-color: #6200ee;
 }
 
-/* Common Styles */
+/* Общие стили */
 .settings-title {
     font-size: 26px;
     font-weight: 600;
@@ -86,7 +86,7 @@
 }
 
 .settings-section {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .section-title {
@@ -95,8 +95,25 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #333333;
     padding-bottom: 10px;
+    cursor: pointer; /* Указатель для кликабельного заголовка */
 }
 
+/* Контент секции */
+.settings-content {
+    padding: 10px 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Показ контента при открытой секции */
+.settings-section.open .settings-content {
+    max-height: 500px; /* Увеличьте по необходимости */
+    opacity: 1;
+}
+
+/* Стили для элементов настроек */
 .setting-item {
     display: flex;
     justify-content: space-between;
@@ -119,7 +136,6 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-
 .setting-button:active {
     transform: scale(0.98);
 }
@@ -128,6 +144,7 @@
     font-size: 16px;
 }
 
+/* Стили для переключателя */
 .switch {
     position: relative;
     display: inline-block;

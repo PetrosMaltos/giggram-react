@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
 import Loading from './components/Loading';
@@ -11,15 +11,19 @@ import Chat from './components/Chat';
 import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
-import CreateOrder from './CreateOrder'
+import CreateOrder from './CreateOrder';
 import Login from './components/auth/Login';
 import Favors from './Favors';
-import Projects from './Projects'
+import Projects from './Projects';
 import Specialists from './Specialists';
 import Settings from './Settings';
+import ProjectPage from './components/ProjectPage'; // Импортируем новый компонент страницы проекта
+// В файле App.js
+import { projectsData } from './components/projectData'; // Импортируем именованный экспорт
+
+
 
 const App = () => {
-
   const orders = [
     {
       id: 1,
@@ -54,10 +58,9 @@ const App = () => {
       views: 382,
       category: 'Веб-разработка',
     },
-    
     // Добавьте другие заказы здесь
   ];
-  
+
   const [loading, setLoading] = useState(true);
   const { fetchOrders } = useOrderStore(state => ({
     fetchOrders: state.fetchOrders,
@@ -90,14 +93,15 @@ const App = () => {
           <Route path="/main" element={<Main />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/favors" element={<Favors />} />
-          <Route path="/chat/:username" element={<Chat />} /> {/* Обновляем маршрут для страницы чата */}
+          <Route path="/chat/:username" element={<Chat />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/auth" element={<Login />} /> {/* Обновленный путь */}
+          <Route path="/auth" element={<Login />} />
           <Route path="/specialists" element={<Specialists />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/projects/:id" element={<ProjectPage projects={projectsData} isAuthenticated={true} />} />
         </Routes>
       )}
     </Router>

@@ -24,6 +24,14 @@ const Navbar = () => {
     setActive(activeTab);
   }, [location.pathname]);
 
+  useEffect(() => {
+    // Scroll to the active tab if it's out of view
+    const activeElement = document.querySelector(`.nav-item.active`);
+    if (activeElement) {
+      activeElement.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+  }, [active]);
+
   return (
     <nav className="navbar" aria-label="Main navigation">
       <div className="nav-wrapper">

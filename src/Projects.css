@@ -7,6 +7,13 @@
     background-color: #000000; /* Темный фон */
   }
   
+  /* ProjectCard.css */
+.project-card-link {
+  text-decoration: none !important; /* Убирает подчеркивание у ссылки */
+  color: inherit !important; /* Наследует цвет текста от родительского элемента */
+}
+
+  
   .projects-header {
     margin-bottom: 5px;
     color: #fefefe; /* Цвет текста заголовка */
@@ -15,8 +22,9 @@
   .projects-list {
     display: flex;
     flex-wrap: wrap; /* Позволяет карточкам оборачиваться на новую строку */
-    justify-content: center; /* Выравнивание карточек по центру */
-    gap: 20px; /* Отступы между карточками */
+    justify-content: center; /* Центрирует карточки по горизонтали */
+    margin: 0; /* Убирает отступы, которые могут смещать карточки */
+    padding: 0; /* Убирает внутренние отступы */
   }
   
   .project-card {
@@ -29,11 +37,11 @@
     width: 330px; /* Фиксированная ширина карточки */
     max-width: 100%; /* Позволяет карточке не выходить за границы контейнера */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
     margin: 10px;
     display: flex;
     flex-direction: column;
   }
+  
   
   .project-card:last-child {
     margin-bottom: 100px;
@@ -134,7 +142,7 @@
       opacity: 1;
     }
     50% {
-      transform: scale(1.3);
+      transform: scale(1.1);
       opacity: 0.7;
     }
     100% {

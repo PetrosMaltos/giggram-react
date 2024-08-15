@@ -10,13 +10,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(20px);
   z-index: 1000;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: hidden; /* Hide vertical scrolling */
+  white-space: nowrap; /* Prevent line breaks */
   transition: transform 0.3s ease-in-out;
 }
 
 .nav-wrapper {
   display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 .nav-item {
@@ -31,7 +33,7 @@
 }
 
 .nav-item.active {
-  color: #6200ee;
+  color: #6a00ff;
   background-color: rgba(14, 14, 14, 0.7);
 }
 
