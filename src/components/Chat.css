@@ -20,7 +20,7 @@
     display: block;
     width: 3px;
     height: 100%;
-    background-color: #6e03cb; /* Фиолетовая палочка */
+    background-color: #6a00ff; /* Фиолетовая палочка */
     margin-right: 15px;
   }
   
@@ -113,7 +113,7 @@
   .message-input button {
     background: none;
     border: none;
-    color: #bb86fc;
+    color: #6a00ff;
     font-size: 1.3rem;
     cursor: pointer;
     margin-left: 10px;
