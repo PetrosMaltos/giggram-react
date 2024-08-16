@@ -11,6 +11,8 @@ const CreateOrder = () => {
     tags: '',
   });
 
+  const [response, setResponse] = useState('');
+
   useEffect(() => {
     // Настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
@@ -24,7 +26,13 @@ const CreateOrder = () => {
         window.Telegram.WebApp.BackButton.hide();
       };
     }
-  }, []); // Пустой массив зависимостей
+
+    return () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
+      }
+    };
+  }, []); // Empty dependency array, runs only on mount and unmount
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
