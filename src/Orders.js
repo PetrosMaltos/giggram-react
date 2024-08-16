@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OrderCard from './components/OrderCard';
-import { FaSearch, FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
 import Navbar from './components/Navbar';
-import { FaPlus } from 'react-icons/fa';
+import ordersData from './components/ordersData'; // Импортируем данные заказов
 import './Orders.css';
 
 const Orders = () => {
@@ -16,43 +16,11 @@ const Orders = () => {
     priceTo: '',
     categories: [],
   });
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      title: 'Проект по веб-разработке',
-      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 мин',
-      price: '100',
-      responses: '12',
-      views: 134,
-      category: 'Веб-разработка',
-    },
-    {
-      id: 2,
-      title: 'Проект на Java',
-      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 мин',
-      price: '5000',
-      responses: '11',
-      views: 144,
-      category: 'Веб-разработка',
-    },
-    {
-      id: 3,
-      title: 'Игра на Python',
-      description: 'Реализуйте свои идеи с этим предложением. Получите экспертную поддержку и высокое качество.',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 мин',
-      price: '50',
-      responses: '10',
-      views: 382,
-      category: 'Веб-разработка',
-    },
-    // Добавьте больше заказов по мере необходимости
-  ]);
-  const [filteredOrders, setFilteredOrders] = useState(orders);
+  const [filteredOrders, setFilteredOrders] = useState(ordersData); // Используем данные из ordersData
+
+  useEffect(() => {
+    filterOrders(filters); // Фильтрация при изменении фильтров
+  }, [filters]);
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +53,7 @@ const Orders = () => {
     const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
     const lowerSearchText = searchText.toLowerCase();
 
-    const newFilteredOrders = orders.filter(order => {
+    const newFilteredOrders = ordersData.filter(order => {
       const matchesCategory = !categories.length || categories.includes(order.category);
       const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
       const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
@@ -123,6 +91,7 @@ const Orders = () => {
             <FaSearch className="search-icon" />
           </button>
         </section>
+        
 
         <section className="filter-section">
           <button
@@ -210,31 +179,41 @@ const Orders = () => {
               </div>
             </div>
 
-            <div className="filter-group margin-bottom-20">
+            <div className="filter-group">
               <h3>Время</h3>
               <label>
-                <input type="checkbox" name="time" value="newest" onChange={handleCheckboxChange} /> Новые
+                <input type="checkbox" name="time" value="newest" onChange={handleCheckboxChange} /> Новейшие
               </label>
               <label>
-                <input type="checkbox" name="time" value="oldest" onChange={handleCheckboxChange} /> Старые
+                <input type="checkbox" name="time" value="oldest" onChange={handleCheckboxChange} /> Старейшие
               </label>
             </div>
           </div>
         </section>
-        <div className='create-order-button-container'>
-        <button className="create-order-button" onClick={handleCreateOrderClick}>
-          <FaPlus className="create-order-icon" /> Создать свой заказ
-        </button>
+        <div class="create-order-button-container">
+        <button class="create-order-button">
+          <span class="create-order-icon">+</span>
+           Создать заказ
+           </button>
         </div>
       </div>
 
-      <section className="orders-list-section">
-        <div className="orders-list">
-          {filteredOrders.map((order) => (
-            <OrderCard key={order.id} {...order} />
-          ))}
-        </div>
-      </section>
+      <div className="orders-list">
+        {filteredOrders.length ? filteredOrders.map(order => (
+          <OrderCard 
+            key={order.id}
+            id={order.id}
+            title={order.title}
+            description={order.description}
+            tags={order.tags}
+            timeAgo={order.timeAgo}
+            price={order.price}
+            responses={order.responses}
+            views={order.views}
+            isAssigned={order.isAssigned}
+          />
+        )) : <p>Нет доступных заказов</p>}
+      </div>
     </div>
   );
 };

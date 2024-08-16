@@ -107,7 +107,7 @@ html, body {
   padding: 20px;
 }
 
-.orders-list, .categories-list, .services-list {
+.main-list, .categories-list, .services-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;

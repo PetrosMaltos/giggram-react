@@ -277,6 +277,12 @@
   transform: scale(0.98); /* Небольшое уменьшение при нажатии */
 }
 
+/* Orders.css */
+.orders-list .order-card:last-child {
+  margin-bottom: 125px; /* Добавление отступа снизу для последней карточки */
+}
+
+
 /* Отключенное состояние */
 .create-order-button:disabled {
   background-color: #d1c4e9; /* Светлый цвет для отключенной кнопки */

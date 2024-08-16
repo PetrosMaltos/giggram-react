@@ -9,11 +9,6 @@
   padding: 10px; /* Отступы внутри контейнера */
 }
 
-/* Отступ 50px только для последнего элемента */
-.orders-list .order-card:last-child {
-  margin-bottom: 125px; /* Добавление отступа снизу для последней карточки */
-}
-
 .order-card { 
   border: 2px solid #2c2c2c;
   background-color: #1e1e1e; /* Более темный фон для контраста */

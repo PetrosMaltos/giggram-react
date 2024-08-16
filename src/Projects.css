@@ -63,8 +63,10 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1; /* Позволяет содержимому занимать оставшееся пространство */
+    white-space: pre-wrap; /* Чтобы текст переносился и не обрезался */
+    overflow-wrap: break-word; /* Разбивать длинные слова для предотвращения переполнения */
   }
-  
+
   .author-info {
     display: flex;
     align-items: center;

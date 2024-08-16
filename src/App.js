@@ -18,8 +18,9 @@ import Projects from './Projects';
 import Specialists from './Specialists';
 import Settings from './Settings';
 import ProjectPage from './components/ProjectPage'; // Импортируем новый компонент страницы проекта
-// В файле App.js
 import { projectsData } from './components/projectData'; // Импортируем именованный экспорт
+import Help from './Help';
+
 
 
 
@@ -102,6 +103,8 @@ const App = () => {
           <Route path="/projects" element={<Projects />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/projects/:id" element={<ProjectPage projects={projectsData} isAuthenticated={true} />} />
+          <Route path="/help" element={<Help />} />
+          
         </Routes>
       )}
     </Router>

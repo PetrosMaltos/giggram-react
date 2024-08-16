@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import OrderCard from './components/OrderCard';
 import Categories from './components/Categories';
 import LogoAnimation from './components/LogoAnimation';
@@ -6,29 +7,15 @@ import Navbar from './components/Navbar';
 import Services from './components/Services';
 import AuthPrompt from './components/auth/Login';
 import { FaSearch } from 'react-icons/fa';
+import ordersData from './components/ordersData'; // Импортируем данные заказов
 import './Main.css';
 
 const Main = () => {
-  const orders = [
-    {
-      title: 'Веб-разработка',
-      description: 'Создайте современный сайт для бизнеса.',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 мин.',
-      price: '500',
-      responses: '10',
-      views: 134,
-    },
-    {
-      title: 'Дизайн логотипа',
-      description: 'Создайте уникальный логотип для стартапа.',
-      tags: ['Дизайн', 'Брендинг'],
-      timeAgo: '10 сек.',
-      price: '150 тыс.',
-      responses: '5',
-      views: 328,
-    },
-  ];
+  const navigate = useNavigate(); // Используем useNavigate для навигации
+
+  const handleCardClick = (id) => {
+    navigate(`/orders/${id}`); // Переход на страницу деталей заказа
+  };
 
   const isLoggedIn = false; // Для управления видимостью AuthPrompt
 
@@ -40,7 +27,6 @@ const Main = () => {
         <h1 className="header-title">
           <span className="gradient-text">GigGram</span>: Ваш Центр Фриланса
         </h1>
-
         <p>Найдите проекты и соединитесь с клиентами.</p>
       </header>
 
@@ -53,9 +39,11 @@ const Main = () => {
 
       <section className="featured-orders-section">
         <h2>Новые заказы</h2>
-        <div className="orders-list">
-          {orders.map((order, index) => (
-            <OrderCard key={index} {...order} />
+        <div className="main-list">
+          {ordersData.map((order) => (
+            <div key={order.id} onClick={() => handleCardClick(order.id)}> {/* Добавляем обработчик клика */}
+              <OrderCard {...order} />
+            </div>
           ))}
         </div>
       </section>

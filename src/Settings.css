@@ -50,7 +50,7 @@
 }
 
 .settings-container.dark .settings-title {
-    color: #6200ee;
+    color: hsl(0, 0%, 100%);
 }
 
 .settings-container.dark .section-title {

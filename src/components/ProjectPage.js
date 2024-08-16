@@ -48,7 +48,7 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
     <div className="project-detail">
       <ScrollToTop />
       <div className="project-info">
-        <div className="project-image">
+        <div className="project-image1">
           <img src={project.image} alt={project.title} />
         </div>
         <div className="client-profile">
