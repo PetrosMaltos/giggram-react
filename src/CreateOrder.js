@@ -20,11 +20,14 @@ const CreateOrder = () => {
   
       // Cleanup function
       return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+          window.Telegram.WebApp.BackButton.hide();
+        }
       };
     }
   }, []);
+  
   
 
   const handleInputChange = (e) => {
