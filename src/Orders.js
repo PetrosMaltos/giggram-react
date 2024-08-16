@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link here
 import OrderCard from './components/OrderCard';
 import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
 import Navbar from './components/Navbar';
@@ -92,7 +93,6 @@ const Orders = () => {
           </button>
         </section>
         
-
         <section className="filter-section">
           <button
             className={`filter-toggle ${showFilters ? 'active' : ''}`}
@@ -190,11 +190,11 @@ const Orders = () => {
             </div>
           </div>
         </section>
-        <div class="create-order-button-container">
-        <button class="create-order-button">
-          <span class="create-order-icon">+</span>
-           Создать заказ
-           </button>
+
+        <div className='create-favor-button-container'>
+        <button className="create-favor-button" onClick={handleCreateOrderClick}>
+          <FaPlus className="create-favor-icon" /> Создать свой заказ
+        </button>
         </div>
       </div>
 
