@@ -68,6 +68,15 @@ const App = () => {
   }));
 
   useEffect(() => {
+    if (window.Telegram && window.Telegram.WebApp) {
+      // Установите цвет заголовка один раз
+      window.Telegram.WebApp.Header.setBackgroundColor('#000000'); // Черный цвет, замените на #808080 для серого
+
+      // Если хотите, чтобы цвет не менялся, уберите возврат функции
+      return () => {
+        // Не изменяйте цвет при размонтировании
+      };
+    }
 
     const timer = setTimeout(() => {
       setLoading(false);
