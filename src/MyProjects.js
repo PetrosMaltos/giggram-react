@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCard from './components/ProjectCard';
 import './MyProjects.css';
 

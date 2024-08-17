@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FavorCard from './components/FavorCard';
 import './MyFavors.css';
 
