@@ -12,6 +12,12 @@ const CreateOrder = () => {
   });
 
   useEffect(() => {
+
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.setHeaderColor('#000000');
+    }
+    
     // Настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
@@ -30,7 +36,8 @@ const CreateOrder = () => {
         window.Telegram.WebApp.BackButton.hide();
       }
     };
-  }, []);  
+  }, []);
+  
   
 
   const handleInputChange = (e) => {
