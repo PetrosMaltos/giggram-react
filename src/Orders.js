@@ -21,9 +21,6 @@ const Orders = () => {
 
   useEffect(() => {
     filterOrders(filters); // Фильтрация при изменении фильтров
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.hide();
-    }
   }, [filters]);
 
   const handleCheckboxChange = (e) => {
