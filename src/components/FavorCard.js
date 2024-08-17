@@ -2,7 +2,16 @@ import React from 'react';
 import { FaTag, FaRubleSign, FaCommentDots, FaCheckCircle } from 'react-icons/fa';
 import './FavorCard.css';
 
-const FavorCard = ({ title, tags, price, responses, category, imagePaths = [], userAvatar, isVerified }) => {
+const FavorCard = ({ 
+  title = 'Без названия', 
+  tags = [], 
+  price = '0', 
+  responses = 0, 
+  category = 'Без категории', 
+  imagePaths = [], 
+  userAvatar = 'default-avatar.png', 
+  isVerified = false 
+}) => {
   return (
     <div className="favor-card">
       <div className="favor-card-header">

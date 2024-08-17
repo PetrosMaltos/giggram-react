@@ -3,22 +3,31 @@ import FavorCard from './components/FavorCard';
 import './MyFavors.css';
 
 const MyFavors = () => {
-  const services = [
-    { id: 1, title: 'Услуга 1', description: 'Описание услуги 1', category: 'Категория 1' },
-    { id: 2, title: 'Услуга 2', description: 'Описание услуги 2', category: 'Категория 2' },
-    // Добавьте больше данных услуг
-  ];
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
+    // Имитируем получение данных
+    const fetchServices = async () => {
+      // Здесь вы можете заменить на реальный запрос
+      const servicesData = [
+        { id: 1, title: 'Услуга 1', description: 'Описание услуги 1', category: 'Категория 1' },
+        { id: 2, title: 'Услуга 2', description: 'Описание услуги 2', category: 'Категория 2' },
+      ];
+      setServices(servicesData);
+    };
+
+    fetchServices();
+
     // Настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
 
       const handleBackButtonClick = () => window.history.back();
       window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-
     }
   }, []);
+
+  console.log(services); // Отладка
 
   return (
     <div className="my-services-page">
