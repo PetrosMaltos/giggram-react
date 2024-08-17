@@ -98,8 +98,9 @@ button.primary.ghost:hover {
 }
 
 .active-orders {
+  text-decoration: none;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   position: relative;
   width: 100%;
 }
@@ -111,9 +112,38 @@ button.primary.ghost:hover {
   text-decoration: none;
 }
 
-.active-orders a:hover {
-  text-decoration: underline;
+
+.active-projects {
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
 }
+
+.active-projects a {
+  color: #6200ee;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+.active-favors {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.active-favors a {
+  color: #6200ee;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
 
 .skills {
   text-align: left;

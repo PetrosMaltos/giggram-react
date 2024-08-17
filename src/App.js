@@ -20,6 +20,9 @@ import Settings from './Settings';
 import ProjectPage from './components/ProjectPage'; // Импортируем новый компонент страницы проекта
 import { projectsData } from './components/projectData'; // Импортируем именованный экспорт
 import Help from './Help';
+import MyOrders from './MyOrders';
+import MyProjects from './MyProjects';
+import MyFavors from './MyFavors';
 
 
 
@@ -104,6 +107,9 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/projects/:id" element={<ProjectPage projects={projectsData} isAuthenticated={true} />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/my-projects" element={<MyProjects />} />
+          <Route path="/my-favors" element={<MyFavors />} />
           
         </Routes>
       )}

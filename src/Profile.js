@@ -12,6 +12,8 @@ const Profile = () => {
     description: 'Дизайнер пользовательских интерфейсов и фронтенд-разработчик',
     skills: ['UI / UX', 'Фронтенд-разработка', 'HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
     currentOrders: 5,
+    currentProjects: 1,
+    currentFavors: 2,
     archivedOrders: 12,
     userType: 'Фрилансер',
     avatar: avatarUrl
@@ -34,7 +36,17 @@ const Profile = () => {
           <p>{user.description}</p>
           {user.currentOrders > 0 && (
             <div className="active-orders">
-              <a href="/active-orders">Активные заказы ({user.currentOrders})</a>
+              <a href="/my-orders">Мои заказы ({user.currentOrders})</a>
+            </div>
+          )}
+          {user.currentProjects > 0 && (
+            <div className="active-projects">
+              <a href="/my-projects">Мои проекты ({user.currentOrders})</a>
+            </div>
+          )}
+          {user.currentFavors > 0 && (
+            <div className="active-favors">
+              <a href="/my-favors">Мои услуги ({user.currentOrders})</a>
             </div>
           )}
           <div className="button-group">
