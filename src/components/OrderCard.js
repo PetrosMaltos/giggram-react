@@ -8,7 +8,7 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const handleCardClick = () => {
+  const handleClick = () => {
     if (id) {
       navigate(`/orders/${id}`);
     } else {
@@ -22,7 +22,7 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
   };
 
   return (
-    <div className="order-card" onClick={handleCardClick}>
+    <div className="order-card" onClick={handleClick}>
       <div className="order-header">
         <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
           {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
@@ -56,8 +56,8 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
         </div>
       </div>
       <div className="order-tags">
-        {tags.length > 0 ? (
-          tags.split(',').map((tag, index) => (
+        {Array.isArray(tags) && tags.length > 0 ? (
+          tags.map((tag, index) => (
             <span key={index} className="order-tag"># {tag.trim()}</span>
           ))
         ) : (
