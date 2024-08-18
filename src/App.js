@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
 import Loading from './components/Loading';
@@ -17,54 +17,15 @@ import Favors from './Favors';
 import Projects from './Projects';
 import Specialists from './Specialists';
 import Settings from './Settings';
-import ProjectPage from './components/ProjectPage'; // Импортируем новый компонент страницы проекта
-import { projectsData } from './components/projectData'; // Импортируем именованный экспорт
+import ProjectPage from './components/ProjectPage';
+import { projectsData } from './components/projectData';
 import Help from './Help';
 import MyOrders from './MyOrders';
 import MyProjects from './MyProjects';
 import MyFavors from './MyFavors';
-
-
-
+import { ordersData } from './components/ordersData'; // Импортируем данные заказов
 
 const App = () => {
-  const orders = [
-    {
-      id: 1,
-      title: 'Проект веб-разработки',
-      description: 'Превратите ваши идеи в реальность с этим эксклюзивным предложением! Получите профессиональную поддержку для вашего проекта с индивидуальными решениями и непревзойденным качеством. Действуйте сейчас!',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 минута назад',
-      price: '100',
-      responses: '12',
-      views: 134,
-      category: 'Веб-разработка',
-    },
-    {
-      id: 2,
-      title: 'Проект на Java',
-      description: 'Превратите ваши идеи в реальность с этим эксклюзивным предложением! Получите профессиональную поддержку для вашего проекта с индивидуальными решениями и непревзойденным качеством. Действуйте сейчас!',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 минута назад',
-      price: '5000',
-      responses: '11',
-      views: 144,
-      category: 'Веб-разработка',
-    },
-    {
-      id: 3,
-      title: 'Игра на Python',
-      description: 'Превратите ваши идеи в реальность с этим эксклюзивным предложением! Получите профессиональную поддержку для вашего проекта с индивидуальными решениями и непревзойденным качеством. Действуйте сейчас!',
-      tags: ['Веб-разработка', 'Front-End'],
-      timeAgo: '1 минута назад',
-      price: '50',
-      responses: '10',
-      views: 382,
-      category: 'Веб-разработка',
-    },
-    // Добавьте другие заказы здесь
-  ];
-
   const [loading, setLoading] = useState(true);
   const { fetchOrders } = useOrderStore(state => ({
     fetchOrders: state.fetchOrders,
@@ -91,8 +52,8 @@ const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/orders/:id" element={<OrderDetail orders={orders} />} />
+          <Route path="/orders" element={<Orders orders={ordersData} />} />
+          <Route path="/orders/:id" element={<OrderDetail orders={ordersData} />} />
           <Route path="/create" element={<CreateOrder />} />
           <Route path="/main" element={<Main />} />
           <Route path="/messages" element={<Messages />} />
@@ -110,7 +71,6 @@ const App = () => {
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/my-projects" element={<MyProjects />} />
           <Route path="/my-favors" element={<MyFavors />} />
-          
         </Routes>
       )}
     </Router>

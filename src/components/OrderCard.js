@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import { FaClock, FaCommentDots, FaEye, FaChevronDown, FaChevronUp, FaUserCheck, FaUserTimes } from 'react-icons/fa';
-import { FaRubleSign } from "react-icons/fa"; 
-import { useNavigate } from 'react-router-dom'; // Импортируем хук useNavigate
-import './OrderCard.css'; // Импортируем стили
+import { FaRubleSign } from 'react-icons/fa'; 
+import { useNavigate } from 'react-router-dom';
+import './OrderCard.css';
 
 const OrderCard = ({ id, title, description, tags = [], timeAgo, price, responses, views, isAssigned }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  const navigate = useNavigate(); // Инициализируем navigate
+  const navigate = useNavigate();
 
   const handleCardClick = () => {
     if (id) {
-      navigate(`/orders/${id}`); // Перенаправляем на страницу с деталями заказа
+      navigate(`/orders/${id}`);
     } else {
-      console.error('Order id is missing'); // Логируем ошибку, если id отсутствует
+      console.error('Order id is missing');
     }
   };
 
   const toggleDescription = (event) => {
-    event.stopPropagation(); // Предотвращаем всплытие события клика
+    event.stopPropagation();
     setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
   return (
     <div className="order-card" onClick={handleCardClick}>
       <div className="order-header">
-      <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
+        <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
           {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
           <span>{isAssigned ? 'Исполнитель выбран' : 'Исполнитель не выбран'}</span>
         </div>
@@ -57,8 +57,8 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
       </div>
       <div className="order-tags">
         {tags.length > 0 ? (
-          tags.map((tag, index) => (
-            <span key={index} className="order-tag"># {tag}</span>
+          tags.split(',').map((tag, index) => (
+            <span key={index} className="order-tag"># {tag.trim()}</span>
           ))
         ) : (
           <span className="order-tag">Нет тегов</span>

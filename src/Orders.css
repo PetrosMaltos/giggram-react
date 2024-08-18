@@ -279,7 +279,7 @@
 
 /* Orders.css */
 .orders-list .order-card:last-child {
-  margin-bottom: 125px; /* Добавление отступа снизу для последней карточки */
+  margin-bottom: 10px; /* Добавление отступа снизу для последней карточки */
 }
 
 
@@ -326,3 +326,33 @@
     flex: 1 1 calc(33.33% - 20px);
   }
 }
+
+/* Pagination Styles */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 125px;
+}
+
+.pagination-button {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #4a4a4a;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button.active, .pagination-button:hover {
+  background-color: #6c63ff;
+}
+
+.pagination-button:disabled {
+  background-color: #6c63ff;
+  cursor: default;
+}
+

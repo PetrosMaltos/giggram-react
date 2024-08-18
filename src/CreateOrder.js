@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CreateOrder.css';
 import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit } from 'react-icons/fa';
+import axios from 'axios';
 
 const CreateOrder = () => {
   const [formData, setFormData] = useState({
@@ -10,35 +12,19 @@ const CreateOrder = () => {
     price: '',
     tags: '',
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.setHeaderColor('#000000');
     }
-    
-    // Настройка кнопки "Назад"
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
-  
       const handleBackButtonClick = () => window.history.back();
       window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-  
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
     }
-  
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    };
   }, []);
-  
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,8 +33,21 @@ const CreateOrder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Order created:', formData);
+    axios.post('http://localhost:5000/orders', formData)
+      .then(response => {
+        console.log('Order created:', response.data);
+        
+        // Save the new order to localStorage
+        const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+        savedOrders.push(response.data); // Add the new order to localStorage
+        localStorage.setItem('orders', JSON.stringify(savedOrders));
+
+        // Navigate to the orders page or show confirmation
+        navigate('/orders');
+      })
+      .catch(error => {
+        console.error('Error creating order:', error);
+      });
   };
 
   return (

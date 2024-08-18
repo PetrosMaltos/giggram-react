@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link here
+import { Link } from 'react-router-dom';
 import OrderCard from './components/OrderCard';
 import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
+import axios from 'axios';
 import Navbar from './components/Navbar';
-import ordersData from './components/ordersData'; // Импортируем данные заказов
 import './Orders.css';
 
 const Orders = () => {
@@ -17,11 +17,45 @@ const Orders = () => {
     priceTo: '',
     categories: [],
   });
-  const [filteredOrders, setFilteredOrders] = useState(ordersData); // Используем данные из ordersData
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    filterOrders(filters); // Фильтрация при изменении фильтров
-  }, [filters]);
+    // Load orders from localStorage or API
+    const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    setOrders(savedOrders);
+  }, []);
+
+  useEffect(() => {
+    // Fetch orders from the server
+    axios.get('http://localhost:5000/orders')
+      .then(response => {
+        setOrders(response.data);
+        setFilteredOrders(response.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    filterOrders(filters);
+  }, [filters, orders]);
+
+  const filterOrders = (filters) => {
+    const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
+    const lowerSearchText = searchText.toLowerCase();
+
+    const newFilteredOrders = orders.filter(order => {
+      const matchesCategory = !categories.length || categories.includes(order.category);
+      const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
+      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
+      const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
+      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
+        (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
+
+      return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
+    });
+
+    setFilteredOrders(newFilteredOrders);
+  };
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
@@ -50,27 +84,17 @@ const Orders = () => {
     });
   };
 
-  const filterOrders = (filters) => {
-    const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
-    const lowerSearchText = searchText.toLowerCase();
-
-    const newFilteredOrders = ordersData.filter(order => {
-      const matchesCategory = !categories.length || categories.includes(order.category);
-      const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
-      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
-      const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
-      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
-        (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
-
-      return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
-    });
-
-    setFilteredOrders(newFilteredOrders);
-  };
-
   const handleCreateOrderClick = () => {
     window.location.href = '/create';
   };
+
+  const ordersPerPage = 10; // Define the number of orders per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="orders-page">
@@ -192,14 +216,14 @@ const Orders = () => {
         </section>
 
         <div className='create-favor-button-container'>
-        <button className="create-favor-button" onClick={handleCreateOrderClick}>
-          <FaPlus className="create-favor-icon" /> Создать свой заказ
-        </button>
+          <button className="create-favor-button" onClick={handleCreateOrderClick}>
+            <FaPlus className="create-favor-icon" /> Создать свой заказ
+          </button>
         </div>
       </div>
 
       <div className="orders-list">
-        {filteredOrders.length ? filteredOrders.map(order => (
+        {currentOrders.length ? currentOrders.map(order => (
           <OrderCard 
             key={order.id}
             id={order.id}
@@ -208,11 +232,23 @@ const Orders = () => {
             tags={order.tags}
             timeAgo={order.timeAgo}
             price={order.price}
-            responses={order.responses}
+            category={order.category}
             views={order.views}
-            isAssigned={order.isAssigned}
+            responses={order.responses}
           />
-        )) : <p>Нет доступных заказов</p>}
+        )) : <p>Заказы не найдены</p>}
+      </div>
+
+      <div className="pagination">
+        {[...Array(Math.ceil(filteredOrders.length / ordersPerPage)).keys()].map(number => (
+          <button
+            key={number + 1}
+            onClick={() => paginate(number + 1)}
+            className={`pagination-button ${currentPage === number + 1 ? 'active' : ''}`}
+          >
+            {number + 1}
+          </button>
+        ))}
       </div>
     </div>
   );
