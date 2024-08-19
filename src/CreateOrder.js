@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { db } from './firebaseConfig';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import './CreateOrder.css';
 import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit } from 'react-icons/fa';
-import axios from 'axios';
 
 const CreateOrder = () => {
   const [formData, setFormData] = useState({
@@ -14,40 +15,32 @@ const CreateOrder = () => {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.setHeaderColor('#000000');
-    }
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-    }
-  }, []);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/orders', formData)
-      .then(response => {
-        console.log('Order created:', response.data);
-        
-        // Save the new order to localStorage
-        const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
-        savedOrders.push(response.data); // Add the new order to localStorage
-        localStorage.setItem('orders', JSON.stringify(savedOrders));
+    const { title, description, category, price, tags } = formData;
+    
+    const newOrder = {
+      title,
+      description,
+      category,
+      price: parseFloat(price), // Преобразуем цену в число
+      tags: tags.split(',').map(tag => tag.trim()),
+      views: 0,
+      responses: 0,
+      createdAt: Timestamp.now(), // Записываем текущее время
+    };
 
-        // Navigate to the orders page or show confirmation
-        navigate('/orders');
-      })
-      .catch(error => {
-        console.error('Error creating order:', error);
-      });
+    try {
+      await addDoc(collection(db, 'orders'), newOrder);
+      navigate('/orders'); // Перенаправление на страницу заказов
+    } catch (error) {
+      console.error('Ошибка создания заказа:', error);
+    }
   };
 
   return (

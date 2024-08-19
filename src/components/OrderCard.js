@@ -1,14 +1,39 @@
-import React, { useState } from 'react';
-import { FaClock, FaCommentDots, FaEye, FaChevronDown, FaChevronUp, FaUserCheck, FaUserTimes } from 'react-icons/fa';
-import { FaRubleSign } from 'react-icons/fa'; 
+import React, { useState, useEffect } from 'react';
+import { FaClock, FaCommentDots, FaEye, FaUserCheck, FaUserTimes, FaRubleSign } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { formatDistanceToNow } from 'date-fns';
+import { ru } from 'date-fns/locale';
 import './OrderCard.css';
 
-const OrderCard = ({ id, title, description, tags = [], timeAgo, price, responses, views, isAssigned }) => {
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+const OrderCard = ({ id, title, description, tags = [], createdAt, price, responses, views, isAssigned }) => {
+  const [timeAgo, setTimeAgo] = useState('');
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  useEffect(() => {
+    if (createdAt) {
+      const createdAtDate = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
+  
+      console.log('CreatedAtDate:', createdAtDate); // Логирование даты для проверки
+  
+      const updateTimeAgo = () => {
+        setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
+      };
+  
+      // Обновление времени при загрузке
+      updateTimeAgo();
+  
+      // Обновляем время каждую секунду
+      const timer = setInterval(updateTimeAgo, 1000);
+  
+      return () => clearInterval(timer);
+    } else {
+      console.error('createdAt is undefined');
+    }
+  }, [createdAt]);
+  
+  
+
+  const handleCardClick = () => {
     if (id) {
       navigate(`/orders/${id}`);
     } else {
@@ -16,13 +41,8 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
     }
   };
 
-  const toggleDescription = (event) => {
-    event.stopPropagation();
-    setIsDescriptionExpanded(!isDescriptionExpanded);
-  };
-
   return (
-    <div className="order-card" onClick={handleClick}>
+    <div className="order-card" onClick={handleCardClick}>
       <div className="order-header">
         <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
           {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
@@ -30,13 +50,9 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
         </div>
         <h3 className="order-title">{title}</h3>
       </div>
-      <p className={`order-description ${isDescriptionExpanded ? 'expanded' : 'collapsed'}`}>
+      <p className="order-description">
         {description}
       </p>
-      <button className="toggle-description" onClick={toggleDescription}>
-        {isDescriptionExpanded ? <FaChevronUp /> : <FaChevronDown />}
-        {isDescriptionExpanded ? 'Скрыть' : 'Больше'}
-      </button>
       <div className="order-info">
         <div className="order-info-item">
           <FaRubleSign className="order-icon" />
@@ -44,21 +60,21 @@ const OrderCard = ({ id, title, description, tags = [], timeAgo, price, response
         </div>
         <div className="order-info-item">
           <FaEye className="order-icon" />
-          <span className="order-views">{views} просмотров</span>
+          <span className="order-views">{views || 0} просмотров</span>
         </div>
         <div className="order-info-item">
-          <FaClock className="order-icon" />
-          <span className="order-time">{timeAgo} назад</span>
-        </div>
+            <FaClock className="order-icon" />
+            <span className="order-time">{timeAgo}</span>
+          </div>
         <div className="order-info-item">
           <FaCommentDots className="order-icon" />
-          <span className="order-responses">{responses} откликов</span>
+          <span className="order-responses">{responses || 0} откликов</span>
         </div>
       </div>
       <div className="order-tags">
-        {Array.isArray(tags) && tags.length > 0 ? (
+        {tags.length > 0 ? (
           tags.map((tag, index) => (
-            <span key={index} className="order-tag"># {tag.trim()}</span>
+            <span key={index} className="order-tag"># {tag}</span>
           ))
         ) : (
           <span className="order-tag">Нет тегов</span>

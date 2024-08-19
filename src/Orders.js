@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Импорт Link здесь
 import OrderCard from './components/OrderCard';
 import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
-import axios from 'axios';
 import Navbar from './components/Navbar';
+import { db, collection, onSnapshot } from './firebaseConfig'; // Импортируйте функции Firebase
 import './Orders.css';
 
 const Orders = () => {
@@ -17,45 +17,26 @@ const Orders = () => {
     priceTo: '',
     categories: [],
   });
+  const [ordersData, setOrdersData] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // Load orders from localStorage or API
-    const savedOrders = JSON.parse(localStorage.getItem('orders')) || [];
-    setOrders(savedOrders);
-  }, []);
-
-  useEffect(() => {
-    // Fetch orders from the server
-    axios.get('http://localhost:5000/orders')
-      .then(response => {
-        setOrders(response.data);
-        setFilteredOrders(response.data);
-      });
-  }, []);
-
-  useEffect(() => {
-    filterOrders(filters);
-  }, [filters, orders]);
-
-  const filterOrders = (filters) => {
-    const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
-    const lowerSearchText = searchText.toLowerCase();
-
-    const newFilteredOrders = orders.filter(order => {
-      const matchesCategory = !categories.length || categories.includes(order.category);
-      const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
-      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
-      const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
-      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
-        (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
-
-      return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
+    // Получение данных из Firestore
+    const unsubscribe = onSnapshot(collection(db, 'orders'), (snapshot) => {
+      const orders = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setOrdersData(orders);
+      setFilteredOrders(orders); // Изначально показываем все заказы
     });
 
-    setFilteredOrders(newFilteredOrders);
-  };
+    return () => unsubscribe(); // Очистка подписки при размонтировании компонента
+  }, []);
+
+  useEffect(() => {
+    filterOrders(filters); // Фильтрация заказов при изменении фильтров
+  }, [filters, ordersData]);
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
@@ -84,15 +65,33 @@ const Orders = () => {
     });
   };
 
+  const filterOrders = (filters) => {
+    const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
+    const lowerSearchText = searchText.toLowerCase();
+
+    const newFilteredOrders = ordersData.filter(order => {
+      const matchesCategory = !categories.length || categories.includes(order.category);
+      const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
+      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
+      const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
+      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
+        (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
+
+      return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
+    });
+
+    setFilteredOrders(newFilteredOrders);
+  };
+
   const handleCreateOrderClick = () => {
     window.location.href = '/create';
   };
 
-  const ordersPerPage = 10; // Define the number of orders per page
+  const ordersPerPage = 10; // Определите количество заказов на странице
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder); // Вычислите текущие заказы для отображения
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -224,29 +223,31 @@ const Orders = () => {
 
       <div className="orders-list">
         {currentOrders.length ? currentOrders.map(order => (
-          <OrderCard 
-            key={order.id}
-            id={order.id}
-            title={order.title}
-            description={order.description}
-            tags={order.tags}
-            timeAgo={order.timeAgo}
-            price={order.price}
-            category={order.category}
-            views={order.views}
-            responses={order.responses}
-          />
-        )) : <p>Заказы не найдены</p>}
+          // Пример проверки в родительском компоненте
+            <OrderCard
+              id={order.id}
+              title={order.title}
+              tags={order.tags}
+              description={order.description}
+              createdAt={order.createdAt} // Убедитесь, что createdAt здесь существует и правильный формат
+              price={order.price}
+              responses={order.responses}
+              views={order.views}
+              isAssigned={order.isAssigned}
+            />
+
+        )) : <p>Нынче заказов нэт :(</p>}
       </div>
 
-      <div className="pagination">
-        {[...Array(Math.ceil(filteredOrders.length / ordersPerPage)).keys()].map(number => (
+      {/* Добавьте элементы управления страницами при необходимости */}
+      <div className="pagination-controls">
+        {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, index) => (
           <button
-            key={number + 1}
-            onClick={() => paginate(number + 1)}
-            className={`pagination-button ${currentPage === number + 1 ? 'active' : ''}`}
+            key={index + 1}
+            className={`pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
+            onClick={() => paginate(index + 1)}
           >
-            {number + 1}
+            {index + 1}
           </button>
         ))}
       </div>
