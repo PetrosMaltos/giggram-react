@@ -12,7 +12,6 @@ import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
 import CreateOrder from './CreateOrder';
-import Login from './components/auth/Login';
 import Favors from './Favors';
 import Projects from './Projects';
 import Specialists from './Specialists';
@@ -24,6 +23,9 @@ import MyOrders from './MyOrders';
 import MyProjects from './MyProjects';
 import MyFavors from './MyFavors';
 import { ordersData } from './components/ordersData'; // Импортируем данные заказов
+import Login from './Login';
+import Register from './Register';
+import EditProfile from './EditProfile';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -62,15 +64,17 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/auth" element={<Login />} />
           <Route path="/specialists" element={<Specialists />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/projects/:id" element={<ProjectPage projects={projectsData} isAuthenticated={true} />} />
           <Route path="/help" element={<Help />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/my-projects" element={<MyProjects />} />
           <Route path="/my-favors" element={<MyFavors />} />
+          <Route path="/editprofile" element={<EditProfile />} />
         </Routes>
       )}
     </Router>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Импорт Link здесь
 import OrderCard from './components/OrderCard';
 import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
 import Navbar from './components/Navbar';
-import { db, collection, onSnapshot } from './firebaseConfig'; // Импортируйте функции Firebase
+import { db, collection, onSnapshot } from './firebaseConfig';
 import './Orders.css';
 
 const Orders = () => {
@@ -21,21 +20,22 @@ const Orders = () => {
   const [filteredOrders, setFilteredOrders] = useState([]);
 
   useEffect(() => {
-    // Получение данных из Firestore
     const unsubscribe = onSnapshot(collection(db, 'orders'), (snapshot) => {
       const orders = snapshot.docs.map(doc => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
+        createdAt: doc.data().createdAt.toDate(),
       }));
-      setOrdersData(orders);
-      setFilteredOrders(orders); // Изначально показываем все заказы
+      // Сортируем заказы по дате создания в порядке убывания
+      const sortedOrders = orders.sort((a, b) => b.createdAt - a.createdAt);
+      setOrdersData(sortedOrders);
+      setFilteredOrders(sortedOrders);
     });
-
-    return () => unsubscribe(); // Очистка подписки при размонтировании компонента
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    filterOrders(filters); // Фильтрация заказов при изменении фильтров
+    filterOrders(filters);
   }, [filters, ordersData]);
 
   const handleCheckboxChange = (e) => {
@@ -51,35 +51,25 @@ const Orders = () => {
           ? newFilters[name].filter(item => item !== value)
           : [...(Array.isArray(newFilters[name]) ? newFilters[name] : []), value];
       }
-      filterOrders(newFilters);
       return newFilters;
     });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFilters(prev => {
-      const newFilters = { ...prev, [name]: value };
-      filterOrders(newFilters);
-      return newFilters;
-    });
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
 
   const filterOrders = (filters) => {
-    const { searchIn, time, searchText, priceFrom, priceTo, categories } = filters;
+    const { searchIn, searchText, priceFrom, priceTo, categories } = filters;
     const lowerSearchText = searchText.toLowerCase();
-
     const newFilteredOrders = ordersData.filter(order => {
       const matchesCategory = !categories.length || categories.includes(order.category);
       const matchesSearchIn = !searchIn.length || searchIn.some(search => order.tags.includes(search));
-      const matchesTime = !time.length || time.includes(order.timeAgo.toLowerCase());
       const matchesSearchText = !searchText || [order.title, order.description, ...order.tags].some(text => text.toLowerCase().includes(lowerSearchText));
-      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) &&
-        (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
-
-      return matchesCategory && matchesSearchIn && matchesTime && matchesSearchText && matchesPrice;
+      const matchesPrice = (priceFrom === '' || parseFloat(order.price) >= parseFloat(priceFrom)) && (priceTo === '' || parseFloat(order.price) <= parseFloat(priceTo));
+      return matchesCategory && matchesSearchIn && matchesSearchText && matchesPrice;
     });
-
     setFilteredOrders(newFilteredOrders);
   };
 
@@ -87,12 +77,11 @@ const Orders = () => {
     window.location.href = '/create';
   };
 
-  const ordersPerPage = 10; // Определите количество заказов на странице
+  const ordersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder); // Вычислите текущие заказы для отображения
-
+  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -102,20 +91,18 @@ const Orders = () => {
         <header className="orders-header">
           <h1>Заказы ({filteredOrders.length})</h1>
         </header>
-
         <section className="search-section">
-          <input 
-            type="text" 
-            placeholder="Поиск заказов..." 
-            className="search-input" 
-            name="searchText" 
-            onChange={handleInputChange} 
+          <input
+            type="text"
+            placeholder="Поиск заказов..."
+            className="search-input"
+            name="searchText"
+            onChange={handleInputChange}
           />
-          <button className="search-button">
+          <button className="search-button" onClick={() => filterOrders(filters)}>
             <FaSearch className="search-icon" />
           </button>
         </section>
-        
         <section className="filter-section">
           <button
             className={`filter-toggle ${showFilters ? 'active' : ''}`}
@@ -123,58 +110,126 @@ const Orders = () => {
           >
             Фильтры {showFilters ? <FaAngleUp /> : <FaAngleDown />}
           </button>
-
           <div className={`filters ${showFilters ? 'show' : 'hide'}`}>
             <div className="filter-group">
               <h3>Искать в</h3>
               <label>
-                <input type="checkbox" name="searchIn" value="tags" onChange={handleCheckboxChange} /> Теги
+                <input
+                  type="checkbox"
+                  name="searchIn"
+                  value="tags"
+                  onChange={handleCheckboxChange}
+                /> Теги
               </label>
               <label>
-                <input type="checkbox" name="searchIn" value="titles" onChange={handleCheckboxChange} /> Названия
+                <input
+                  type="checkbox"
+                  name="searchIn"
+                  value="titles"
+                  onChange={handleCheckboxChange}
+                /> Названия
               </label>
               <label>
-                <input type="checkbox" name="searchIn" value="descriptions" onChange={handleCheckboxChange} /> Описания
+                <input
+                  type="checkbox"
+                  name="searchIn"
+                  value="descriptions"
+                  onChange={handleCheckboxChange}
+                /> Описания
               </label>
             </div>
-
             <div className="filter-group">
               <h3>Категории</h3>
               <div className="category-list">
                 <label>
-                  <input type="checkbox" name="categories" value="Веб-разработка" onChange={handleCheckboxChange} /> Веб-разработка
+                  <input
+                    type="checkbox"
+                    name="categories"
+                    value="Веб-разработка"
+                    onChange={handleCheckboxChange}
+                  /> Веб-разработка
                 </label>
                 <label>
-                  <input type="checkbox" name="categories" value="Графический дизайн" onChange={handleCheckboxChange} /> Графический дизайн
+                  <input
+                    type="checkbox"
+                    name="categories"
+                    value="Графический дизайн"
+                    onChange={handleCheckboxChange}
+                  /> Графический дизайн
                 </label>
                 <label>
-                  <input type="checkbox" name="categories" value="Копирайтинг" onChange={handleCheckboxChange} /> Копирайтинг
+                  <input
+                    type="checkbox"
+                    name="categories"
+                    value="Копирайтинг"
+                    onChange={handleCheckboxChange}
+                  /> Копирайтинг
                 </label>
                 {showMore && (
                   <>
                     <label>
-                      <input type="checkbox" name="categories" value="Цифровой маркетинг" onChange={handleCheckboxChange} /> Цифровой маркетинг
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Цифровой маркетинг"
+                        onChange={handleCheckboxChange}
+                      /> Цифровой маркетинг
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="SEO-услуги" onChange={handleCheckboxChange} /> SEO-услуги
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="SEO-услуги"
+                        onChange={handleCheckboxChange}
+                      /> SEO-услуги
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Разработка мобильных приложений" onChange={handleCheckboxChange} /> Разработка мобильных приложений
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Разработка мобильных приложений"
+                        onChange={handleCheckboxChange}
+                      /> Разработка мобильных приложений
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Видеомонтаж" onChange={handleCheckboxChange} /> Видеомонтаж
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Видеомонтаж"
+                        onChange={handleCheckboxChange}
+                      /> Видеомонтаж
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Виртуальная помощь" onChange={handleCheckboxChange} /> Виртуальная помощь
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Виртуальная помощь"
+                        onChange={handleCheckboxChange}
+                      /> Виртуальная помощь
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="UX/UI дизайн" onChange={handleCheckboxChange} /> UX/UI дизайн
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="UX/UI дизайн"
+                        onChange={handleCheckboxChange}
+                      /> UX/UI дизайн
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Ввод данных" onChange={handleCheckboxChange} /> Ввод данных
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Ввод данных"
+                        onChange={handleCheckboxChange}
+                      /> Ввод данных
                     </label>
                     <label>
-                      <input type="checkbox" name="categories" value="Услуги перевода" onChange={handleCheckboxChange} /> Услуги перевода
+                      <input
+                        type="checkbox"
+                        name="categories"
+                        value="Услуги перевода"
+                        onChange={handleCheckboxChange}
+                      /> Услуги перевода
                     </label>
                   </>
                 )}
@@ -183,63 +238,66 @@ const Orders = () => {
                 </button>
               </div>
             </div>
-
             <div className="filter-group">
               <h3>Ценовой диапазон</h3>
               <div className="price-filter">
-                <input 
-                  type="number" 
-                  name="priceFrom" 
-                  placeholder="От" 
-                  onChange={handleInputChange} 
+                <input
+                  type="number"
+                  name="priceFrom"
+                  placeholder="От"
+                  onChange={handleInputChange}
                 />
-                <input 
-                  type="number" 
-                  name="priceTo" 
-                  placeholder="До" 
-                  onChange={handleInputChange} 
+                <input
+                  type="number"
+                  name="priceTo"
+                  placeholder="До"
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
-
             <div className="filter-group">
               <h3>Время</h3>
               <label>
-                <input type="checkbox" name="time" value="newest" onChange={handleCheckboxChange} /> Новейшие
+                <input
+                  type="checkbox"
+                  name="time"
+                  value="newest"
+                  onChange={handleCheckboxChange}
+                /> Новейшие
               </label>
               <label>
-                <input type="checkbox" name="time" value="oldest" onChange={handleCheckboxChange} /> Старейшие
+                <input
+                  type="checkbox"
+                  name="time"
+                  value="oldest"
+                  onChange={handleCheckboxChange}
+                /> Старейшие
               </label>
             </div>
           </div>
         </section>
-
         <div className='create-favor-button-container'>
           <button className="create-favor-button" onClick={handleCreateOrderClick}>
             <FaPlus className="create-favor-icon" /> Создать свой заказ
           </button>
         </div>
       </div>
-
       <div className="orders-list">
         {currentOrders.length ? currentOrders.map(order => (
-          // Пример проверки в родительском компоненте
-            <OrderCard
-              id={order.id}
-              title={order.title}
-              tags={order.tags}
-              description={order.description}
-              createdAt={order.createdAt} // Убедитесь, что createdAt здесь существует и правильный формат
-              price={order.price}
-              responses={order.responses}
-              views={order.views}
-              isAssigned={order.isAssigned}
-            />
-
+          <OrderCard
+            key={order.id}
+            id={order.id}
+            title={order.title}
+            tags={order.tags}
+            description={order.description}
+            createdAt={order.createdAt}
+            price={order.price}
+            responses={order.responses}
+            views={order.views}
+            isAssigned={order.isAssigned}
+          />
         )) : <p>Нынче заказов нэт :(</p>}
       </div>
-
-      {/* Добавьте элементы управления страницами при необходимости */}
       <div className="pagination-controls">
         {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, index) => (
           <button

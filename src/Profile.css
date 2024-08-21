@@ -4,15 +4,15 @@
 
 .profile-page {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #000000;
-  margin: 0;
-  position: relative;
+  background: linear-gradient(135deg, #000000, #000000);
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .profile-content {
@@ -20,17 +20,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #000000;
+  background: #141414;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
   color: #e0e0e0;
   padding: 20px;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   text-align: center;
   overflow: hidden;
-  margin-bottom: 80px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
 
 .card-container {
   border-radius: 8px;
@@ -67,6 +68,11 @@
   padding: 0px;
   width: 120px;
   height: 120px;
+  transition: transform 0.3s;
+}
+
+.card-container .round:hover {
+  transform: scale(1.1);
 }
 
 .button-group {
@@ -86,6 +92,10 @@ button.primary {
   transition: background-color 0.3s, transform 0.2s;
 }
 
+button.primary:hover {
+  background-color: #7b1fa2;
+  transform: translateY(-2px);
+}
 
 button.primary.ghost {
   background-color: transparent;
@@ -97,53 +107,26 @@ button.primary.ghost:hover {
   background-color: #333333;
 }
 
-.active-orders {
-  text-decoration: none;
-  text-align: center;
-  margin-bottom: 10px;
-  position: relative;
-  width: 100%;
-}
-
-.active-orders a {
-  color: #6200ee;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-
-.active-projects {
-  text-align: center;
-  margin-bottom: 10px;
-  position: relative;
-  width: 100%;
-}
-
-.active-projects a {
-  color: #6200ee;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-
-
-.active-favors {
+.links {
   text-align: center;
   margin-bottom: 20px;
   position: relative;
   width: 100%;
 }
 
-.active-favors a {
+.links a {
   color: #6200ee;
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
+  display: block;
+  margin: 5px 0;
+  transition: color 0.3s;
 }
 
-
+.links a:hover {
+  color: #7b1fa2;
+}
 
 .skills {
   text-align: left;
@@ -173,6 +156,7 @@ button.primary.ghost:hover {
   padding: 8px;
   background-color: #222222;
   white-space: nowrap;
+  color: #e0e0e0;
 }
 
 .user-info {
@@ -185,7 +169,7 @@ button.primary.ghost:hover {
 
 .user-info h6 {
   margin-bottom: 10px;
-  color: #ffffff;
+  color: #e0e0e0;
 }
 
 .user-info .info-item {
@@ -197,7 +181,22 @@ button.primary.ghost:hover {
   font-weight: bold;
 }
 
+.current-date-time {
+  text-align: left;
+  padding: 15px;
+  width: 100%;
+  border-top: 1px solid #333333;
+  margin-top: 20px;
+}
 
+.current-date-time h6 {
+  margin-bottom: 10px;
+  color: #e0e0e0;
+}
+
+.current-date-time p {
+  font-size: 14px;
+}
 
 @media (max-width: 600px) {
   .profile-content {
@@ -222,4 +221,31 @@ button.primary.ghost:hover {
   .skills ul li {
     margin-bottom: 5px;
   }
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star {
+  color: #ccc;
+  margin: 0 2px;
+  font-size: 16px; /* Уменьшение размера звезд */
+}
+
+.star.filled {
+  color: #f1c40f;
+}
+
+.rating-number {
+  margin-left: 8px;
+  font-size: 14px; /* Уменьшение размера текста */
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.rating {
+  margin-bottom: 20px;
 }

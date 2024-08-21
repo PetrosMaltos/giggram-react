@@ -5,7 +5,6 @@ import Categories from './components/Categories';
 import LogoAnimation from './components/LogoAnimation';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
-import AuthPrompt from './components/auth/Login';
 import { FaSearch } from 'react-icons/fa';
 import ordersData from './components/ordersData'; // Импортируем данные заказов
 import './Main.css';
