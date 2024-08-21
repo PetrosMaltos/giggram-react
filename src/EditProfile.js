@@ -1,54 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import './EditProfile.css';
-import Loading from './components/Loading';
 import { useNavigate } from 'react-router-dom';
+import { getUserData, updateUserData, uploadAvatar } from './firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebaseConfig';
 
 const EditProfile = () => {
     const [user, setUser] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [telegramUser, setTelegramUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const initTelegram = async () => {
-            try {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    const tg = window.Telegram.WebApp;
-                    const user = tg.initDataUnsafe?.user;
-                    console.log("Данные пользователя Telegram:", user); // Проверка
-                    if (user) {
-                        setTelegramUser(user);
-                    } else {
-                        console.error("Данные пользователя Telegram не найдены");
-                    }
-                } else {
-                    console.error("Telegram WebApp API не инициализирован");
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                try {
+                    const userData = await getUserData(currentUser.uid);
+                    setUser(userData || {});
+                } catch (error) {
+                    console.error("Failed to fetch user data:", error);
+                } finally {
+                    setLoading(false);
                 }
-            } catch (error) {
-                console.error("Ошибка при инициализации Telegram WebApp API:", error);
-            } finally {
+            } else {
                 setLoading(false);
+                console.error("User is not authenticated");
             }
-        };
-    
-        initTelegram();
+        });
+        return () => unsubscribe();
     }, []);
-    
 
-    const handleSubmit = (e) => {
+    const handleAvatarChange = (e) => {
+        setAvatarFile(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        // Действия по обновлению данных пользователя (если потребуется)
-        setLoading(false);
-        navigate('/profile');
+
+        try {
+            let avatarUrl = user.avatar;
+            if (avatarFile) {
+                avatarUrl = await uploadAvatar(avatarFile, auth.currentUser.uid);
+            }
+
+            await updateUserData(auth.currentUser.uid, { ...user, avatar: avatarUrl });
+
+            navigate('/profile');
+        } catch (error) {
+            console.error("Failed to update user profile:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (loading) {
-        return <Loading />;
-    }
-
-    if (!telegramUser) {
-        return <div>Не удалось загрузить данные пользователя Telegram</div>;
+        return <div>Загрузка...</div>;
     }
 
     return (
@@ -57,9 +64,11 @@ const EditProfile = () => {
                 <form onSubmit={handleSubmit} className="edit-profile-form">
                     <div className="avatar-preview">
                         <img
-                            src={telegramUser.photo_url || '/default-avatar.png'}
-                            alt="Telegram Avatar"
+                            src={user.avatar || '/default-avatar.png'}
+                            alt="Avatar"
+                            className="round"
                         />
+                        <input type="file" onChange={handleAvatarChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="username">Имя пользователя</label>
@@ -67,26 +76,13 @@ const EditProfile = () => {
                             type="text"
                             id="username"
                             name="username"
-                            value={telegramUser.username || ''}
-                            readOnly
+                            value={user.username || ''}
+                            onChange={(e) => setUser({ ...user, username: e.target.value })}
                             placeholder="Имя пользователя"
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="first_name">Имя</label>
-                        <input
-                            type="text"
-                            id="first_name"
-                            name="first_name"
-                            value={telegramUser.first_name || ''}
-                            readOnly
-                            placeholder="Имя"
-                        />
-                    </div>
-                    <div className="form-buttons">
-                        <button type="submit" className="primary large">Сохранить</button>
-                        <button type="button" className="secondary large" onClick={() => navigate('/profile')}>Отмена</button>
-                    </div>
+                    <button type="submit" className="primary large">Сохранить</button>
+                    <button type="button" className="secondary large" onClick={() => navigate('/profile')}>Отмена</button>
                 </form>
             </div>
         </div>

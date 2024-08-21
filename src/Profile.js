@@ -72,59 +72,60 @@ const Profile = () => {
 }, []);
 
 
-  return (
-    <div className="profile-page">
-        <Navbar />
-        <div className="profile-content">
-            <div className="card-container">
-                <span className="pro">
-                    <FontAwesomeIcon icon={faStar} className="pro-icon" /> PRO
-                </span>
-                {loading ? (
-                    <Skeleton circle={true} height={100} width={100} />
-                ) : (
-                    <img className="round" src={user.avatar} alt="user" />
-                )}
-                <h3>{loading ? <Skeleton width={150} /> : user.username}</h3>
-                <p>{loading ? <Skeleton count={3} /> : user.description}</p>
-                <div className="button-group">
-                    <button className="primary large" onClick={() => navigate('/editprofile')} disabled={loading}>Редактировать</button>
-                    <button className="primary large" disabled={loading}>
-                        <FontAwesomeIcon icon={faShareAlt} />
-                    </button>
-                </div>
-                <div className="rating">
-                    <h6>Рейтинг</h6>
-                    {loading ? <Skeleton width={100} /> : <StarRating rating={user.rating} />}
-                </div>
-                <div className="links">
-                    <a href="/orders">Мои заказы</a>
-                    <a href="/projects">Мои проекты</a>
-                    <a href="/services">Мои услуги</a>
-                </div>
-                <div className="skills">
-                    <h6>Навыки</h6>
-                    <ul>
-                        {loading ? <Skeleton count={3} /> : (
-                            user.skills.map((skill, index) => (
-                                <li key={index}>{skill}</li>
-                            ))
-                        )}
-                    </ul>
-                </div>
-                <div className="user-info">
-                    <h6>Дополнительная информация</h6>
-                    <div className="info-item">
-                        <span>Архивные заказы:</span> {loading ? <Skeleton width={100} /> : user.archivedOrders}
-                    </div>
-                    <div className="info-item">
-                        <span>Роль:</span> {loading ? <Skeleton width={100} /> : user.userType}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+return (
+  <div className="profile-page">
+      <Navbar />
+      <div className="profile-content">
+          <div className="card-container">
+              <span className="pro">
+                  <FontAwesomeIcon icon={faStar} className="pro-icon" /> PRO
+              </span>
+              {loading ? (
+                  <Skeleton circle={true} height={100} width={100} />
+              ) : (
+                  <img className="round" src={user.avatar} alt="user" />
+              )}
+              <h3>{loading ? <Skeleton width={150} /> : user.username}</h3>
+              <p>{loading ? <Skeleton count={3} /> : user.description}</p>
+              <div className="button-group">
+                  <button className="primary large" onClick={() => navigate('/editprofile')} disabled={loading}>Редактировать</button>
+                  <button className="primary large" disabled={loading}>
+                      <FontAwesomeIcon icon={faShareAlt} />
+                  </button>
+              </div>
+              <div className="rating">
+                  <h6>Рейтинг</h6>
+                  {loading ? <Skeleton width={100} /> : <StarRating rating={user.rating} />}
+              </div>
+              <div className="links">
+                  <a href="/orders">Мои заказы</a>
+                  <a href="/projects">Мои проекты</a>
+                  <a href="/services">Мои услуги</a>
+              </div>
+              <div className="skills">
+                  <h6>Навыки</h6>
+                  <ul>
+                      {loading ? <Skeleton count={3} /> : (
+                          user.skills.map((skill, index) => (
+                              <li key={index}>{skill}</li>
+                          ))
+                      )}
+                  </ul>
+              </div>
+              <div className="user-info">
+                  <h6>Дополнительная информация</h6>
+                  <div className="info-item">
+                      <span>Архивные заказы:</span> {loading ? <Skeleton width={100} /> : user.archivedOrders}
+                  </div>
+                  <div className="info-item">
+                      <span>Роль:</span> {loading ? <Skeleton width={100} /> : user.userType}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 );
- }
+}
+
 
 export default Profile;
