@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, query, where, getDocs } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateEmail } from 'firebase/auth';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -17,6 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage();
 
 // Кэш данных пользователя
 let cachedUserData = null;
@@ -51,6 +53,13 @@ export const updateUserData = async (uid, userData) => {
   } catch (error) {
     console.error('Error updating user data:', error);
   }
+};
+
+// Функция для загрузки аватара
+export const uploadAvatar = async (file, uid) => {
+  const avatarRef = ref(storage, `avatars/${uid}`);
+  await uploadBytes(avatarRef, file);
+  return await getDownloadURL(avatarRef);
 };
 
 // Функция для обновления email пользователя
@@ -94,4 +103,5 @@ export const verifyCurrentPassword = async (email, currentPassword) => {
   }
 };
 
+// Экспорт необходимых Firebase модулей
 export { db, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup };
