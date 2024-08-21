@@ -11,25 +11,29 @@ const EditProfile = () => {
 
     useEffect(() => {
         const initTelegram = async () => {
-            if (window.Telegram && window.Telegram.WebApp) {
-                const tg = window.Telegram.WebApp;
-                const user = tg.initDataUnsafe?.user;
-                console.log("Данные пользователя Telegram:", user); // Проверка
-                if (user) {
-                    setTelegramUser(user);
-                    setLoading(false);
+            try {
+                if (window.Telegram && window.Telegram.WebApp) {
+                    const tg = window.Telegram.WebApp;
+                    const user = tg.initDataUnsafe?.user;
+                    console.log("Данные пользователя Telegram:", user); // Проверка
+                    if (user) {
+                        setTelegramUser(user);
+                    } else {
+                        console.error("Данные пользователя Telegram не найдены");
+                    }
                 } else {
-                    console.error("Данные пользователя не найдены");
-                    setLoading(false);
+                    console.error("Telegram WebApp API не инициализирован");
                 }
-            } else {
-                console.error("Telegram WebApp API не инициализирован");
+            } catch (error) {
+                console.error("Ошибка при инициализации Telegram WebApp API:", error);
+            } finally {
                 setLoading(false);
             }
         };
-
+    
         initTelegram();
-    }, []); // Этот useEffect будет вызван один раз при монтировании компонента
+    }, []);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
