@@ -65,20 +65,25 @@ const OrderDetail = ({ isAuthenticated }) => {
   };
 
   useEffect(() => {
+    // Setup "Back" button
     if (window.Telegram && window.Telegram.WebApp) {
-      const { WebApp } = window.Telegram;
-      WebApp.BackButton.show();
-      WebApp.BackButton.onClick(() => {
-        WebApp.BackButton.hide();
-        setShowTelegramBackButton(false);
-      });
+      window.Telegram.WebApp.BackButton.show();
+
+      const handleBackButtonClick = () => window.history.back();
+      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+
       return () => {
-        WebApp.BackButton.hide();
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+        window.Telegram.WebApp.BackButton.hide();
       };
-    } else {
-      console.error('Telegram WebApp API is not available.');
     }
-  }, []);
+
+    return () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
+      }
+    };
+  }, []); 
 
   if (!order) {
     return <div>Загрузка данных...</div>;

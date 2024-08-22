@@ -24,8 +24,10 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
   const [response, setResponse] = useState('');
 
   useEffect(() => {
+    // Setup "Back" button
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
+
       const handleBackButtonClick = () => window.history.back();
       window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
 
@@ -34,7 +36,13 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
         window.Telegram.WebApp.BackButton.hide();
       };
     }
-  }, [id]);
+
+    return () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
+      }
+    };
+  }, []); 
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
