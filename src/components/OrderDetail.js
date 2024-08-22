@@ -9,132 +9,152 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const OrderDetail = ({ isAuthenticated }) => {
-  const { id } = useParams();
-  const [order, setOrder] = useState(null);
-  const [response, setResponse] = useState('');
-  const [timeAgo, setTimeAgo] = useState('');
+    const { id } = useParams();
+    const [order, setOrder] = useState(null);
+    const [response, setResponse] = useState('');
+    const [timeAgo, setTimeAgo] = useState('');
+    const [showTelegramBackButton, setShowTelegramBackButton] = useState(true);
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const orderRef = doc(db, 'orders', id);
-        const orderSnap = await getDoc(orderRef);
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                const orderRef = doc(db, 'orders', id);
+                const orderSnap = await getDoc(orderRef);
+                if (orderSnap.exists()) {
+                    const orderData = orderSnap.data();
+                    setOrder(orderData);
+                    const updateTimer = () => {
+                        const createdAtDate = orderData.createdAt.toDate ? orderData.createdAt.toDate() : new Date(orderData.createdAt);
+                        setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
+                    };
+                    updateTimer();
+                    const timer = setInterval(updateTimer, 1000); // Обновление каждую секунду
+                    return () => clearInterval(timer);
+                }
+            } catch (error) {
+                console.error('Ошибка получения данных заказа:', error);
+            }
+        };
+        fetchOrder();
+    }, [id]);
 
-        if (orderSnap.exists()) {
-          const orderData = orderSnap.data();
-          setOrder(orderData);
+    useEffect(() => {
+        const incrementViews = async () => {
+            if (order) {
+                const orderRef = doc(db, 'orders', id);
+                try {
+                    await updateDoc(orderRef, { views: order.views + 1 });
+                } catch (error) {
+                    console.error('Error updating views:', error);
+                }
+            }
+        };
+        incrementViews();
+    }, [order, id]);
 
-          const updateTimer = () => {
-            const createdAtDate = orderData.createdAt.toDate ? orderData.createdAt.toDate() : new Date(orderData.createdAt);
-            setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
-          };
-
-          updateTimer();
-          const timer = setInterval(updateTimer, 1000); // Обновление каждую секунду
-
-          return () => clearInterval(timer);
-        }
-      } catch (error) {
-        console.error('Ошибка получения данных заказа:', error);
-      }
+    const handleResponseChange = (e) => {
+        setResponse(e.target.value);
     };
 
-    fetchOrder();
-  }, [id]);
-
-  useEffect(() => {
-    const incrementViews = async () => {
-      if (order) {
-        const orderRef = doc(db, 'orders', id);
-
-        try {
-          await updateDoc(orderRef, { views: order.views + 1 });
-        } catch (error) {
-          console.error('Error updating views:', error);
-        }
-      }
+    const handleSubmit = () => {
+        console.log('Ответ отправлен:', response);
     };
 
-    incrementViews();
-  }, [order, id]);
+    const handleTelegramBackButtonClick = () => {
+        setShowTelegramBackButton(false);
+    };
 
-  const handleResponseChange = (e) => {
-    setResponse(e.target.value);
-  };
+    // Создаем объект BackButton и добавляем обработчики событий
+    useEffect(() => {
+        const { WebApp } = window.Telegram;
+        WebApp.BackButton.show();
+        WebApp.BackButton.onClick(() => {
+            WebApp.showAlert("BackButton clicked");
+            WebApp.BackButton.hide();
+            setShowTelegramBackButton(false);
+        });
 
-  const handleSubmit = () => {
-    console.log('Ответ отправлен:', response);
-  };
+        WebApp.onEvent('backButtonClicked', () => {
+            console.log('Back button was clicked');
+        });
 
-  if (!order) {
-    return <div>Загрузка данных...</div>;
-  }
+        return () => {
+            WebApp.BackButton.hide();
+        };
+    }, []);
 
-  return (
-    <div className="order-detail">
-      <div className="order-info">
-        <div className="client-profile">
-          <div className="client-avatar" />
-          <div className="client-info">
-            <div className="client-name">Имя клиента</div>
-            <div className="client-reviews">
-              <AiFillStar className="star-rating" />
-              <span>4.4</span>
+    if (!order) {
+        return <div>Загрузка данных...</div>;
+    }
+
+    return (
+        <div className="order-detail">
+            <div className="order-info">
+                <div className="client-profile">
+                    <div className="client-avatar" />
+                    <div className="client-info">
+                        <div className="client-name">Имя клиента</div>
+                        <div className="client-reviews">
+                            <AiFillStar className="star-rating" />
+                            <span>4.4</span>
+                        </div>
+                    </div>
+                </div>
+                <h1 className="order-title">{order.title}</h1>
+                <p className="order-description">{order.description}</p>
+                <div className="order-details">
+                    <div className="order-info-item">
+                        <FaDollarSign className="order-icon" />
+                        <span className="order-price">{order.price} руб.</span>
+                    </div>
+                    <div className="order-info-item">
+                        <FaEye className="order-icon" />
+                        <span className="order-views">{order.views || 0} просмотров</span>
+                    </div>
+                    <div className="order-info-item">
+                        <FaClock className="order-icon" />
+                        <span className="order-time">{timeAgo}</span>
+                    </div>
+                    <div className="order-info-item">
+                        <FaCommentDots className="order-icon" />
+                        <span className="order-responses">{order.responses || 0} откликов</span>
+                    </div>
+                </div>
+                <div className="order-tags">
+                    {order.tags.length > 0 ? (
+                        order.tags.map((tag, index) => (
+                            <span key={index} className="tag"># {tag}</span>
+                        ))
+                    ) : (
+                        <span className="order-tag">Нет тегов</span>
+                    )}
+                </div>
+                <div className="divider" />
+                <div className="response-section">
+                    {isAuthenticated ? (
+                        <div className="response-form">
+                            <textarea
+                                className="response-textarea"
+                                placeholder="Напишите ваш ответ здесь..."
+                                value={response}
+                                onChange={handleResponseChange}
+                            />
+                            <button className="response-button" onClick={handleSubmit}>Отправить ответ</button>
+                        </div>
+                    ) : (
+                        <div className="registration-message">
+                            <FaLock className="lock-icon" />
+                            <h2>Пожалуйста, зарегистрируйтесь</h2>
+                            <p>Для отправки отклика на этот заказ необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
+                        </div>
+                    )}
+                </div>
+                {showTelegramBackButton && (
+                    <button className="telegram-back-button" onClick={handleTelegramBackButtonClick}>TelegramBack</button>
+                )}
             </div>
-          </div>
         </div>
-        <h1 className="order-title">{order.title}</h1>
-        <p className="order-description">{order.description}</p>
-        <div className="order-details">
-          <div className="order-info-item">
-            <FaDollarSign className="order-icon" />
-            <span className="order-price">{order.price} руб.</span>
-          </div>
-          <div className="order-info-item">
-            <FaEye className="order-icon" />
-            <span className="order-views">{order.views || 0} просмотров</span>
-          </div>
-          <div className="order-info-item">
-            <FaClock className="order-icon" />
-            <span className="order-time">{timeAgo}</span>
-          </div>
-          <div className="order-info-item">
-            <FaCommentDots className="order-icon" />
-            <span className="order-responses">{order.responses || 0} откликов</span>
-          </div>
-        </div>
-        <div className="order-tags">
-          {order.tags.length > 0 ? (
-            order.tags.map((tag, index) => (
-              <span key={index} className="tag"># {tag}</span>
-            ))
-          ) : (
-            <span className="order-tag">Нет тегов</span>
-          )}
-        </div>
-        <div className="divider" />
-        <div className="response-section">
-          {isAuthenticated ? (
-            <div className="response-form">
-              <textarea
-                className="response-textarea"
-                placeholder="Напишите ваш ответ здесь..."
-                value={response}
-                onChange={handleResponseChange}
-              />
-              <button className="response-button" onClick={handleSubmit}>Отправить ответ</button>
-            </div>
-          ) : (
-            <div className="registration-message">
-              <FaLock className="lock-icon" />
-              <h2>Пожалуйста, зарегистрируйтесь</h2>
-              <p>Для отправки отклика на этот заказ необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default OrderDetail;
