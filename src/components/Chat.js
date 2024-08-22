@@ -22,25 +22,20 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    // Setup "Back" button
     if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-
+      const { WebApp } = window.Telegram;
+      WebApp.BackButton.show();
+      WebApp.BackButton.onClick(() => {
+        WebApp.BackButton.hide();
+        setShowTelegramBackButton(false);
+      });
       return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
+        WebApp.BackButton.hide();
       };
+    } else {
+      console.error('Telegram WebApp API is not available.');
     }
-
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    };
-  }, []); // Removed `id` from dependency array
+  }, []);
 
   return (
     <div className="chat-page">

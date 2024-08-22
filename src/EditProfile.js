@@ -30,6 +30,23 @@ const EditProfile = () => {
         return () => unsubscribe();
     }, []);
 
+    useEffect(() => {
+        if (window.Telegram && window.Telegram.WebApp) {
+          const { WebApp } = window.Telegram;
+          WebApp.BackButton.show();
+          WebApp.BackButton.onClick(() => {
+            WebApp.BackButton.hide();
+            setShowTelegramBackButton(false);
+          });
+          return () => {
+            WebApp.BackButton.hide();
+          };
+        } else {
+          console.error('Telegram WebApp API is not available.');
+        }
+      }, []);
+    
+
     const handleAvatarChange = (e) => {
         setAvatarFile(e.target.files[0]);
     };

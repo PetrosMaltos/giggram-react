@@ -69,12 +69,8 @@ const OrderDetail = ({ isAuthenticated }) => {
       const { WebApp } = window.Telegram;
       WebApp.BackButton.show();
       WebApp.BackButton.onClick(() => {
-        WebApp.showAlert("BackButton clicked");
         WebApp.BackButton.hide();
         setShowTelegramBackButton(false);
-      });
-      WebApp.onEvent('backButtonClicked', () => {
-        console.log('Back button was clicked');
       });
       return () => {
         WebApp.BackButton.hide();
