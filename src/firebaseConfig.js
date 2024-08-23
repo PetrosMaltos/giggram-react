@@ -28,11 +28,11 @@ export const getUserData = async (uid) => {
   if (cachedUserData) {
     return cachedUserData;
   }
-
   try {
     const userDoc = await getDoc(doc(db, 'users', uid));
     if (userDoc.exists()) {
       cachedUserData = userDoc.data();
+      console.log('User data fetched:', cachedUserData); // Отладочное сообщение
       return cachedUserData;
     } else {
       console.error('No such user!');
@@ -65,7 +65,6 @@ export const uploadAvatar = async (file, uid) => {
 // Функция для обновления email пользователя
 export const updateUserEmail = async (newEmail) => {
   const user = auth.currentUser;
-
   if (user) {
     try {
       await updateEmail(user, newEmail);
@@ -83,7 +82,6 @@ export const checkUsernameExists = async (username) => {
   try {
     const q = query(collection(db, 'users'), where('username', '==', username));
     const querySnapshot = await getDocs(q);
-
     // Если есть хотя бы один документ с таким именем пользователя
     return !querySnapshot.empty;
   } catch (error) {

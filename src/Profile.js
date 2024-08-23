@@ -33,11 +33,13 @@ const Profile = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log("Auth state changed:", currentUser);
       if (currentUser) {
         setAuthUser(currentUser);
         try {
           const userData = await getUserData(currentUser.uid);
-
+          console.log("User data fetched:", userData);
+  
           // Установка значений по умолчанию
           setUser({
             avatar: userData?.avatar || defaultAvatarUrl,
