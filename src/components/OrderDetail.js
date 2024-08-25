@@ -151,9 +151,6 @@ const OrderDetail = ({ isAuthenticated }) => {
             </div>
           )}
         </div>
-        {showTelegramBackButton && (
-          <button className="telegram-back-button" onClick={handleTelegramBackButtonClick}>TelegramBack</button>
-        )}
       </div>
     </div>
   );

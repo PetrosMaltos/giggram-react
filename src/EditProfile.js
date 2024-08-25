@@ -1,73 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './EditProfile.css';
 import { useNavigate } from 'react-router-dom';
-import { getUserData, updateUserData, uploadAvatar } from './firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebaseConfig';
+import { updateUserData, uploadAvatar, auth, getUserData } from './firebaseConfig'; // Добавляем auth и getUserData
+import { useUser } from './UserContext';
+import imageCompression from 'browser-image-compression';
 
 const EditProfile = () => {
-    const [user, setUser] = useState(null);
+    const { user, setUser } = useUser(); // Получаем контекст
     const [avatarFile, setAvatarFile] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (currentUser) {
-                try {
-                    const userData = await getUserData(currentUser.uid);
-                    setUser(userData || {});
-                } catch (error) {
-                    console.error("Failed to fetch user data:", error);
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false);
-                console.error("User is not authenticated");
-            }
-        });
-        return () => unsubscribe();
-    }, []);
-
-    useEffect(() => {
-        // Setup "Back" button
-        if (window.Telegram && window.Telegram.WebApp) {
-          window.Telegram.WebApp.BackButton.show();
-    
-          const handleBackButtonClick = () => window.history.back();
-          window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-    
-          return () => {
-            window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-            window.Telegram.WebApp.BackButton.hide();
-          };
-        }
-    
-        return () => {
-          if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.BackButton.hide();
-          }
+    const handleAvatarChange = async (e) => {
+        const file = e.target.files[0];
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 800,
+            useWebWorker: true,
         };
-      }, []); 
-    
+        try {
+            const compressedFile = await imageCompression(file, options);
+            setAvatarFile(compressedFile);
+        } catch (error) {
+            console.error('Error compressing image:', error);
+        }
+    };
 
-    const handleAvatarChange = (e) => {
-        setAvatarFile(e.target.files[0]);
+    const handleSkillsChange = (e) => {
+        const skillsString = e.target.value;
+        const skillsArray = skillsString.split(',').map(skill => skill.trim()).filter(skill => skill);
+        setUser({ ...user, skills: skillsArray });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         try {
             let avatarUrl = user.avatar;
             if (avatarFile) {
                 avatarUrl = await uploadAvatar(avatarFile, auth.currentUser.uid);
             }
-
             await updateUserData(auth.currentUser.uid, { ...user, avatar: avatarUrl });
-
+        
+            // Обновление данных о пользователе
+            const updatedUserData = await getUserData(auth.currentUser.uid);
+            setUser(updatedUserData); // Обновляем состояние в контексте
+        
             navigate('/profile');
         } catch (error) {
             console.error("Failed to update user profile:", error);
@@ -77,7 +55,7 @@ const EditProfile = () => {
     };
 
     if (loading) {
-        return <div>Загрузка...</div>;
+        return <div>Loading...</div>;
     }
 
     return (
@@ -101,6 +79,27 @@ const EditProfile = () => {
                             value={user.username || ''}
                             onChange={(e) => setUser({ ...user, username: e.target.value })}
                             placeholder="Имя пользователя"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description">Описание</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={user.description || ''}
+                            onChange={(e) => setUser({ ...user, description: e.target.value })}
+                            placeholder="Описание"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="skills">Навыки</label>
+                        <input
+                            type="text"
+                            id="skills"
+                            name="skills"
+                            value={user.skills.join(', ')} // Объединяем массив в строку
+                            onChange={handleSkillsChange} // Обрабатываем изменения
+                            placeholder="Навыки (через запятую)"
                         />
                     </div>
                     <button type="submit" className="primary large">Сохранить</button>

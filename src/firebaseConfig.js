@@ -3,7 +3,6 @@ import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, query, where
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateEmail } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBR-ViuYKvxtuCfPDZwq2DHsHby9B4NPC0",
   authDomain: "giggram-4aa20.firebaseapp.com",
@@ -14,52 +13,53 @@ const firebaseConfig = {
   measurementId: "G-5865DYTVB9"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const storage = getStorage();
 
-// Кэш данных пользователя
-let cachedUserData = null;
-
-// Функция для получения данных пользователя с кэшированием
+// Функция для получения данных пользователя
 export const getUserData = async (uid) => {
-  if (cachedUserData) {
-    return cachedUserData;
-  }
   try {
-    const userDoc = await getDoc(doc(db, 'users', uid));
-    if (userDoc.exists()) {
-      cachedUserData = userDoc.data();
-      console.log('User data fetched:', cachedUserData); // Отладочное сообщение
-      return cachedUserData;
+    const userDoc = doc(db, 'users', uid); // Исправлено
+    const userSnapshot = await getDoc(userDoc);
+    if (userSnapshot.exists()) {
+      return userSnapshot.data();
     } else {
-      console.error('No such user!');
+      console.log("No such document!");
       return null;
     }
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    return null;
+    console.error("Error fetching user data:", error);
+    throw error;
   }
 };
 
 // Функция для обновления данных пользователя
-export const updateUserData = async (uid, userData) => {
+export const updateUserData = async (userId, userData) => {
   try {
-    await setDoc(doc(db, 'users', uid), userData, { merge: true });
-    cachedUserData = { ...cachedUserData, ...userData }; // Обновляем кэш
-    console.log('User data updated successfully');
+    const userRef = doc(db, 'users', userId);
+    await setDoc(userRef, userData, { merge: true });
   } catch (error) {
     console.error('Error updating user data:', error);
+    throw error;
   }
 };
 
 // Функция для загрузки аватара
-export const uploadAvatar = async (file, uid) => {
-  const avatarRef = ref(storage, `avatars/${uid}`);
-  await uploadBytes(avatarRef, file);
-  return await getDownloadURL(avatarRef);
+export const uploadAvatar = async (file, userId) => {
+  const storageRef = ref(storage, `avatars/${userId}/${file.name}`);
+  try {
+    // Загрузка файла
+    await uploadBytes(storageRef, file);
+    
+    // Получение URL файла
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (error) {
+    console.error('Error uploading avatar:', error);
+    throw error;
+  }
 };
 
 // Функция для обновления email пользователя
@@ -102,4 +102,4 @@ export const verifyCurrentPassword = async (email, currentPassword) => {
 };
 
 // Экспорт необходимых Firebase модулей
-export { db, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup };
+export { db, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc };
