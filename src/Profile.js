@@ -25,6 +25,7 @@ const StarRating = React.memo(({ rating = 1 }) => {
 const Profile = () => {
   const { user } = useUser(); // Получаем контекст
   const navigate = useNavigate();
+  const placeholderAvatar = 'https://via.placeholder.com/120'; // URL изображения-заглушки
 
   if (!user) {
     return <Loading />;
@@ -39,7 +40,7 @@ const Profile = () => {
       <Navbar />
       <div className="profile-content">
         <div className="card-container">
-          <img className="round" src={user.avatar} alt="user" />
+          <img className="round" src={user.avatar || placeholderAvatar} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description}</p>
           <button className="primary" onClick={handleEditClick}>Редактировать</button>
