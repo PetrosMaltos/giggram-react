@@ -56,9 +56,13 @@ const Profile = () => {
           <div className="skills">
             <h6>Навыки</h6>
             <ul>
-              {user.skills.map((skill, index) => (
-                <li key={index}>{skill}</li>
-              ))}
+              {user.skills && user.skills.length > 0 ? (
+                user.skills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))
+              ) : (
+                <li>Навыки не указаны</li>
+              )}
             </ul>
           </div>
           <div className="user-info">
