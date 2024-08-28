@@ -9,8 +9,6 @@ import { FaShare } from "react-icons/fa";
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
-import { getDownloadURL, ref } from 'firebase/storage';
-import { storage } from './firebaseConfig'; // Предполагается, что вы используете отдельный файл для конфигурации Firebase
 
 const StarRating = React.memo(({ rating = 1 }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -29,22 +27,8 @@ const Profile = () => {
   const navigate = useNavigate();
   const placeholderAvatar = 'https://via.placeholder.com/120'; // URL изображения-заглушки
 
-  const [avatarUrl, setAvatarUrl] = React.useState(placeholderAvatar);
-
-  // Получаем URL аватарки пользователя из Firebase Storage
-  React.useEffect(() => {
-    if (user && user.avatarPath) {
-      const avatarRef = ref(storage, user.avatarPath);
-      getDownloadURL(avatarRef)
-        .then((url) => {
-          console.log("Avatar URL:", url);
-          setAvatarUrl(url);
-        })
-        .catch((error) => {
-          console.error("Error fetching avatar URL:", error);
-        });
-    }
-  }, [user]);
+  // Используем URL аватарки из базы данных или заглушку
+  const avatarUrl = user && user.avatar ? user.avatar : placeholderAvatar;
 
   if (!user) {
     return <Loading />;
