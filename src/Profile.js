@@ -32,6 +32,9 @@ const Profile = () => {
     return <Loading />;
   }
 
+  // Проверяем, есть ли аватарка от Telegram, и используем её, если она доступна
+  const userAvatar = user.photo_url || user.avatar || placeholderAvatar;
+
   const handleEditClick = () => {
     navigate('/editprofile');
   };
@@ -41,7 +44,7 @@ const Profile = () => {
       <Navbar />
       <div className="profile-content">
         <div className="card-container">
-          <img className="round" src={user.avatar || placeholderAvatar} alt="user" />
+          <img className="round" src={userAvatar} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
           <button className="primary" onClick={handleEditClick}>Редактировать</button>

@@ -7,6 +7,7 @@ import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons
 import './OrderDetail.css';
 import { db } from '../firebaseConfig';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import Loading from './Loading';
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -81,7 +82,7 @@ const OrderDetail = () => {
   };
 
   if (!order) {
-    return <div>Загрузка данных...</div>;
+    <Loading />
   }
 
   return (
