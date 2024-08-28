@@ -1,5 +1,4 @@
-// Profile.js
-import React from 'react'; // Импортируем React
+import React from 'react';
 import './Profile.css';
 import Navbar from './components/Navbar';
 import Skeleton from 'react-loading-skeleton';
@@ -10,6 +9,8 @@ import { FaShare } from "react-icons/fa";
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from './firebaseConfig'; // Предполагается, что вы используете отдельный файл для конфигурации Firebase
 
 const StarRating = React.memo(({ rating = 1 }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -24,16 +25,30 @@ const StarRating = React.memo(({ rating = 1 }) => {
 });
 
 const Profile = () => {
-  const { user } = useUser(); // Получаем контекст
+  const { user } = useUser(); // Получаем контекст пользователя
   const navigate = useNavigate();
   const placeholderAvatar = 'https://via.placeholder.com/120'; // URL изображения-заглушки
+
+  const [avatarUrl, setAvatarUrl] = React.useState(placeholderAvatar);
+
+  // Получаем URL аватарки пользователя из Firebase Storage
+  React.useEffect(() => {
+    if (user && user.avatarPath) {
+      const avatarRef = ref(storage, user.avatarPath);
+      getDownloadURL(avatarRef)
+        .then((url) => {
+          console.log("Avatar URL:", url);
+          setAvatarUrl(url);
+        })
+        .catch((error) => {
+          console.error("Error fetching avatar URL:", error);
+        });
+    }
+  }, [user]);
 
   if (!user) {
     return <Loading />;
   }
-
-  // Проверяем, есть ли аватарка от Telegram, и используем её, если она доступна
-  const userAvatar = user.photo_url || user.avatar || placeholderAvatar;
 
   const handleEditClick = () => {
     navigate('/editprofile');
@@ -44,7 +59,7 @@ const Profile = () => {
       <Navbar />
       <div className="profile-content">
         <div className="card-container">
-          <img className="round" src={userAvatar} alt="user" />
+          <img className="round" src={avatarUrl} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
           <button className="primary" onClick={handleEditClick}>Редактировать</button>
