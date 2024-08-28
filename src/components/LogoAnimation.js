@@ -5,7 +5,7 @@ import './LogoAnimation.css'; // Подключаем стили
 const LogoAnimation = () => {
   return (
     <div className="logo-animation">
-      <img src="/images/logo_without_bg.png" alt="Logo" className="animated-logo" />
+      <img src="/images/logo.png" alt="Logo" className="animated-logo" />
     </div>
   );
 };

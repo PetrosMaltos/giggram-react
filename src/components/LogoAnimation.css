@@ -10,7 +10,7 @@
 }
 
 .animated-logo {
-  width: 120px; /* Ширина логотипа */
+  width: 200px; /* Ширина логотипа */
   height: auto;
   animation: colorChange 5s infinite ease-in-out;
 }
