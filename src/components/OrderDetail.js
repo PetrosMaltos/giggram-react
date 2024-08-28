@@ -82,7 +82,7 @@ const OrderDetail = () => {
   };
 
   if (!order) {
-    <Loading />
+    return <Loading />;
   }
 
   return (
@@ -119,7 +119,7 @@ const OrderDetail = () => {
           </div>
         </div>
         <div className="order-tags">
-          {order.tags.length > 0 ? (
+          {order.tags && order.tags.length > 0 ? (
             order.tags.map((tag, index) => (
               <span key={index} className="tag"># {tag}</span>
             ))
