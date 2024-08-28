@@ -32,7 +32,6 @@
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-
 .card-container {
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
@@ -41,25 +40,6 @@
   width: 100%;
   text-align: center;
   position: relative;
-}
-
-.card-container .pro {
-  color: #ffffff;
-  background-color: #6200ee;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: bold;
-  padding: 5px 10px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.card-container .pro i {
-  margin-right: 8px;
-  color: #f1c40f; /* Цвет звезды */
 }
 
 .card-container .round {
@@ -73,10 +53,6 @@
 
 .card-container .round:hover {
   transform: scale(1.1);
-}
-
-.button-group {
-  margin-top: 20px;
 }
 
 button.primary {
@@ -174,23 +150,6 @@ button.primary.ghost:hover {
 
 .user-info .info-item span {
   font-weight: bold;
-}
-
-.current-date-time {
-  text-align: left;
-  padding: 15px;
-  width: 100%;
-  border-top: 1px solid #333333;
-  margin-top: 20px;
-}
-
-.current-date-time h6 {
-  margin-bottom: 10px;
-  color: #e0e0e0;
-}
-
-.current-date-time p {
-  font-size: 14px;
 }
 
 @media (max-width: 600px) {

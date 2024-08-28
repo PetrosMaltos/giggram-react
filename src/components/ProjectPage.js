@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { format, parseISO } from 'date-fns';
 import { AiFillStar } from 'react-icons/ai';
-import { FaEye, FaClock, FaLock } from 'react-icons/fa';
+import { FaLock } from 'react-icons/fa';
 import ScrollToTop from './ScrollToTop';
+import { db, doc, getDoc } from '../firebaseConfig'; // Предположим, что конфигурация Firebase импортирована здесь
 import './ProjectPage.css';
-import { ru } from 'date-fns/locale';
+import Loading from './Loading';
 
-const ProjectPage = ({ projects = [], isAuthenticated }) => {
+const ProjectPage = ({ isAuthenticated }) => {
   const { id } = useParams();
-
-  // Проверка наличия данных о проектах
-  if (!Array.isArray(projects)) {
-    return <div>Данные о проектах недоступны</div>;
-  }
-
-  const project = projects.find(project => project.id === parseInt(id, 10));
-
-  if (!project) {
-    return <div>Проект не найден</div>;
-  }
-
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [response, setResponse] = useState('');
 
   useEffect(() => {
-    // Setup "Back" button
+    const fetchProject = async () => {
+      try {
+        const projectRef = doc(db, 'projects', id);
+        const projectDoc = await getDoc(projectRef);
+
+        if (projectDoc.exists()) {
+          setProject({ id: projectDoc.id, ...projectDoc.data() });
+        } else {
+          setError('Проект не найден');
+        }
+      } catch (err) {
+        setError('Ошибка при загрузке проекта');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
 
@@ -42,7 +53,7 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
         window.Telegram.WebApp.BackButton.hide();
       }
     };
-  }, []); 
+  }, []);
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
@@ -52,13 +63,23 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
     console.log('Комментарий отправлен:', response);
   };
 
+  if (loading) {
+    <Loading />
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="project-detail">
       <ScrollToTop />
       <div className="project-info">
-        <div className="project-image1">
-          <img src={project.image} alt={project.title} />
-        </div>
+        {project.image && (
+          <div className="project-image1">
+            <img src={project.image} alt={project.title} />
+          </div>
+        )}
         <div className="client-profile">
           <div className="client-avatar" />
           <div className="client-info">
@@ -71,15 +92,15 @@ const ProjectPage = ({ projects = [], isAuthenticated }) => {
         </div>
         <h1 className="project-title">{project.title}</h1>
         <p className="project-description">{project.description}</p>
-          <div className="project-tags">
-            {project.tags && project.tags.length > 0 && (
-              <div className="tags">
-                {project.tags.map((tag, index) => (
-                  <span key={index} className="tag">#{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="project-tags">
+          {project.tags && project.tags.length > 0 && (
+            <div className="tags">
+              {project.tags.map((tag, index) => (
+                <span key={index} className="tag">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="divider" />
       <div className="response-section">

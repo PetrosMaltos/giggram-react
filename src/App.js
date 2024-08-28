@@ -6,13 +6,12 @@ import Loading from './components/Loading';
 import Categories from './components/Categories';
 import Services from './components/Services';
 import Orders from './Orders';
-import Messages from './Messages';
-import Chat from './components/Chat';
 import OrderDetail from './components/OrderDetail';
 import Profile from './Profile';
 import { useOrderStore } from './store';
 import CreateOrder from './CreateOrder';
 import Favors from './Favors';
+import CreateFavor from './CreateFavor';
 import Projects from './Projects';
 import Specialists from './Specialists';
 import Settings from './Settings';
@@ -27,6 +26,9 @@ import Login from './Login';
 import Register from './Register';
 import EditProfile from './EditProfile';
 import { UserProvider } from './UserContext'; // Импортируем UserProvider
+import OtherProfile from './OtherProfile'
+import NotFound from './NotFound';
+import CreateProject from './CreateProject';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ const App = () => {
     const timer = setTimeout(() => {
       setLoading(false);
       fetchOrders(); // Загрузка заказов при старте приложения
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [fetchOrders]);
@@ -60,23 +62,25 @@ const App = () => {
             <Route path="/orders/:id" element={<OrderDetail orders={ordersData} />} />
             <Route path="/create" element={<CreateOrder />} />
             <Route path="/main" element={<Main />} />
-            <Route path="/messages" element={<Messages />} />
             <Route path="/favors" element={<Favors />} />
-            <Route path="/chat/:username" element={<Chat />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/users/:userId" element={<OtherProfile />} /> {/* Изменено на /users/:userId */}
+            <Route path="/editprofile/:userId" element={<EditProfile />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/services" element={<Services />} />
             <Route path="/specialists" element={<Specialists />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectPage />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/projects/:id" element={<ProjectPage projects={projectsData} isAuthenticated={true} />} />
             <Route path="/help" element={<Help />} />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/my-projects" element={<MyProjects />} />
             <Route path="/my-favors" element={<MyFavors />} />
-            <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="/create-favor" element={<CreateFavor />} />
+            <Route path="/create-project" element={<CreateProject />} />
           </Routes>
         )}
       </Router>

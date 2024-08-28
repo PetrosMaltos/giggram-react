@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCard from './components/ProjectCard';
-import { Link } from 'react-router-dom';
-import './Projects.css';
+import { FaSearch, FaPlus } from 'react-icons/fa';
 import Navbar from './components/Navbar';
-import { FaSearch } from 'react-icons/fa';
-// Projects.js
-import { projectsData } from './components/projectData'; // Убедитесь, что путь правильный
-
-
-  // ... More projects
+import { db, collection, onSnapshot } from './firebaseConfig';
+import './Projects.css';
 
 const Projects = () => {
+  const [projectsData, setProjectsData] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'projects'), (snapshot) => {
+      const projects = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
+        };
+      });
+      // Сортируем проекты по дате создания в порядке убывания
+      const sortedProjects = projects.sort((a, b) => b.createdAt - a.createdAt);
+      setProjectsData(sortedProjects);
+      setFilteredProjects(sortedProjects);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    filterProjects(searchText);
+  }, [searchText, projectsData]);
+
+  const handleInputChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const filterProjects = (searchText) => {
+    const lowerSearchText = searchText.toLowerCase();
+    const newFilteredProjects = projectsData.filter(project => {
+      return project.title.toLowerCase().includes(lowerSearchText) ||
+             project.description.toLowerCase().includes(lowerSearchText);
+    });
+    setFilteredProjects(newFilteredProjects);
+  };
+
+  const handleCreateProjectClick = () => {
+    window.location.href = '/create-project';
+  };
+
   return (
     <div className="projects-page">
       <Navbar />
@@ -18,23 +56,26 @@ const Projects = () => {
         <h1>Проекты</h1>
       </header>
       <section className="search-section3">
-        <input 
-          type="text" 
-          placeholder="Поиск проектов..." 
-          className="search-input" 
+        <input
+          type="text"
+          placeholder="Поиск проектов..."
+          className="search-input"
+          value={searchText}
+          onChange={handleInputChange}
         />
-        <button className="search-button">
+        <button className="search-button" onClick={() => filterProjects(searchText)}>
           <FaSearch className="search-icon" />
         </button>
       </section>
-
+      <div className='create-project-button-container'>
+        <button className="create-project-button" onClick={handleCreateProjectClick}>
+          <FaPlus className="create-project-icon" /> Создать проект
+        </button>
+      </div>
       <section className="projects-list">
-        {projectsData.map(project => (
-          <div 
-            key={project.id} 
-            style={{ textDecoration: 'none' }} // Убираем подчеркивание у ссылок
-          >
-             <ProjectCard
+        {filteredProjects.map(project => (
+          <div key={project.id} style={{ textDecoration: 'none' }}>
+            <ProjectCard
               id={project.id}
               title={project.title}
               image={project.image}

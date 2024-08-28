@@ -1,5 +1,5 @@
-import React from 'react';
-import { FaDollarSign, FaStar, FaArchive } from 'react-icons/fa'; // Импорт иконок
+import React, { useEffect } from 'react';
+import { FaDollarSign, FaStar, FaArchive } from 'react-icons/fa';
 import { IoDiamond } from 'react-icons/io5';
 import './Services.css'; // Импорт стилей
 
@@ -22,6 +22,33 @@ const Services = () => {
     },
   ];
 
+  useEffect(() => {
+    // Функция для создания частиц
+    const createParticles = () => {
+      const container = document.querySelector('.icon-particles');
+      const numParticles = 30;
+
+      for (let i = 0; i < numParticles; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        container.appendChild(particle);
+
+        // Устанавливаем случайные значения для переменных CSS
+        const x = Math.random() * 300 - 150; // Random value between -150 and 150
+        const y = Math.random() * 300 - 150; // Random value between -150 and 150
+        particle.style.setProperty('--x', `${x}px`);
+        particle.style.setProperty('--y', `${y}px`);
+        
+        // Удаляем частицу после окончания анимации
+        particle.addEventListener('animationend', () => {
+          particle.remove();
+        });
+      }
+    };
+
+    createParticles();
+  }, []);
+
   return (
     <div className="services-page">
       <div className="services-list">
@@ -36,12 +63,12 @@ const Services = () => {
         ))}
       </div>
       <div className="subscription-banner">
-        <div className="subscription-overlay"></div>
         <div className="subscription-content">
           <div className="subscription-icon">
             <IoDiamond />
+            <div className="icon-particles"></div>
           </div>
-          <h2>Неограниченные отклики с <span className="highlight">UnlimitPro</span></h2>
+          <h2>UnlimitPro</h2>
           <p>Снимите лимиты на отклики и взаимодействуйте с фрилансерами без ограничений. Увеличьте охват и вовлеченность прямо сейчас!</p>
           <a href="/subscribe" className="subscribe-button">Оформить подписку</a>
         </div>

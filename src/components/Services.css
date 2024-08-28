@@ -1,3 +1,4 @@
+/* Общие стили */
 .services-page {
   padding: 20px;
   background-color: #000;
@@ -39,31 +40,44 @@
 
 .service-card h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-family: "Montserrat", sans-serif;
 }
 
 .service-card p {
   color: #9d9d9d;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-top: 5px;
   font-family: "Montserrat", sans-serif;
 }
 
 /* Subscription banner */
 .subscription-banner {
-  border: 2px solid #6200ee;
-  background: linear-gradient(rgba(0, 0, 0, 0.692), rgba(0, 0, 0, 0.5)), url('/public/images/subscribe_offer.png');
-  background-size: cover;
-  background-position: center;
+  border: 2px solid #ffffff;
+  background: linear-gradient(135deg, #00b4cc, #4b00d7, #bc00c6);
+  background-size: 200% 200%;
+  animation: gradientAnimation 5s ease infinite;
   padding: 60px;
-  border-radius: 12px;
+  border-radius: 15px;
   text-align: center;
   margin: 40px 0 100px;
   box-shadow: 0 8px 16px rgba(140, 39, 255, 0.516);
   color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
 }
 
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 .subscription-content {
   padding-bottom: 10px;
@@ -72,39 +86,63 @@
 }
 
 .subscription-icon {
+  position: relative;
   font-size: 3rem;
-  color: #6200ee;
-  margin-bottom: 20px;
+  color: #ffeb3b;
+  margin-bottom: 10px;
 }
+
+.icon-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  animation: particleFly 1s ease-out forwards;
+}
+
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity: 0;
+  }
+}
+
 
 .subscription-content h2 {
-  font-size: 2.2rem; /* Slightly larger font size for emphasis */
-  color: #6a00ff; /* Purple color */
-  margin-bottom: 15px; /* Increased margin for better spacing */
-  font-weight: 700; /* Bold font weight for emphasis */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-  letter-spacing: 1px; /* Letter spacing for a modern look */
-  display: inline; /* Keep text inline for styling */
-}
-
-.highlight {
-  margin-top: 10px; /* Отступ сверху */
-  padding: 0px 10px; /* Отступы внутри */
-  border: 2px solid #6200ee; /* Цвет и стиль границы */
-  color: #6200ee; /* Цвет текста */
-  border-radius: 12px; /* Закругленные углы */
-  display: inline-block; /* Обеспечивает правильное отображение отступов и padding */
-  font-weight: 700; /* Жирный шрифт */
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: inline;
+  background: linear-gradient(145deg, #ffeb3b, #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subscription-content p {
   color: #e0e0e0;
   font-size: 1.2rem;
-  margin-bottom: 30px; /* Decreased space between text and button */
+  margin-bottom: 30px;
 }
 
 .subscribe-button {
-  background: linear-gradient(145deg, #6200ee, #9a67ea); /* Smooth gradient */
+  background: linear-gradient(145deg, #6200ee, #9a67ea);
   color: #fff;
   padding: 10px 25px;
   border-radius: 12px;
@@ -113,21 +151,21 @@
   text-decoration: none;
   transition: all 0.3s ease;
   margin-bottom: 0px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deep shadow for depth */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   display: inline-block;
-  border: 2px solid transparent; /* Transparent border for smoother transitions */
+  border: 2px solid transparent;
 }
 
 .subscribe-button:hover {
-  background: linear-gradient(145deg, #9a67ea, #bb86fc); /* Reversed gradient for hover effect */
-  transform: translateY(-4px); /* Elevated effect on hover */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
-  border-color: #bb86fc; /* Border color added on hover */
+  background: linear-gradient(145deg, #9a67ea, #bb86fc);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: #bb86fc;
 }
 
 .subscribe-button:active {
-  transform: translateY(-1px); /* Slight push down effect when clicked */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Reduced shadow when clicked */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Media queries */
@@ -135,11 +173,9 @@
   .subscription-banner {
     padding: 40px;
   }
-
   .subscription-banner h2 {
     font-size: 1.8rem;
   }
-
   .subscription-banner p {
     font-size: 1rem;
   }
@@ -149,11 +185,9 @@
   .subscription-banner {
     padding: 20px;
   }
-
   .subscription-banner h2 {
     font-size: 1.5rem;
   }
-
   .subscription-banner p {
     font-size: 0.9rem;
   }

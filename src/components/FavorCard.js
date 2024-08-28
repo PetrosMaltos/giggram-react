@@ -2,16 +2,7 @@ import React from 'react';
 import { FaTag, FaRubleSign, FaCommentDots, FaCheckCircle } from 'react-icons/fa';
 import './FavorCard.css';
 
-const FavorCard = ({ 
-  title = 'Без названия', 
-  tags = [], 
-  price = '0', 
-  responses = 0, 
-  category = 'Без категории', 
-  imagePaths = [], 
-  userAvatar = 'default-avatar.png', 
-  isVerified = false 
-}) => {
+const FavorCard = ({ title = 'Без названия', tags = [], price = '0', responses = 0, category = 'Без категории', imagePaths = [], userAvatar = 'default-avatar.png', isVerified = false }) => {
   return (
     <div className="favor-card">
       <div className="favor-card-header">
@@ -27,11 +18,15 @@ const FavorCard = ({
         ))}
       </div>
       <div className="favor-card-tags">
-        {tags.map((tag, index) => (
-          <span key={index} className="favor-card-tag">
-            <FaTag className="tag-icon" /> #{tag}
-          </span>
-        ))}
+        {tags.length > 0 ? (
+          tags.map((tag, index) => (
+            <span key={index} className="favor-card-tag">
+              <FaTag className="tag-icon" /> #{tag}
+            </span>
+          ))
+        ) : (
+          <span className="no-tags">Без хэштегов</span>
+        )}
       </div>
       <div className="favor-card-footer">
         <div className="favor-card-footer-item">

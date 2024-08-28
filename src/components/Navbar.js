@@ -6,7 +6,6 @@ import './Navbar.css';
 const NAV_ITEMS = [
   { to: '/main', icon: <Home />, text: 'Главная', key: 'home' },
   { to: '/orders', icon: <List />, text: 'Заказы', key: 'orders' },
-  { to: '/messages', icon: <Mail />, text: 'Чаты', key: 'messages' },
   { to: '/profile', icon: <User />, text: 'Профиль', key: 'profile' },
   { to: '/favors', icon: <Hand />, text: 'Услуги', key: 'favors' },
   { to: '/specialists', icon: <Users />, text: 'Специалисты', key: 'specialists' },

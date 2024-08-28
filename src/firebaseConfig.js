@@ -21,7 +21,7 @@ const storage = getStorage();
 // Функция для получения данных пользователя
 export const getUserData = async (uid) => {
   try {
-    const userDoc = doc(db, 'users', uid); // Исправлено
+    const userDoc = doc(db, 'users', uid);
     const userSnapshot = await getDoc(userDoc);
     if (userSnapshot.exists()) {
       return userSnapshot.data();
@@ -82,11 +82,10 @@ export const checkUsernameExists = async (username) => {
   try {
     const q = query(collection(db, 'users'), where('username', '==', username));
     const querySnapshot = await getDocs(q);
-    // Если есть хотя бы один документ с таким именем пользователя
     return !querySnapshot.empty;
   } catch (error) {
     console.error('Error checking username existence:', error);
-    return false; // Возвращаем false при ошибке, чтобы не блокировать дальнейшие действия
+    return false;
   }
 };
 
@@ -94,7 +93,7 @@ export const checkUsernameExists = async (username) => {
 export const verifyCurrentPassword = async (email, currentPassword) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, currentPassword);
-    return !!userCredential.user; // Возвращаем true, если вход выполнен успешно
+    return !!userCredential.user;
   } catch (error) {
     console.error('Error verifying current password:', error);
     return false;
@@ -102,4 +101,4 @@ export const verifyCurrentPassword = async (email, currentPassword) => {
 };
 
 // Экспорт необходимых Firebase модулей
-export { db, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc };
+export { db, storage, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc, getDoc };

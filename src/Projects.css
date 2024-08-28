@@ -166,3 +166,56 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   }
 
+
+  /* Кнопка создания заказа */
+  .create-project-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #000000; /* Цвет текста */
+    border: none;
+    border-radius: 12px; /* Слегка округлённые углы */
+    padding: 12px 24px; /* Увеличенное поле для кнопки */
+    font-size: 16px; /* Размер шрифта */
+    font-weight: 500; /* Немного жирнее текст */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center; /* Выравнивание текста по центру */
+    cursor: pointer; /* Курсор при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Улучшенная тень для глубины */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Плавные переходы */
+    display: flex; /* Используем flexbox для центрирования иконки и текста */
+    align-items: center; /* Вертикальное выравнивание элементов */
+    justify-content: center; /* Горизонтальное выравнивание элементов */
+  }
+  
+  /* Состояние при нажатии */
+  .create-project-button:active {
+    background-color: #3700b3; /* Тёмный цвет при нажатии */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
+    transform: scale(0.98); /* Небольшое уменьшение при нажатии */
+  }
+  
+  /* Отключенное состояние */
+  .create-project-button:disabled {
+    background-color: #d1c4e9; /* Светлый цвет для отключенной кнопки */
+    color: #9e9e9e; /* Цвет текста для отключенной кнопки */
+    cursor: not-allowed; /* Курсор при отключенной кнопке */
+    box-shadow: none; /* Без тени */
+    opacity: 0.6; /* Немного прозрачности для обозначения отключенного состояния */
+  }
+  
+  /* Стиль иконки */
+  .create-project-icon {
+    font-size: 20px; /* Увеличенный размер иконки */
+    margin-right: 10px; /* Расстояние между иконкой и текстом */
+    color: inherit; /* Иконка наследует цвет текста кнопки */
+  }
+  
+  /* Расположение кнопки */
+  .create-project-button-container {
+    display: flex;
+    justify-content: center; /* Центрирование кнопки по горизонтали */
+  }
+  
+  .create-project-button-container .create-project-button {
+    margin-bottom:  40px; /* Убираем отступы вокруг кнопки */
+  }

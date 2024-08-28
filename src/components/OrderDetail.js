@@ -6,14 +6,14 @@ import { AiFillStar } from 'react-icons/ai';
 import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
 import './OrderDetail.css';
 import { db } from '../firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
-const OrderDetail = ({ isAuthenticated }) => {
+const OrderDetail = () => {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [response, setResponse] = useState('');
   const [timeAgo, setTimeAgo] = useState('');
-  const [showTelegramBackButton, setShowTelegramBackButton] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -35,55 +35,50 @@ const OrderDetail = ({ isAuthenticated }) => {
         console.error('Ошибка получения данных заказа:', error);
       }
     };
-    fetchOrder();
-  }, [id]);
 
-  useEffect(() => {
-    const incrementViews = async () => {
-      if (order) {
-        const orderRef = doc(db, 'orders', id);
-        try {
-          await updateDoc(orderRef, { views: order.views + 1 });
-        } catch (error) {
-          console.error('Error updating views:', error);
+    const fetchUserData = async () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        const user = tg.initDataUnsafe.user;
+
+        if (user) {
+          try {
+            const userRef = doc(db, 'users', user.id);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+              setUserData(userSnap.data());
+            } else {
+              console.warn('Пользователь не зарегистрирован в базе данных');
+            }
+          } catch (error) {
+            console.error('Ошибка получения данных пользователя:', error);
+          }
         }
       }
     };
-    incrementViews();
-  }, [order, id]);
+
+    fetchOrder();
+    fetchUserData();
+  }, [id]);
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
   };
 
-  const handleSubmit = () => {
-    console.log('Ответ отправлен:', response);
-  };
-
-  const handleTelegramBackButtonClick = () => {
-    setShowTelegramBackButton(false);
-  };
-
-  useEffect(() => {
-    // Setup "Back" button
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
-    }
-
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
+  const handleSubmit = async () => {
+    if (userData) {
+      try {
+        const orderRef = doc(db, 'orders', id);
+        await updateDoc(orderRef, { responses: arrayUnion({ userId: userData.id, text: response }) });
+        setResponse('');
+        alert('Ваш отклик отправлен!');
+      } catch (error) {
+        console.error('Ошибка отправки отклика:', error);
       }
-    };
-  }, []); 
+    } else {
+      alert('Вы должны быть зарегистрированы, чтобы отправить отклик.');
+    }
+  };
 
   if (!order) {
     return <div>Загрузка данных...</div>;
@@ -119,7 +114,7 @@ const OrderDetail = ({ isAuthenticated }) => {
           </div>
           <div className="order-info-item">
             <FaCommentDots className="order-icon" />
-            <span className="order-responses">{order.responses || 0} откликов</span>
+            <span className="order-responses">{order.responses?.length || 0} откликов</span>
           </div>
         </div>
         <div className="order-tags">
@@ -133,7 +128,7 @@ const OrderDetail = ({ isAuthenticated }) => {
         </div>
         <div className="divider" />
         <div className="response-section">
-          {isAuthenticated ? (
+          {userData ? (
             <div className="response-form">
               <textarea
                 className="response-textarea"
