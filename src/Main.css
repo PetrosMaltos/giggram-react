@@ -27,7 +27,7 @@ html, body {
 .main-header .gradient-text {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(135deg, #ff1605, #6200ee, #03a9f4, #f4a300);
+  background: linear-gradient(135deg, #eeff05, #ee0000, #03a9f4, #6200f4);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
