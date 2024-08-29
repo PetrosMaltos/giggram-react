@@ -29,6 +29,10 @@ import { UserProvider } from './UserContext'; // Импортируем UserProv
 import OtherProfile from './OtherProfile'
 import NotFound from './NotFound';
 import CreateProject from './CreateProject';
+import ClientDashboard from './ClientDashboard';
+import FreelancerDashboard from './FreelancerDashboard';
+import Subscribe from './Subscribe';
+import MyResponses from './MyResponses';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -65,7 +69,7 @@ const App = () => {
             <Route path="/favors" element={<Favors />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/users/:userId" element={<OtherProfile />} /> {/* Изменено на /users/:userId */}
-            <Route path="/editprofile/:userId" element={<EditProfile />} />
+            <Route path="/editprofile" element={<EditProfile />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/services" element={<Services />} />
@@ -78,9 +82,11 @@ const App = () => {
             <Route path="/help" element={<Help />} />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/my-projects" element={<MyProjects />} />
+            <Route path="/my-responses" element={<MyResponses />} />
             <Route path="/my-favors" element={<MyFavors />} />
             <Route path="/create-favor" element={<CreateFavor />} />
             <Route path="/create-project" element={<CreateProject />} />
+            <Route path="/subscribe" element={<Subscribe />} />
           </Routes>
         )}
       </Router>

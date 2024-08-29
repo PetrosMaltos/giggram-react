@@ -74,3 +74,33 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Обновленная тень при нажатии */
   }
   
+  /* Сообщения об ошибке и успехе */
+.error-message {
+  color: #e57373; /* Красный цвет для ошибок */
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #81c784; /* Зеленый цвет для успешного выполнения */
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Стили для выпадающего списка категорий */
+.category-select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #e0e0e0;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.category-select:focus {
+  border-color: #6200ee; /* Цвет границы при фокусе */
+  outline: none; /* Убираем стандартное обводку при фокусе */
+}

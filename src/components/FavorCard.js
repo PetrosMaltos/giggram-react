@@ -13,8 +13,8 @@ const FavorCard = ({ title = 'Без названия', tags = [], price = '0', 
         <h2 className="favor-card-title">{title}</h2>
       </div>
       <div className="favor-card-images">
-        {imagePaths.slice(0, 2).map((imageDataURL, index) => (
-          <img key={index} src={imageDataURL} alt={`Favor ${index + 1}`} className="favor-card-image" />
+        {imagePaths.slice(0, 2).map((imagePath, index) => (
+          <img key={index} src={imagePath} alt={`Favor ${index + 1}`} className="favor-card-image" />
         ))}
       </div>
       <div className="favor-card-tags">

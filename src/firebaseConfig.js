@@ -35,6 +35,40 @@ export const getUserData = async (uid) => {
   }
 };
 
+export const getResponses = async () => {
+  const userId = auth.currentUser?.uid;
+  const responses = [];
+
+  if (!userId) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const q = query(collection(db, "orders"), where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const orderData = doc.data();
+      if (orderData.responses && orderData.responses.length > 0) {
+        orderData.responses.forEach((response) => {
+          responses.push({
+            ...response,
+            projectName: orderData.projectName,
+            date: orderData.date,
+          });
+        });
+      }
+    });
+    
+    return responses;
+  } catch (error) {
+    console.error("Error fetching responses:", error);
+    throw error;
+  }
+};
+
+
+
 // Функция для обновления данных пользователя
 export const updateUserData = async (userId, userData) => {
   try {
@@ -99,6 +133,20 @@ export const verifyCurrentPassword = async (email, currentPassword) => {
     return false;
   }
 };
+
+// Примерная структура для заморозки средств
+const handlePayment = async (amount, orderId, userId) => {
+  try {
+    // Вызов API для заморозки средств
+    const paymentResult = await paymentService.freezeFunds(amount, orderId, userId);
+    if (paymentResult.success) {
+      await updateDoc(doc(db, 'orders', orderId), { paymentStatus: 'frozen' });
+    }
+  } catch (error) {
+    console.error('Ошибка заморозки средств:', error);
+  }
+};
+
 
 // Экспорт необходимых Firebase модулей
 export { db, storage, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc, getDoc };

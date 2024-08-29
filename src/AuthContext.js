@@ -4,11 +4,11 @@ import { auth } from './firebaseConfig'; // Импортируйте настр�
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null); // Убедитесь, что используется currentUser
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
+      setCurrentUser(user); // Устанавливаем currentUser, когда пользователь аутентифицирован
     });
 
     return () => unsubscribe();

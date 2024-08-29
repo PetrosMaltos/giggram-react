@@ -285,17 +285,19 @@ const Orders = () => {
       <div className="orders-list">
         {currentOrders.length ? currentOrders.map(order => (
           <OrderCard
-            key={order.id}
-            id={order.id}
-            title={order.title}
-            tags={order.tags}
-            description={order.description}
-            createdAt={order.createdAt}
-            price={order.price}
-            responses={order.responses}
-            views={order.views}
-            isAssigned={order.isAssigned}
-          />
+          key={order.id}
+          id={order.id}
+          title={order.title}
+          tags={order.tags}
+          description={order.description}
+          createdAt={order.createdAt}
+          price={order.price}
+          responses={order.responses}
+          views={order.views}
+          isAssigned={order.isAssigned}
+          status={order.status}  
+        />
+        
         )) : <p>Нынче заказов нэт :(</p>}
       </div>
       <div className="pagination-controls">

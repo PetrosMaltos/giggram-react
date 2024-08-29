@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Profile.css';
 import Navbar from './components/Navbar';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FaShare } from "react-icons/fa";
+import { FaShare } from 'react-icons/fa';
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
@@ -23,15 +23,33 @@ const StarRating = React.memo(({ rating = 1 }) => {
 });
 
 const Profile = () => {
-  const { user } = useUser(); // Получаем контекст пользователя
+  const { user, loading } = useUser();
   const navigate = useNavigate();
-  const placeholderAvatar = 'https://via.placeholder.com/120'; // URL изображения-заглушки
-
-  // Используем URL аватарки из базы данных или заглушку
+  const placeholderAvatar = 'https://via.placeholder.com/120';
   const avatarUrl = user && user.avatar ? user.avatar : placeholderAvatar;
 
-  if (!user) {
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/login');
+    }
+  }, [loading, user, navigate]);
+
+  if (loading) {
     return <Loading />;
+  }
+
+  if (!user) {
+    return (
+      <div className="profile-page">
+        <Navbar />
+        <div className="profile-content">
+          <div className="card-container">
+            <h3>Пользователь не зарегистрирован</h3>
+            <p>Пожалуйста, <Link to="/register">зарегистрируйтесь</Link> или <Link to="/login">войдите</Link> в систему.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const handleEditClick = () => {
@@ -47,7 +65,7 @@ const Profile = () => {
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
           <button className="primary" onClick={handleEditClick}>Редактировать</button>
-          <button className="primary" onClick={handleEditClick}><FaShare /></button>
+          <button className="primary"><FaShare /></button>
           <div className="rating">
             <h6>Рейтинг</h6>
             <StarRating rating={user.rating} />
@@ -77,6 +95,12 @@ const Profile = () => {
             <div className="info-item">
               <span>Роль:</span> {user.userType}
             </div>
+          </div>
+          {/* Блок для "Мои Отклики" */}
+          <div className="my-responses">
+            <Link to="/my-responses" className="response-link">
+              Мои Отклики
+            </Link>
           </div>
         </div>
       </div>

@@ -5,33 +5,31 @@ import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import './OrderCard.css';
 
-const OrderCard = ({ id, title, description, tags = [], createdAt, price, responses, views, isAssigned }) => {
+const OrderCard = ({ id, title, description, tags = [], createdAt, price, responses = [], views = 0, isAssigned }) => {
   const [timeAgo, setTimeAgo] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (createdAt) {
       const createdAtDate = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
-  
+
       console.log('CreatedAtDate:', createdAtDate); // Логирование даты для проверки
-  
+
       const updateTimeAgo = () => {
         setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
       };
-  
+
       // Обновление времени при загрузке
       updateTimeAgo();
-  
+
       // Обновляем время каждую секунду
       const timer = setInterval(updateTimeAgo, 1000);
-  
+
       return () => clearInterval(timer);
     } else {
       console.error('createdAt is undefined');
     }
   }, [createdAt]);
-  
-  
 
   const handleCardClick = () => {
     if (id) {
@@ -50,25 +48,23 @@ const OrderCard = ({ id, title, description, tags = [], createdAt, price, respon
         </div>
         <h3 className="order-title">{title}</h3>
       </div>
-      <p className="order-description">
-        {description}
-      </p>
+      <p className="order-description">{description}</p>
       <div className="order-info">
         <div className="order-info-item">
           <FaRubleSign className="order-icon" />
-          <span className="order-price">{price} руб.</span>
+          <span className="order-price">{price || '0'} руб.</span>
         </div>
         <div className="order-info-item">
           <FaEye className="order-icon" />
           <span className="order-views">{views || 0} просмотров</span>
         </div>
         <div className="order-info-item">
-            <FaClock className="order-icon" />
-            <span className="order-time">{timeAgo}</span>
-          </div>
+          <FaClock className="order-icon" />
+          <span className="order-time">{timeAgo}</span>
+        </div>
         <div className="order-info-item">
           <FaCommentDots className="order-icon" />
-          <span className="order-responses">{responses || 0} откликов</span>
+          <span className="order-responses">{responses.length || 0} откликов</span>
         </div>
       </div>
       <div className="order-tags">

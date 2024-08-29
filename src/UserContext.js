@@ -1,43 +1,51 @@
+// UserContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth'; // Импорт функции для отслеживания изменений состояния аутентификации
-import { auth, db, doc, onSnapshot } from './firebaseConfig'; // Импорт auth, db, doc и onSnapshot из firebaseConfig
+import { onAuthStateChanged } from 'firebase/auth';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from './firebaseConfig';
+
 
 const UserContext = createContext();
 
+export const useUser = () => useContext(UserContext);
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        const unsubscribeSnapshot = onSnapshot(userDocRef, (docSnapshot) => {
-          if (docSnapshot.exists()) {
-            setUser(docSnapshot.data());
-          } else {
-            console.log("No such document!");
-            setUser(null);
-          }
-        }, (error) => {
-          console.error("Error fetching user data:", error);
-        });
-
-        // Очистка подписки при размонтировании компонента
-        return () => unsubscribeSnapshot();
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUser(userSnap.data());
+        } else {
+          setUser(null);
+        }
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
 
-    // Очистка подписки при размонтировании компонента
     return () => unsubscribe();
   }, []);
 
+  const [userOrders, setUserOrders] = useState([]);
+
+useEffect(() => {
+  const fetchOrders = async () => {
+    const ordersRef = collection(db, 'orders');
+    const ordersSnapshot = await getDocs(query(ordersRef, where('userId', '==', user.uid)));
+    setUserOrders(ordersSnapshot.docs.map(doc => doc.data()));
+  };
+  fetchOrders();
+}, [user]);
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user, loading, userOrders }}>
+    {children}
+  </UserContext.Provider>
   );
 };
-
-export const useUser = () => useContext(UserContext);

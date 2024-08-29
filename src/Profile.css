@@ -244,3 +244,19 @@ button.primary.ghost:hover {
 .rating {
   margin-bottom: 20px;
 }
+
+.my-responses {
+  margin-top: 0px;
+  background-color: rgb(36, 36, 36);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.response-link {
+  color: #fff;
+  font-weight:500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+

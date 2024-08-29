@@ -5,8 +5,9 @@ import { ru } from 'date-fns/locale';
 import { AiFillStar } from 'react-icons/ai';
 import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
 import './OrderDetail.css';
-import { db } from '../firebaseConfig';
+import { db, auth } from '../firebaseConfig';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import Loading from './Loading';
 
 const OrderDetail = () => {
@@ -15,6 +16,8 @@ const OrderDetail = () => {
   const [response, setResponse] = useState('');
   const [timeAgo, setTimeAgo] = useState('');
   const [userData, setUserData] = useState(null);
+  const [responses, setResponses] = useState([]);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -24,6 +27,7 @@ const OrderDetail = () => {
         if (orderSnap.exists()) {
           const orderData = orderSnap.data();
           setOrder(orderData);
+          setResponses(orderData.responses || []);
           const updateTimer = () => {
             const createdAtDate = orderData.createdAt.toDate ? orderData.createdAt.toDate() : new Date(orderData.createdAt);
             setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
@@ -36,30 +40,57 @@ const OrderDetail = () => {
         console.error('Ошибка получения данных заказа:', error);
       }
     };
+    
+    const handleAcceptResponse = async (response) => {
+      try {
+        const orderRef = doc(db, 'orders', id);
+        await updateDoc(orderRef, {
+          acceptedResponse: response,
+          status: 'in-progress',
+          paymentStatus: 'frozen',
+        });
+        alert('Отклик принят, средства заморожены!');
+      } catch (error) {
+        console.error('Ошибка принятия отклика:', error);
+      }
+    };
+    
+    // В интерфейсе:
+    {responses.map((res, index) => (
+      <div key={index} className="response-item">
+        <p>{res.text}</p>
+        <button onClick={() => handleAcceptResponse(res)}>Принять отклик</button>
+      </div>
+    ))}
+    
 
-    const fetchUserData = async () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-        const user = tg.initDataUnsafe.user;
-
-        if (user) {
-          try {
-            const userRef = doc(db, 'users', user.id);
-            const userSnap = await getDoc(userRef);
-            if (userSnap.exists()) {
-              setUserData(userSnap.data());
-            } else {
-              console.warn('Пользователь не зарегистрирован в базе данных');
-            }
-          } catch (error) {
-            console.error('Ошибка получения данных пользователя:', error);
-          }
+    const fetchUserData = async (userId) => {
+      try {
+        const userRef = doc(db, 'users', userId);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUserData(userSnap.data());
+        } else {
+          console.warn('Пользователь не зарегистрирован в базе данных');
         }
+      } catch (error) {
+        console.error('Ошибка получения данных пользователя:', error);
       }
     };
 
     fetchOrder();
-    fetchUserData();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsUserLoggedIn(true);
+        fetchUserData(user.uid);
+      } else {
+        setIsUserLoggedIn(false);
+        setUserData(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, [id]);
 
   const handleResponseChange = (e) => {
@@ -67,19 +98,50 @@ const OrderDetail = () => {
   };
 
   const handleSubmit = async () => {
-    if (userData) {
+    if (userData && response.trim()) {
       try {
+        const newResponse = {
+          userId: userData.uid, // Замените на правильное поле `uid`
+          text: response.trim(),
+          createdAt: new Date(), // добавить метку времени
+        };
+  
+        // Отладочная информация больше не нужна, но оставим её для проверки
+        if (!newResponse.userId) {
+          console.error('userId is missing:', userData);
+        }
+        if (!newResponse.text) {
+          console.error('text is missing:', response);
+        }
+  
+        // Проверяем, что все поля определены
+        if (!newResponse.userId || !newResponse.text) {
+          throw new Error('Некоторые данные отклика отсутствуют.');
+        }
+  
         const orderRef = doc(db, 'orders', id);
-        await updateDoc(orderRef, { responses: arrayUnion({ userId: userData.id, text: response }) });
+        await updateDoc(orderRef, {
+          responses: arrayUnion(newResponse)
+        });
+  
+        setResponses(prevResponses => [...prevResponses, newResponse]);
         setResponse('');
         alert('Ваш отклик отправлен!');
       } catch (error) {
         console.error('Ошибка отправки отклика:', error);
+        alert('Произошла ошибка при отправке отклика. Пожалуйста, попробуйте еще раз.');
       }
     } else {
-      alert('Вы должны быть зарегистрированы, чтобы отправить отклик.');
+      if (!userData) {
+        console.error('userData is null:', userData);
+      }
+      if (!response.trim()) {
+        console.error('Response is empty:', response);
+      }
+      alert('Вы должны быть зарегистрированы и написать отклик, чтобы отправить его.');
     }
   };
+  
 
   if (!order) {
     return <Loading />;
@@ -115,7 +177,7 @@ const OrderDetail = () => {
           </div>
           <div className="order-info-item">
             <FaCommentDots className="order-icon" />
-            <span className="order-responses">{order.responses?.length || 0} откликов</span>
+            <span className="order-responses">{responses.length} откликов</span>
           </div>
         </div>
         <div className="order-tags">
@@ -129,15 +191,15 @@ const OrderDetail = () => {
         </div>
         <div className="divider" />
         <div className="response-section">
-          {userData ? (
+          {isUserLoggedIn ? (
             <div className="response-form">
               <textarea
                 className="response-textarea"
-                placeholder="Напишите ваш ответ здесь..."
+                placeholder="Напишите ваш отклик здесь..."
                 value={response}
                 onChange={handleResponseChange}
               />
-              <button className="response-button" onClick={handleSubmit}>Отправить ответ</button>
+              <button className="response-button" onClick={handleSubmit}>Отправить</button>
             </div>
           ) : (
             <div className="registration-message">
@@ -147,10 +209,16 @@ const OrderDetail = () => {
             </div>
           )}
         </div>
+        <div className="responses-list">
+          {responses.length > 0 && responses.map((res, index) => (
+            <div key={index} className="response-item">
+              <p>{res.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default OrderDetail;
-  

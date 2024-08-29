@@ -193,3 +193,18 @@ input:checked + .slider:before {
 .settings-section-theme {
     margin-bottom: 100px;
 }
+
+.logout-button {
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #fff;
+}
+
+.logout-button:active {
+    transform: scale(0.98);
+}
