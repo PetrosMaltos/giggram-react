@@ -44,18 +44,20 @@ export const getResponses = async () => {
   }
 
   try {
-    const q = query(collection(db, "orders"), where("userId", "==", userId));
+    const q = query(collection(db, "orders"), where("responses", "!=", null));
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
       const orderData = doc.data();
       if (orderData.responses && orderData.responses.length > 0) {
         orderData.responses.forEach((response) => {
-          responses.push({
-            ...response,
-            projectName: orderData.projectName,
-            date: orderData.date,
-          });
+          if (response.userId === userId) {
+            responses.push({
+              projectName: orderData.projectName || 'Без названия',
+              message: response.message || 'Сообщение отсутствует',
+              date: response.date || new Date(),
+            });
+          }
         });
       }
     });
@@ -66,6 +68,7 @@ export const getResponses = async () => {
     throw error;
   }
 };
+
 
 
 

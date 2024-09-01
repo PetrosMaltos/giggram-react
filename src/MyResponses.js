@@ -1,59 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
-import { getResponses, auth } from './firebaseConfig';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { db, auth } from './firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 import './MyResponses.css';
 
 const MyResponses = () => {
   const [responses, setResponses] = useState([]);
-  const [loading, setLoading] = useState(true);  // Для отображения загрузки
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResponses = async () => {
-      const user = auth.currentUser;
-      
-      if (!user) {
-        console.error("User is not authenticated");
-        // Возможно, перенаправление на страницу входа или отображение сообщения
+      const userId = auth.currentUser?.uid;
+
+      if (!userId) {
+        console.error('Пользователь не авторизован');
+        setLoading(false);
         return;
       }
 
       try {
-        const data = await getResponses();
-        console.log("Loaded Responses: ", data);
-        setResponses(data);
+        const ordersSnapshot = await getDocs(collection(db, 'orders'));
+        const userResponses = [];
+
+        ordersSnapshot.forEach((orderDoc) => {
+          const orderData = orderDoc.data();
+
+          if (orderData.responses && orderData.responses.length > 0) {
+            orderData.responses.forEach((response) => {
+              if (response.userId === userId) {
+                userResponses.push({
+                  orderId: orderDoc.id, // Добавляем идентификатор заказа
+                  projectName: orderData.title,
+                  responseText: response.text,
+                  date: response.createdAt.toDate(),
+                });
+              }
+            });
+          }
+        });
+
+        setResponses(userResponses);
       } catch (error) {
-        console.error("Error fetching responses: ", error);
+        console.error('Ошибка получения откликов:', error);
+        setError('Не удалось загрузить отклики. Попробуйте позже.');
       } finally {
-        setLoading(false);  // Остановка индикатора загрузки
+        setLoading(false);
       }
     };
-    
+
     fetchResponses();
   }, []);
 
+  const handleResponseClick = (orderId) => {
+    navigate(`/orders/${orderId}`); // Перенаправляем на страницу заказа
+  };
+
   return (
-    <div className="my-responses-page">
-      <Navbar />
-      <div className="my-responses-content">
-        <h2>Мои Отклики</h2>
-        {loading ? (
-          <p>Загрузка...</p> // Индикатор загрузки
-        ) : (
-          <div className="responses-list">
-            {responses.length > 0 ? (
-              responses.map((response, index) => (
-                <div key={index} className="response-card">
-                  <h3>Проект: {response.projectName}</h3>
-                  <p>Отклик: {response.message}</p>
-                  <p>Дата: {new Date(response.date).toLocaleDateString()}</p>
-                </div>
-              ))
-            ) : (
-              <p>Нет откликов для отображения.</p>
-            )}
-          </div>
-        )}
-      </div>
+    <div className="my-responses-container">
+      <h1>Мои отклики</h1>
+      {loading ? (
+        <div className="empty-state">Загрузка...</div>
+      ) : error ? (
+        <div className="empty-state">{error}</div>
+      ) : responses.length === 0 ? (
+        <div className="empty-state">У вас пока нет откликов.</div>
+      ) : (
+        <ul className="response-list">
+        {responses.map((response, index) => (
+          <li key={index} className="response-item">
+            <p>
+              <strong>Заказ:</strong> 
+              <a href={`/orders/${response.orderId}`}>{response.projectName}</a>
+            </p>
+            <p><strong>Отклик:</strong> {response.responseText}</p>
+            <p className="response-date"><strong>Дата:</strong> {response.date.toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+      
+      )}
     </div>
   );
 };

@@ -37,13 +37,20 @@ const CreateOrder = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, description, category, price, tags } = formData;
-
+  
     // Basic validation
     if (!title || !description || !category || !price || isNaN(price) || parseFloat(price) <= 0) {
       setError('Пожалуйста, заполните все поля корректно.');
       return;
     }
-
+  
+    // Получите текущего пользователя
+    const user = auth.currentUser;
+    if (!user) {
+      setError('Ошибка авторизации. Пожалуйста, войдите в систему.');
+      return;
+    }
+  
     const newOrder = {
       title,
       description,
@@ -51,10 +58,11 @@ const CreateOrder = () => {
       price: parseFloat(price),
       tags: tags.split(',').map(tag => tag.trim()),
       views: 0,
-      responses: 0,
+      responses: [],
       createdAt: Timestamp.now(),
+      clientId: user.uid,  // Добавление clientId
     };
-
+  
     try {
       await addDoc(collection(db, 'orders'), newOrder);
       setSuccess('Заказ успешно создан!');
@@ -64,6 +72,7 @@ const CreateOrder = () => {
       console.error('Ошибка создания заказа:', error);
     }
   };
+  
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {

@@ -4,19 +4,24 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock, faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import './Register.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [role, setRole] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const defaultAvatarUrl = "https://miro.medium.com/v2/resize:fit:720/1*W35QUSvGpcLuxPo3SRTH4w.png";
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!role) {
+      setErrorMessage('Пожалуйста, выберите роль.');
+      return;
+    }
     const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -25,6 +30,7 @@ const Register = () => {
         uid: user.uid,
         email: user.email,
         username: username,
+        role: role,  // Сохраняем выбранную роль
         avatar: defaultAvatarUrl,
         createdAt: new Date()
       });
@@ -62,6 +68,16 @@ const Register = () => {
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faLock} className="input-icon" />
               <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" required />
+            </div>
+          </div>
+          <div className="input-group">
+            <div className="input-wrapper">
+              <FontAwesomeIcon icon={faUserTie} className="input-icon" />
+              <select id="role" value={role} onChange={(e) => setRole(e.target.value)} required>
+                <option value="" disabled>Выберите свою роль</option>
+                <option value="freelancer">Фрилансер</option>
+                <option value="client">Заказчик</option>
+              </select>
             </div>
           </div>
           <button type="submit">Зарегистрироваться</button>

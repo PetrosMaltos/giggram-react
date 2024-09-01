@@ -21,7 +21,8 @@ const Settings = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/login'); // Перенаправление на страницу входа после выхода
+      // Перенаправление на страницу входа после выхода
+      navigate('/login');
     } catch (error) {
       console.error('Ошибка при выходе из аккаунта:', error);
     }
