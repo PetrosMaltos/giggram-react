@@ -10,6 +10,7 @@ import { setDoc, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loading from './Loading';
 
+
 const OrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -63,6 +64,24 @@ const OrderDetail = () => {
         console.error('Ошибка получения данных заказа:', error);
       }
     };
+
+    useEffect(() => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.show();
+        const handleBackButtonClick = () => window.history.back();
+        window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+        return () => {
+          window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+          window.Telegram.WebApp.BackButton.hide();
+        };
+      }
+      return () => {
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.BackButton.hide();
+        }
+      };
+    }, []);
+  
 
     fetchOrder();
 
@@ -138,12 +157,12 @@ const OrderDetail = () => {
       const orderRef = doc(db, 'orders', id);
       const orderSnap = await getDoc(orderRef);
       const orderData = orderSnap.data();
-
+  
       if (!orderData) {
         console.error('Данные заказа не найдены');
         return;
       }
-
+  
       const inviteRef = doc(db, 'invites', `${orderData.clientId}_${response.userId}_${id}`);
       await setDoc(inviteRef, {
         userId: response.userId,
@@ -153,63 +172,16 @@ const OrderDetail = () => {
         orderId: id,
         createdAt: new Date()
       });
-
+  
       // Обновляем статус отклика и заказа
       await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress', paymentStatus: 'frozen' });
-
-      // Отправляем сообщение через Telegram-бота
-      const freelancer = userMap[response.userId];
-      if (freelancer && freelancer.telegramId) {
-        const telegramMessage = `Вас пригласили на работу по заказу "${orderData.title}". Пожалуйста, проверьте ваш профиль.`;
-        sendTelegramNotification(freelancer.telegramId, telegramMessage);
-      } else {
-        console.warn('Telegram ID фрилансера не найден');
-      }
-
       alert('Отклик принят, средства заморожены и приглашение отправлено!');
     } catch (error) {
       console.error('Ошибка принятия отклика:', error);
     }
   };
-
-  const sendTelegramNotification = (chatId, message) => {
-    const botToken = '7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA'; // Replace with your actual bot token
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-        }),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.ok) {
-            console.log('Сообщение успешно отправлено через Telegram!');
-        } else {
-            console.error('Ошибка отправки сообщения через Telegram:', data);
-        }
-    })
-    .catch(error => {
-        console.error('Ошибка при вызове Telegram API:', error);
-    });
-};
-
-const handleTestButtonClick = () => {
-  const testChatId = '7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA'; // Replace with the actual chat ID
-  const testMessage = 'Это тестовое сообщение от вашего бота!';
-  sendTelegramNotification(testChatId, testMessage);
-};
-
+  
+  
   if (!order) {
     return <Loading />;
   }
@@ -312,7 +284,6 @@ const handleTestButtonClick = () => {
                       <img src={avatar} alt="User Avatar" className="response-avatar" />
                       <span className="response-username">{username}</span>
                       <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
-                      <button className="test-button" onClick={handleTestButtonClick}>Отправить тестовое сообщение</button>
                     </div>
                     <div className="response-text">{res.text}</div>
                     {order.acceptedResponse !== res && (

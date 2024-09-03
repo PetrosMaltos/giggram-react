@@ -35,6 +35,7 @@ import Subscribe from './Subscribe';
 import MyResponses from './MyResponses';
 import MyInvites from './MyInvites';
 import MyDeals from './MyDeals';
+import DealDetail from './DealDetail';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -91,6 +92,7 @@ const App = () => {
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/my-invites" element={<MyInvites />} />
             <Route path="/my-deals" element={<MyDeals />} />
+            <Route path="/deal/:id" component={DealDetail} />
           </Routes>
         )}
       </Router>

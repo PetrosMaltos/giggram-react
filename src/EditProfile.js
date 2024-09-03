@@ -14,6 +14,24 @@ const EditProfile = () => {
     navigate('/profile');
   };
 
+  useEffect(() => {
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.BackButton.show();
+      const handleBackButtonClick = () => window.history.back();
+      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+      return () => {
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+        window.Telegram.WebApp.BackButton.hide();
+      };
+    }
+    return () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
+      }
+    };
+  }, []);
+
+
   return (
     <div className="edit-profile-page">
       <h2>Редактировать Профиль</h2>

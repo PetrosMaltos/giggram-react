@@ -10,6 +10,7 @@ const MyInvites = () => {
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchInvites = async (userId) => {
@@ -46,50 +47,24 @@ const MyInvites = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleAcceptResponse = async (responseId) => {
+  const handleAccept = async (inviteId) => {
     try {
-      const response = responses.find(res => res.id === responseId);
-      const orderRef = doc(db, 'orders', id);
-      const orderSnap = await getDoc(orderRef);
-      const orderData = orderSnap.data();
-  
-      if (!orderData) {
-        console.error('Данные заказа не найдены');
-        return;
-      }
-  
-      const inviteRef = doc(db, 'invites', `${orderData.clientId}_${response.userId}_${id}`);
-      await setDoc(inviteRef, {
-        userId: response.userId,
-        projectTitle: orderData.title,
-        message: `Вы были приглашены на работу по заказу "${orderData.title}"`,
-        status: 'Pending',
-        orderId: id,
-        createdAt: new Date()
+      const navigate = useNavigate();
+      const inviteRef = doc(db, 'invites', inviteId); // Ссылка на документ приглашения
+      await updateDoc(inviteRef, {
+        status: 'accepted', // Обновляем статус на "accepted"
       });
-  
-      // Отправляем сообщение через Telegram-бота
-      const freelancer = userMap[response.userId];
-      if (freelancer && freelancer.telegramId) {
-        const telegramMessage = `Вас пригласили на работу по заказу "${orderData.title}". Пожалуйста, проверьте ваш профиль.`;
-        sendTelegramNotification(freelancer.telegramId, telegramMessage);
-      } else {
-        console.warn('Telegram ID фрилансера не найден');
-      }
-  
-      // Обновляем статус отклика и заказа
-      await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress', paymentStatus: 'frozen' });
-      alert('Отклик принят, средства заморожены и приглашение отправлено!');
+
+      // Перенаправляем пользователя на страницу сделки
+      navigate(`/deal/${inviteId}`);
     } catch (error) {
-      console.error('Ошибка принятия отклика:', error);
+      console.error('Ошибка при принятии приглашения:', error);
     }
   };
-  
-  
 
   const handleReject = (inviteId) => {
-    // Логика отклонения приглашения
     console.log(`Отклонено приглашение с ID: ${inviteId}`);
+    // Можно добавить логику для отклонения приглашения
   };
 
   if (loading) {
@@ -99,6 +74,24 @@ const MyInvites = () => {
   if (!userData) {
     return <div className="no-invites-message">Вы не авторизованы</div>;
   }
+
+  useEffect(() => {
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.BackButton.show();
+      const handleBackButtonClick = () => window.history.back();
+      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+      return () => {
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+        window.Telegram.WebApp.BackButton.hide();
+      };
+    }
+    return () => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.BackButton.hide();
+      }
+    };
+  }, []);
+
 
   return (
     <div className="my-invites-container">
