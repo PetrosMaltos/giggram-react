@@ -57,7 +57,7 @@ const Specialists = () => {
         <section className="search-section1">
           <input 
             type="text" 
-            placeholder="Поиск заказов..." 
+            placeholder="Поиск фрилансеров..." 
             className="search-input" 
             name="searchText" 
             onChange={handleInputChange} 

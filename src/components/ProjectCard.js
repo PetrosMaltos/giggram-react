@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { Link } from 'react-router-dom'; // Импортируем Link для навигации
+import { Link } from 'react-router-dom';
 import './ProjectCard.css';
 
 const ProjectCard = ({ id, title, image, authorName, authorAvatar, description }) => {
@@ -8,7 +8,7 @@ const ProjectCard = ({ id, title, image, authorName, authorAvatar, description }
   const [likeCount, setLikeCount] = useState(0);
 
   const handleLikeClick = (e) => {
-    e.stopPropagation(); // Предотвращаем переход по ссылке
+    e.stopPropagation();
     setLiked(!liked);
     setLikeCount(liked ? likeCount - 1 : likeCount + 1);
   };

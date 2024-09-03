@@ -33,6 +33,8 @@ import ClientDashboard from './ClientDashboard';
 import FreelancerDashboard from './FreelancerDashboard';
 import Subscribe from './Subscribe';
 import MyResponses from './MyResponses';
+import MyInvites from './MyInvites';
+import MyDeals from './MyDeals';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -87,6 +89,8 @@ const App = () => {
             <Route path="/create-favor" element={<CreateFavor />} />
             <Route path="/create-project" element={<CreateProject />} />
             <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/my-invites" element={<MyInvites />} />
+            <Route path="/my-deals" element={<MyDeals />} />
           </Routes>
         )}
       </Router>

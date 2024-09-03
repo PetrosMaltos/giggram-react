@@ -228,28 +228,6 @@
   color: #dadada;
 }
 
-.accept-button {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #6200ee; /* Основной цвет */
-  color: #f5f5f5;
-  padding: 5px 10px; /* Уменьшенные отступы для маленькой кнопки */
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 0.8rem; /* Меньший размер шрифта */
-  text-align: center;
-  display: inline-block;
-  transition: background-color 0.3s;
-  margin-top: 5px; /* Расстояние от текста отклика */
-}
-
-.accept-button:hover {
-  background-color: #a65bfc;
-}
-
-.accept-button:active {
-  background-color: #944cfc;
-}
 
 .response-info {
   margin-bottom: 15px;
@@ -271,3 +249,24 @@
   height: 100%;
   object-fit: cover; /* Сохраняет соотношение сторон и заполняет контейнер */
 }
+
+.accept-button {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #6200ee;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.accept-button:active {
+  background-color: #5300c8;
+}
+
+

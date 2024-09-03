@@ -246,6 +246,7 @@ button.primary.ghost:hover {
 }
 
 .my-responses {
+  margin-bottom: 5px;
   margin-top: 0px;
   background-color: rgb(36, 36, 36);
   padding: 10px;
@@ -259,4 +260,38 @@ button.primary.ghost:hover {
   text-decoration: none;
   font-size: 0.9rem;
 }
+
+.my-invites {
+  margin-bottom: 5px;
+  margin-top: 0px;
+  background-color: rgb(36, 36, 36);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.invite-link {
+  color: #fff;
+  font-weight:500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.my-deals {
+  margin-top: 0px;
+  background-color: rgb(36, 36, 36);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.deal-link {
+  color: #fff;
+  font-weight:500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+
+
 

@@ -1,18 +1,17 @@
 /* MyResponses.css */
 .my-responses-container {
   padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  max-width: 800px;
+  margin: 0 auto;
   background: #000000;
   border-radius: 10px;
   color: #e0e0e0;
 }
 
 .my-responses-container h1 {
-  font-size: 28px;
+  font-size: 32px;
   margin-bottom: 20px;
   color: #f1f1f1;
-  border-bottom: 2px solid #333;
   padding-bottom: 10px;
 }
 

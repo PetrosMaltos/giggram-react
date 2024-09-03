@@ -1,0 +1,107 @@
+.my-invites-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.invites-header {
+  margin-bottom: 20px;
+}
+
+.invites-header h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.invites-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.invite-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.invite-item-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.invite-item-message {
+  font-size: 16px;
+  color: #666;
+}
+
+.invite-item-status {
+  font-size: 14px;
+  color: #999;
+}
+
+.no-invites-message {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+}
+
+.invite-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Градиенты для кнопок */
+.accept-icon {
+  color: white;
+  background: linear-gradient(135deg, #00c853, #b2ff59);
+}
+
+.reject-icon {
+  color: white;
+  background: linear-gradient(135deg, #d32f2f, #ff5252);
+}
+
+/* Эффект при наведении: увеличение, смена цвета тени */
+.action-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Пульсация при наведении */
+.action-icon:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+/* Эффект нажатия */
+.action-icon:active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

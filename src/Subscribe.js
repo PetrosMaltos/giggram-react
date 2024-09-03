@@ -40,6 +40,7 @@ const Subscribe = () => {
             <li><FaCheckCircle /> Приоритетная поддержка</li>
             <li><FaCheckCircle /> Эксклюзивные функции</li>
             <li><FaCheckCircle /> Пониженная коммисия</li>
+            <li><FaCheckCircle /> Запрашивайте услуги</li>
           </ul>
         </div>
       </div>

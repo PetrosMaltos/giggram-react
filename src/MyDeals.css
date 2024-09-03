@@ -1,0 +1,52 @@
+.my-deals-page {
+    padding: 20px;
+  }
+  
+  .my-deals-page h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .deals-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .deal-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease;
+  }
+  
+  .deal-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .deal-item h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .deal-item p {
+    margin: 5px 0;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.2em;
+  }
+  
+  .no-deals {
+    text-align: center;
+    font-size: 1.2em;
+    color: #777;
+  }
+  
+  .loading, .no-deals {
+    text-align: center;
+    margin-top: 20px;
+  }

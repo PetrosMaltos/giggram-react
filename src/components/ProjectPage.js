@@ -64,7 +64,7 @@ const ProjectPage = ({ isAuthenticated }) => {
   };
 
   if (loading) {
-    <Loading />
+    return <Loading />;  // Здесь должно быть возвращение компонента Loading
   }
 
   if (error) {
@@ -75,9 +75,9 @@ const ProjectPage = ({ isAuthenticated }) => {
     <div className="project-detail">
       <ScrollToTop />
       <div className="project-info">
-        {project.image && (
+        {project?.image && (  // Проверка на существование project и project.image
           <div className="project-image1">
-            <img src={project.image} alt={project.title} />
+            <img src={project.image} alt={project.title || 'Проект'} /> 
           </div>
         )}
         <div className="client-profile">
@@ -90,15 +90,17 @@ const ProjectPage = ({ isAuthenticated }) => {
             </div>
           </div>
         </div>
-        <h1 className="project-title">{project.title}</h1>
-        <p className="project-description">{project.description}</p>
+        <h1 className="project-title">{project?.title || 'Название проекта'}</h1> 
+        <p className="project-description">{project?.description || 'Описание отсутствует'}</p>
         <div className="project-tags">
-          {project.tags && project.tags.length > 0 && (
+          {project?.tags && project.tags.length > 0 ? (
             <div className="tags">
               {project.tags.map((tag, index) => (
                 <span key={index} className="tag">#{tag}</span>
               ))}
             </div>
+          ) : (
+            <p>Теги отсутствуют</p>
           )}
         </div>
       </div>
@@ -118,7 +120,7 @@ const ProjectPage = ({ isAuthenticated }) => {
           <div className="registration-message">
             <FaLock className="lock-icon" />
             <h2>Пожалуйста, зарегистрируйтесь</h2>
-            <p>Для отправки отклика на этот проект необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
+            <p>Для того чтобы комментировать этот проект необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
           </div>
         )}
       </div>

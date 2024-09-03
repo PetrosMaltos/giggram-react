@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from './firebaseConfig';
+import { db, storage } from './firebaseConfig'; // Импортируйте ваши конфигурации
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit, FaUpload } from 'react-icons/fa';
 
 const CreateFavor = () => {
@@ -30,7 +31,7 @@ const CreateFavor = () => {
     e.preventDefault();
     const { title, description, category, price, tags, image1, image2 } = formData;
     const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
-
+  
     const newFavor = {
       title,
       description,
@@ -42,19 +43,28 @@ const CreateFavor = () => {
       createdAt: Timestamp.now(),
       imagePaths: [],
     };
-
+  
     try {
-      // Uploading images to storage and getting URLs would go here
-      // For simplicity, I'm just setting a dummy path
-      if (image1) newFavor.imagePaths.push(URL.createObjectURL(image1));
-      if (image2) newFavor.imagePaths.push(URL.createObjectURL(image2));
-
+      if (image1) {
+        const image1Ref = ref(storage, `images/${image1.name}`);
+        await uploadBytes(image1Ref, image1);
+        const image1URL = await getDownloadURL(image1Ref);
+        newFavor.imagePaths.push(image1URL);
+      }
+      if (image2) {
+        const image2Ref = ref(storage, `images/${image2.name}`);
+        await uploadBytes(image2Ref, image2);
+        const image2URL = await getDownloadURL(image2Ref);
+        newFavor.imagePaths.push(image2URL);
+      }
+  
       await addDoc(collection(db, 'favors'), newFavor);
       navigate('/favors');
     } catch (error) {
       console.error('Ошибка создания услуги:', error);
     }
   };
+  
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {

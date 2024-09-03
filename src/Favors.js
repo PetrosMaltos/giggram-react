@@ -280,18 +280,17 @@ const Favors = () => {
       </div>
       <div className="favors-list">
         {filteredFavors.length ? filteredFavors.map(favor => (
-          <FavorCard
-            key={favor.id}
-            id={favor.id}
-            title={favor.title}
-            tags={favor.tags}
-            description={favor.description}
-            createdAt={favor.createdAt}
-            price={favor.price}
-            responses={favor.responses}
-            views={favor.views}
-            isAssigned={favor.isAssigned}
-          />
+         <FavorCard
+         key={favor.id}
+         title={favor.title}
+         tags={favor.tags}
+         price={favor.price}
+         responses={favor.responses}
+         imagePaths={favor.imagePaths} // Проверьте, что imagePaths правильно передается
+         userAvatar={favor.userAvatar}
+         isVerified={favor.isVerified}
+       />
+       
         )) : <p>Нынче услуг нэт :(</p>}
       </div>
     </div>

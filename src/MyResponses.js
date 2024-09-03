@@ -59,7 +59,9 @@ const MyResponses = () => {
 
   return (
     <div className="my-responses-container">
+      <div className="invites-header">
       <h1>Мои отклики</h1>
+      </div>
       {loading ? (
         <div className="empty-state">Загрузка...</div>
       ) : error ? (

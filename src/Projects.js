@@ -20,7 +20,6 @@ const Projects = () => {
           createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
         };
       });
-      // Сортируем проекты по дате создания в порядке убывания
       const sortedProjects = projects.sort((a, b) => b.createdAt - a.createdAt);
       setProjectsData(sortedProjects);
       setFilteredProjects(sortedProjects);
@@ -48,6 +47,8 @@ const Projects = () => {
   const handleCreateProjectClick = () => {
     window.location.href = '/create-project';
   };
+
+  const defaultImage = 'https://via.placeholder.com/150';
 
   return (
     <div className="projects-page">
@@ -78,7 +79,7 @@ const Projects = () => {
             <ProjectCard
               id={project.id}
               title={project.title}
-              image={project.image}
+              image={project.image || defaultImage}
               authorName={project.authorName}
               authorAvatar={project.authorAvatar}
               description={project.description}

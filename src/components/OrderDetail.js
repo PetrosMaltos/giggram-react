@@ -6,7 +6,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
 import './OrderDetail.css';
 import { db, auth } from '../firebaseConfig';
-import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { setDoc, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loading from './Loading';
 
@@ -136,11 +136,64 @@ const OrderDetail = () => {
   const handleAcceptResponse = async (response) => {
     try {
       const orderRef = doc(db, 'orders', id);
+      const orderSnap = await getDoc(orderRef);
+      const orderData = orderSnap.data();
+
+      if (!orderData) {
+        console.error('Данные заказа не найдены');
+        return;
+      }
+
+      const inviteRef = doc(db, 'invites', `${orderData.clientId}_${response.userId}_${id}`);
+      await setDoc(inviteRef, {
+        userId: response.userId,
+        projectTitle: orderData.title,
+        message: `Вы были приглашены на работу по заказу "${orderData.title}"`,
+        status: 'Pending',
+        orderId: id,
+        createdAt: new Date()
+      });
+
+      // Обновляем статус отклика и заказа
       await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress', paymentStatus: 'frozen' });
-      alert('Отклик принят, средства заморожены!');
+
+      // Отправляем сообщение через Telegram-бота
+      const freelancer = userMap[response.userId];
+      if (freelancer && freelancer.telegramId) {
+        const telegramMessage = `Вас пригласили на работу по заказу "${orderData.title}". Пожалуйста, проверьте ваш профиль.`;
+        sendTelegramNotification(freelancer.telegramId, telegramMessage);
+      } else {
+        console.warn('Telegram ID фрилансера не найден');
+      }
+
+      alert('Отклик принят, средства заморожены и приглашение отправлено!');
     } catch (error) {
       console.error('Ошибка принятия отклика:', error);
     }
+  };
+
+  const sendTelegramNotification = (chatId, message) => {
+    fetch(`https://api.telegram.org/bot<7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA>/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          console.log('Сообщение успешно отправлено через Telegram!');
+        } else {
+          console.error('Ошибка отправки сообщения через Telegram:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Ошибка при вызове Telegram API:', error);
+      });
   };
 
   if (!order) {
