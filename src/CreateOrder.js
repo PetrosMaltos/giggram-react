@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebaseConfig';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import './CreateOrder.css';
 import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit } from 'react-icons/fa';
 
@@ -27,6 +28,8 @@ const CreateOrder = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+
+  const auth = getAuth(); // Инициализация auth
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +75,6 @@ const CreateOrder = () => {
       console.error('Ошибка создания заказа:', error);
     }
   };
-  
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {

@@ -1,40 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { db, doc, getDoc } from './firebaseConfig'; // Импортируем необходимые функции и объекты
-import './components/DealDetail.css'; // Подключаем стили
+import { useParams } from 'react-router-dom';
+import { db } from './firebaseConfig';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import Loading from './components/Loading';
+import './DealDetail.css';
 
-const DealDetail = ({ match }) => {
-  const [deal, setDeal] = useState(null); // Локальное состояние для сделки
-  const [loading, setLoading] = useState(true); // Состояние загрузки
+const DealDetail = () => {
+  const { dealId } = useParams();
+  const [deal, setDeal] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const orderId = match.params.id; // Получаем ID сделки из URL
     const fetchDeal = async () => {
       try {
-        const dealRef = doc(db, 'deals', orderId); // Ссылка на документ сделки в коллекции 'deals'
-        const docSnap = await getDoc(dealRef); // Получаем данные сделки
-
-        if (docSnap.exists()) {
-          setDeal(docSnap.data()); // Устанавливаем данные сделки в состояние
+        const dealRef = doc(db, 'deals', dealId);
+        const dealSnap = await getDoc(dealRef);
+        if (dealSnap.exists()) {
+          setDeal(dealSnap.data());
         } else {
-          console.log('No such deal found!');
+          console.error('Сделка не найдена');
         }
       } catch (error) {
-        console.error('Error fetching deal:', error);
+        console.error('Ошибка при получении данных сделки:', error);
       } finally {
-        setLoading(false); // Завершаем загрузку
+        setLoading(false);
       }
     };
 
     fetchDeal();
-  }, [match.params.id]);
+  }, [dealId]);
 
-  if (loading) {
-    return <div>Loading...</div>; // Если сделка загружается, показываем сообщение о загрузке
-  }
+  const handleCompleteDeal = async () => {
+    if (!deal) return;
 
-  if (!deal) {
-    return <div>Deal not found.</div>; // Если сделка не найдена, показываем сообщение
-  }
+    try {
+      const dealRef = doc(db, 'deals', dealId);
+      await updateDoc(dealRef, {
+        status: 'completed',
+        paymentStatus: 'released',
+      });
+      alert('Сделка завершена, средства выпущены.');
+    } catch (error) {
+      console.error('Ошибка при завершении сделки:', error);
+    }
+  };
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
@@ -53,20 +62,27 @@ const DealDetail = ({ match }) => {
     };
   }, []);
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!deal) {
+    return <div>Сделка не найдена</div>;
+  }
 
   return (
     <div className="deal-detail">
-      <h1>Сделка #{match.params.id}</h1>
+      <h1>Детали сделки</h1>
       <div className="deal-info">
-        <p><strong>Заказчик:</strong> {deal.clientName}</p>
+        <p><strong>Статус сделки:</strong> {deal.status}</p>
+        <p><strong>Статус оплаты:</strong> {deal.paymentStatus}</p>
+        <p><strong>Заказ:</strong> {deal.orderTitle}</p>
         <p><strong>Фрилансер:</strong> {deal.freelancerName}</p>
-        <p><strong>Описание:</strong> {deal.description}</p>
-        <p><strong>Статус:</strong> {deal.status}</p>
+        <p><strong>Описание работы:</strong> {deal.description}</p>
       </div>
-      <div className="deal-actions">
-        <button>Завершить заказ</button>
-        <button>Отправить сообщение</button>
-      </div>
+      {deal.status === 'in-progress' && (
+        <button onClick={handleCompleteDeal}>Завершить сделку</button>
+      )}
     </div>
   );
 };

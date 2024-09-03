@@ -92,7 +92,7 @@ const App = () => {
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/my-invites" element={<MyInvites />} />
             <Route path="/my-deals" element={<MyDeals />} />
-            <Route path="/deal/:id" component={DealDetail} />
+            <Route path="/deal/:dealId" element={<DealDetail />} />
           </Routes>
         )}
       </Router>
