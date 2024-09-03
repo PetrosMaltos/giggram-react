@@ -6,22 +6,24 @@ import Loading from './components/Loading';
 import './DealDetail.css';
 
 const DealDetail = () => {
-  const { dealId } = useParams();
+  const { dealId } = useParams(); // Получение ID из URL
   const [deal, setDeal] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchDeal = async () => {
       try {
-        const dealRef = doc(db, 'deals', dealId);
-        const dealSnap = await getDoc(dealRef);
-        if (dealSnap.exists()) {
-          setDeal(dealSnap.data());
+        const dealDoc = doc(db, 'deals', dealId); // Убедитесь, что коллекция и ID корректны
+        const dealSnapshot = await getDoc(dealDoc);
+        if (dealSnapshot.exists()) {
+          setDeal(dealSnapshot.data());
         } else {
-          console.error('Сделка не найдена');
+          setError('Сделка не найдена.');
         }
       } catch (error) {
-        console.error('Ошибка при получении данных сделки:', error);
+        setError('Ошибка загрузки сделки.');
+        console.error('Ошибка загрузки сделки:', error);
       } finally {
         setLoading(false);
       }

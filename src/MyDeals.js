@@ -1,25 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db, auth } from './firebaseConfig';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import './MyDeals.css';
 
 const MyDeals = () => {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchDeals = async () => {
       try {
         const user = auth.currentUser;
         if (user) {
-          const q = query(collection(db, 'deals'), where('userId', '==', user.uid));
-          const querySnapshot = await getDocs(q);
-          const dealsData = [];
-          querySnapshot.forEach((doc) => {
-            dealsData.push({ id: doc.id, ...doc.data() });
-          });
-          setDeals(dealsData);
+          // Получаем данные пользователя для определения его роли
+          const userRef = doc(db, 'users', user.uid);
+          const userSnap = await getDoc(userRef);
+          if (userSnap.exists()) {
+            const userData = userSnap.data();
+            setUserRole(userData.role);
+
+            // Запрашиваем сделки на основе роли
+            let q;
+            if (userData.role === 'freelancer') {
+              q = query(collection(db, 'deals'), where('freelancerId', '==', user.uid));
+            } else if (userData.role === 'client') {
+              q = query(collection(db, 'deals'), where('clientId', '==', user.uid));
+            } else {
+              console.error('Неизвестная роль пользователя');
+              return;
+            }
+            
+            const querySnapshot = await getDocs(q);
+            const dealsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setDeals(dealsData);
+          }
         }
       } catch (error) {
         console.error('Ошибка при загрузке сделок:', error);
@@ -30,14 +46,6 @@ const MyDeals = () => {
 
     fetchDeals();
   }, []);
-
-  if (loading) {
-    return <div className="loading">Загрузка сделок...</div>;
-  }
-
-  if (deals.length === 0) {
-    return <div className="no-deals">Нет доступных сделок.</div>;
-  }
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
@@ -56,6 +64,13 @@ const MyDeals = () => {
     };
   }, []);
 
+  if (loading) {
+    return <div className="loading">Загрузка сделок...</div>;
+  }
+
+  if (deals.length === 0) {
+    return <div className="no-deals">Нет доступных сделок.</div>;
+  }
 
   return (
     <div className="my-deals-page">

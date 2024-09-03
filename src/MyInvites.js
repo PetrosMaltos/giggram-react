@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from './firebaseConfig';
-import { collection, query, where, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, updateDoc, addDoc } from 'firebase/firestore'; // Обновите импорт
 import { onAuthStateChanged } from 'firebase/auth';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Loading from './components/Loading';
@@ -51,12 +51,32 @@ const MyInvites = () => {
   const handleAccept = async (inviteId) => {
     try {
       const inviteRef = doc(db, 'invites', inviteId);
-      await updateDoc(inviteRef, {
-        status: 'accepted',
-      });
+      const inviteSnap = await getDoc(inviteRef);
+      const inviteData = inviteSnap.data();
+      
+      if (!inviteData) {
+        console.error('Приглашение не найдено');
+        return;
+      }
+
+      // Создайте новую сделку
+      const newDeal = {
+        clientId: inviteData.userId,
+        freelancerId: inviteData.userId, // Или другой ID фрилансера, если это необходимо
+        projectTitle: inviteData.projectTitle,
+        status: 'in-progress',
+        paymentStatus: 'frozen',
+        createdAt: new Date(),
+      };
+
+      const dealsRef = collection(db, 'deals');
+      const docRef = await addDoc(dealsRef, newDeal); // Создание новой сделки
+
+      // Обновите статус приглашения
+      await updateDoc(inviteRef, { status: 'accepted' });
 
       // Перенаправляем пользователя на страницу сделки
-      navigate(`/deal/${inviteId}`);
+      navigate(`/deal/${docRef.id}`);
     } catch (error) {
       console.error('Ошибка при принятии приглашения:', error);
     }
