@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from './firebaseConfig';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Loading from './components/Loading';
+import { useNavigate } from 'react-router-dom'; // Импортируйте useNavigate вместо useHistory
 import './MyInvites.css';
 
 const MyInvites = () => {
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate(); // Используйте useNavigate вместо useHistory
 
   useEffect(() => {
     const fetchInvites = async (userId) => {
@@ -49,10 +50,9 @@ const MyInvites = () => {
 
   const handleAccept = async (inviteId) => {
     try {
-      const navigate = useNavigate();
-      const inviteRef = doc(db, 'invites', inviteId); // Ссылка на документ приглашения
+      const inviteRef = doc(db, 'invites', inviteId);
       await updateDoc(inviteRef, {
-        status: 'accepted', // Обновляем статус на "accepted"
+        status: 'accepted',
       });
 
       // Перенаправляем пользователя на страницу сделки
@@ -66,14 +66,6 @@ const MyInvites = () => {
     console.log(`Отклонено приглашение с ID: ${inviteId}`);
     // Можно добавить логику для отклонения приглашения
   };
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (!userData) {
-    return <div className="no-invites-message">Вы не авторизованы</div>;
-  }
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
@@ -92,6 +84,13 @@ const MyInvites = () => {
     };
   }, []);
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!userData) {
+    return <div className="no-invites-message">Вы не авторизованы</div>;
+  }
 
   return (
     <div className="my-invites-container">

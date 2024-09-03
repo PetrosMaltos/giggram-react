@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Добавлен импорт useEffect
 import './Subscribe.css';
 import { FaCheckCircle } from 'react-icons/fa';
 
@@ -25,7 +25,6 @@ const Subscribe = () => {
       }
     };
   }, []);
-
 
   return (
     <div className="subscribe-page">
@@ -57,7 +56,7 @@ const Subscribe = () => {
             <li><FaCheckCircle /> Откликайтесь без лимитов</li>
             <li><FaCheckCircle /> Приоритетная поддержка</li>
             <li><FaCheckCircle /> Эксклюзивные функции</li>
-            <li><FaCheckCircle /> Пониженная коммисия</li>
+            <li><FaCheckCircle /> Пониженная комиссия</li>
             <li><FaCheckCircle /> Запрашивайте услуги</li>
           </ul>
         </div>

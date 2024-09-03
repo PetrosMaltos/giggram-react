@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Добавлен импорт useEffect
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
@@ -30,7 +30,6 @@ const EditProfile = () => {
       }
     };
   }, []);
-
 
   return (
     <div className="edit-profile-page">
