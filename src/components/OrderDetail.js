@@ -173,28 +173,42 @@ const OrderDetail = () => {
   };
 
   const sendTelegramNotification = (chatId, message) => {
-    fetch(`https://api.telegram.org/bot<7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA>/sendMessage`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-      }),
+    const botToken = '7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA'; // Replace with your actual bot token
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+        }),
     })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          console.log('Сообщение успешно отправлено через Telegram!');
-        } else {
-          console.error('Ошибка отправки сообщения через Telegram:', data);
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-      })
-      .catch(error => {
+        return response.json();
+    })
+    .then(data => {
+        if (data.ok) {
+            console.log('Сообщение успешно отправлено через Telegram!');
+        } else {
+            console.error('Ошибка отправки сообщения через Telegram:', data);
+        }
+    })
+    .catch(error => {
         console.error('Ошибка при вызове Telegram API:', error);
-      });
-  };
+    });
+};
+
+const handleTestButtonClick = () => {
+  const testChatId = '7343406335:AAHVkfXRrxJ7ihiCh9KZ8gXSCmegKkOvJJA'; // Replace with the actual chat ID
+  const testMessage = 'Это тестовое сообщение от вашего бота!';
+  sendTelegramNotification(testChatId, testMessage);
+};
 
   if (!order) {
     return <Loading />;
@@ -298,6 +312,7 @@ const OrderDetail = () => {
                       <img src={avatar} alt="User Avatar" className="response-avatar" />
                       <span className="response-username">{username}</span>
                       <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
+                      <button className="test-button" onClick={handleTestButtonClick}>Отправить тестовое сообщение</button>
                     </div>
                     <div className="response-text">{res.text}</div>
                     {order.acceptedResponse !== res && (
