@@ -20,7 +20,7 @@ const MyDeals = () => {
           if (userSnap.exists()) {
             const userData = userSnap.data();
             setUserRole(userData.role);
-
+  
             // Запрашиваем сделки на основе роли
             let q;
             if (userData.role === 'freelancer') {
@@ -43,10 +43,10 @@ const MyDeals = () => {
         setLoading(false);
       }
     };
-
+  
     fetchDeals();
   }, []);
-
+  
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();

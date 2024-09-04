@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from './firebaseConfig';
-import { collection, query, where, getDocs, doc, getDoc, updateDoc, addDoc } from 'firebase/firestore'; // Обновите импорт
+import { collection, query, where, getDocs, doc, getDoc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore'; // Добавил deleteDoc
 import { onAuthStateChanged } from 'firebase/auth';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Loading from './components/Loading';
-import { useNavigate } from 'react-router-dom'; // Импортируйте useNavigate вместо useHistory
+import { useNavigate } from 'react-router-dom';
 import './MyInvites.css';
 
 const MyInvites = () => {
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-  const navigate = useNavigate(); // Используйте useNavigate вместо useHistory
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInvites = async (userId) => {
@@ -58,33 +58,44 @@ const MyInvites = () => {
         console.error('Приглашение не найдено');
         return;
       }
-
-      // Создайте новую сделку
+  
+      // Создание новой сделки
       const newDeal = {
-        clientId: inviteData.userId,
-        freelancerId: inviteData.userId, // Или другой ID фрилансера, если это необходимо
+        clientId: inviteData.clientId, // Используем правильный идентификатор заказчика
+        freelancerId: inviteData.userId, // ID фрилансера
         projectTitle: inviteData.projectTitle,
         status: 'in-progress',
         paymentStatus: 'frozen',
         createdAt: new Date(),
       };
-
+  
       const dealsRef = collection(db, 'deals');
-      const docRef = await addDoc(dealsRef, newDeal); // Создание новой сделки
-
-      // Обновите статус приглашения
+      const docRef = await addDoc(dealsRef, newDeal);
+  
+      // Обновляем статус приглашения
       await updateDoc(inviteRef, { status: 'accepted' });
-
+  
+      // Обновляем список приглашений в UI
+      setInvites(prevInvites => prevInvites.filter(invite => invite.id !== inviteId));
+  
       // Перенаправляем пользователя на страницу сделки
       navigate(`/deal/${docRef.id}`);
     } catch (error) {
       console.error('Ошибка при принятии приглашения:', error);
     }
   };
+  
 
-  const handleReject = (inviteId) => {
-    console.log(`Отклонено приглашение с ID: ${inviteId}`);
-    // Можно добавить логику для отклонения приглашения
+  const handleReject = async (inviteId) => {
+    try {
+      const inviteRef = doc(db, 'invites', inviteId);
+      await deleteDoc(inviteRef); // Удаляем приглашение из базы данных
+
+      // Обновляем список приглашений в UI
+      setInvites(prevInvites => prevInvites.filter(invite => invite.id !== inviteId));
+    } catch (error) {
+      console.error('Ошибка при отклонении приглашения:', error);
+    }
   };
 
   useEffect(() => {
