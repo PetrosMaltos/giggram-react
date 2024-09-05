@@ -5,13 +5,12 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FaShare } from 'react-icons/fa';
-import { FaTelegramPlane } from "react-icons/fa";
+import { FaShare, FaTelegramPlane } from 'react-icons/fa';
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
 import { db } from './firebaseConfig'; // Импорт Firebase конфигурации
-import { collection, query, where, getDocs } from 'firebase/firestore'; // Импорт функций Firestore
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const StarRating = React.memo(({ rating = 1 }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -81,8 +80,8 @@ const Profile = () => {
     );
   }
 
-  const handleClick = () => {
-    const url = `https://t.me/${telegramUsername}`;
+  const handleTelegramClick = () => {
+    const url = `https://t.me/${user.telegramUsername}`;
     window.open(url, '_blank');
   };
 
@@ -98,10 +97,11 @@ const Profile = () => {
           <img className="round" src={avatarUrl} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
-          <button className="primary" onClick={handleEditClick}>Редактировать</button>
-          <button className="primary" onClick={handleClick}>
-            <FaTelegramPlane className="telegram-icon" />
-          </button>
+          <div className="button-group">
+            <button className="primary" onClick={handleEditClick}>Редактировать</button>
+            <button className="primary" onClick={handleTelegramClick}>
+              <FaTelegramPlane className="telegram-icon" /></button>
+          </div>
           <div className="rating">
             <h6>Рейтинг</h6>
             <StarRating rating={user.rating} />
@@ -132,7 +132,6 @@ const Profile = () => {
                 <span>Роль:</span> {translateRole(user.role)}
               </div>
             </div>
-            {/* Блок для "Мои Отклики" */}
             <div className="my-responses">
               <Link to="/my-responses" className="response-link">
                 Мои Отклики
@@ -154,4 +153,4 @@ const Profile = () => {
     );
   };
   
-  export default Profile;
+export default Profile;

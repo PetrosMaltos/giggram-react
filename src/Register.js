@@ -11,15 +11,24 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [telegramUsername, setTelegramUsername] = useState(''); // Добавлено для @username в Telegram
   const [role, setRole] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const defaultAvatarUrl = "https://miro.medium.com/v2/resize:fit:720/1*W35QUSvGpcLuxPo3SRTH4w.png";
 
+  const validateTelegramUsername = (username) => {
+    return /^@[A-Za-z0-9_]{5,32}$/.test(username); // Простейшая проверка формата @username
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!role) {
       setErrorMessage('Пожалуйста, выберите роль.');
+      return;
+    }
+    if (!validateTelegramUsername(telegramUsername)) {
+      setErrorMessage('Неверный формат @username в Telegram.');
       return;
     }
     const auth = getAuth();
@@ -30,7 +39,8 @@ const Register = () => {
         uid: user.uid,
         email: user.email,
         username: username,
-        role: role,  // Сохраняем выбранную роль
+        telegramUsername: telegramUsername, // Сохраняем @username в Telegram
+        role: role,
         avatar: defaultAvatarUrl,
         createdAt: new Date()
       });
@@ -56,6 +66,12 @@ const Register = () => {
             <div className="input-wrapper">
               <FontAwesomeIcon icon={faUser} className="input-icon" />
               <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Имя пользователя" required />
+            </div>
+          </div>
+          <div className="input-group">
+            <div className="input-wrapper">
+              <FontAwesomeIcon icon={faUser} className="input-icon" />
+              <input type="text" id="telegramUsername" value={telegramUsername} onChange={(e) => setTelegramUsername(e.target.value)} placeholder="@username в Telegram" required />
             </div>
           </div>
           <div className="input-group">
