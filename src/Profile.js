@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FaShare, FaTelegramPlane } from 'react-icons/fa';
+import { FaShare, FaTelegramPlane, FaCopy } from 'react-icons/fa';
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
@@ -85,6 +85,10 @@ const Profile = () => {
     window.open(url, '_blank');
   };
 
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(user.telegramUsername);
+  };
+
   const handleEditClick = () => {
     navigate('/editprofile');
   };
@@ -99,8 +103,10 @@ const Profile = () => {
           <p>{user.description || 'Нет описания'}</p>
           <div className="button-group">
             <button className="primary" onClick={handleEditClick}>Редактировать</button>
-            <button className="primary" onClick={handleTelegramClick}>
-              <FaTelegramPlane className="telegram-icon" /></button>
+            <button className="primary"><FaShare/></button>
+            <button className="primary ghost" onClick={handleCopyClick}>
+              <FaCopy className="copy-icon" /> Копировать @username
+            </button>
           </div>
           <div className="rating">
             <h6>Рейтинг</h6>
@@ -118,39 +124,39 @@ const Profile = () => {
                 user.skills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))
-                ) : (
-                  <li>Навыки не указаны</li>
-                )}
-              </ul>
+              ) : (
+                <li>Навыки не указаны</li>
+              )}
+            </ul>
+          </div>
+          <div className="user-info">
+            <h6>Дополнительная информация</h6>
+            <div className="info-item">
+              <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
-            <div className="user-info">
-              <h6>Дополнительная информация</h6>
-              <div className="info-item">
-                <span>Архивные заказы:</span> {user.archivedOrders}
-              </div>
-              <div className="info-item">
-                <span>Роль:</span> {translateRole(user.role)}
-              </div>
+            <div className="info-item">
+              <span>Роль:</span> {translateRole(user.role)}
             </div>
-            <div className="my-responses">
-              <Link to="/my-responses" className="response-link">
-                Мои Отклики
-              </Link>
-            </div>
-            <div className="my-invites">
-              <Link to="/my-invites" className="invite-link">
-                Приглашения ({inviteCount})
-              </Link>
-            </div>
-            <div className="my-deals">
-              <Link to="/my-deals" className="deal-link">
-                Сделки (0)
-              </Link>
-            </div>
+          </div>
+          <div className="my-responses">
+            <Link to="/my-responses" className="response-link">
+              Мои Отклики
+            </Link>
+          </div>
+          <div className="my-invites">
+            <Link to="/my-invites" className="invite-link">
+              Приглашения ({inviteCount})
+            </Link>
+          </div>
+          <div className="my-deals">
+            <Link to="/my-deals" className="deal-link">
+              Сделки (0)
+            </Link>
           </div>
         </div>
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
+
 export default Profile;
