@@ -292,32 +292,8 @@ button.primary.ghost:hover {
   font-size: 0.9rem;
 }
 
-/* Add these styles to your Profile.css */
-
-.telegram-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #0088cc; /* Telegram color */
-  border: none;
-  border-radius: 12px;
-  color: #ffffff;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.telegram-button:hover {
-  background-color: #007ab8; /* Darker shade on hover */
-}
 
 .telegram-icon {
-  font-size: 20px; /* Adjust size as needed */
-  margin-right: 8px;
+  font-size: 15px; /* Adjust size as needed */
 }
 
-.telegram-contact {
-  font-size: 16px; /* Adjust size as needed */
-}
