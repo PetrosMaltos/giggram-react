@@ -63,6 +63,12 @@ const Profile = () => {
     }
   };
 
+  const handleTelegramClick = () => {
+    if (user.telegramUsername) {
+      window.open(`https://t.me/${user.telegramUsername}`, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   const handleEditClick = () => {
     navigate('/editprofile');
   };
@@ -94,15 +100,15 @@ const Profile = () => {
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
           <button className="primary" onClick={handleEditClick}>Редактировать</button>
-          <button className="primary"><FaShare /></button>
-          
-          {user.telegramUsername && (
-          <div className="telegram-contact">
-            <a href={`https://t.me/${user.telegramUsername}`} target="_blank" rel="noopener noreferrer" className="telegram-link" >
-              <FontAwesomeIcon icon={faTelegram} /> @{user.telegramUsername}
-            </a>
-          </div>
+          <button className="primary telegram-button" onClick={handleTelegramClick}>
+        <FaTelegram className="telegram-icon" />
+        {user.telegramUsername && (
+          <span className="telegram-contact">
+            @{user.telegramUsername}
+          </span>
         )}
+      </button>
+        
 
           <div className="rating">
             <h6>Рейтинг</h6>
