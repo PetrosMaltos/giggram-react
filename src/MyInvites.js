@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from './firebaseConfig';
-import { collection, query, where, getDocs, doc, getDoc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore'; // Добавил deleteDoc
+import { collection, query, where, getDocs, doc, getDoc, updateDoc, addDoc } from 'firebase/firestore'; 
 import { onAuthStateChanged } from 'firebase/auth';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Loading from './components/Loading';
@@ -53,46 +53,36 @@ const MyInvites = () => {
       const inviteRef = doc(db, 'invites', inviteId);
       const inviteSnap = await getDoc(inviteRef);
       const inviteData = inviteSnap.data();
-      
+
       if (!inviteData) {
         console.error('Приглашение не найдено');
         return;
       }
-  
-      // Создание новой сделки
+
       const newDeal = {
-        clientId: inviteData.clientId, // Используем правильный идентификатор заказчика
-        freelancerId: inviteData.userId, // ID фрилансера
+        freelancerId: inviteData.userId,
         projectTitle: inviteData.projectTitle,
         status: 'in-progress',
         paymentStatus: 'frozen',
         createdAt: new Date(),
       };
-  
+
       const dealsRef = collection(db, 'deals');
       const docRef = await addDoc(dealsRef, newDeal);
-  
-      // Обновляем статус приглашения
+
       await updateDoc(inviteRef, { status: 'accepted' });
-  
-      // Обновляем список приглашений в UI
-      setInvites(prevInvites => prevInvites.filter(invite => invite.id !== inviteId));
-  
-      // Перенаправляем пользователя на страницу сделки
+
       navigate(`/deal/${docRef.id}`);
     } catch (error) {
       console.error('Ошибка при принятии приглашения:', error);
     }
   };
-  
 
   const handleReject = async (inviteId) => {
     try {
       const inviteRef = doc(db, 'invites', inviteId);
-      await deleteDoc(inviteRef); // Удаляем приглашение из базы данных
-
-      // Обновляем список приглашений в UI
-      setInvites(prevInvites => prevInvites.filter(invite => invite.id !== inviteId));
+      await updateDoc(inviteRef, { status: 'rejected' });
+      setInvites(invites.filter(invite => invite.id !== inviteId)); 
     } catch (error) {
       console.error('Ошибка при отклонении приглашения:', error);
     }
@@ -135,6 +125,8 @@ const MyInvites = () => {
               <h2 className="invite-item-title">{invite.projectTitle}</h2>
               <p className="invite-item-message">{invite.message}</p>
               <p className="invite-item-status">Статус: {invite.status}</p>
+              <p className="invite-item-sender">Отправитель: {invite.senderName}</p>
+              <p className="invite-item-date">Дата: {new Date(invite.createdAt.seconds * 1000).toLocaleDateString()}</p>
               <div className="invite-actions">
                 <FaCheck 
                   className="action-icon accept-icon" 

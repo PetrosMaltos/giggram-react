@@ -29,31 +29,29 @@ const CreateOrder = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const auth = getAuth(); // Инициализация auth
+  const auth = getAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    setError(''); // Clear error when user starts typing
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, description, category, price, tags } = formData;
-  
-    // Basic validation
+
     if (!title || !description || !category || !price || isNaN(price) || parseFloat(price) <= 0) {
       setError('Пожалуйста, заполните все поля корректно.');
       return;
     }
-  
-    // Получите текущего пользователя
+
     const user = auth.currentUser;
     if (!user) {
       setError('Ошибка авторизации. Пожалуйста, войдите в систему.');
       return;
     }
-  
+
     const newOrder = {
       title,
       description,
@@ -63,13 +61,13 @@ const CreateOrder = () => {
       views: 0,
       responses: [],
       createdAt: Timestamp.now(),
-      clientId: user.uid,  // Добавление clientId
+      createdBy: user.uid,
     };
-  
+
     try {
       await addDoc(collection(db, 'orders'), newOrder);
       setSuccess('Заказ успешно создан!');
-      setTimeout(() => navigate('/orders'), 1500); // Redirect after 1.5 seconds
+      setTimeout(() => navigate('/orders'), 1500);
     } catch (error) {
       setError('Ошибка создания заказа. Попробуйте еще раз.');
       console.error('Ошибка создания заказа:', error);

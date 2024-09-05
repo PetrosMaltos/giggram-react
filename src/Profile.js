@@ -99,8 +99,8 @@ const Profile = () => {
             <StarRating rating={user.rating} />
           </div>
           <div className="links">
-            <Link to="/my-orders">Мои Заказы</Link>
-            <Link to="/my-services">Мои Услуги</Link>
+            <Link to="/my-orders">Мои заказы</Link>
+            <Link to="/my-services">Мои услуги</Link>
             <Link to="/my-projects">Мои проекты</Link>
           </div>
           <div className="skills">

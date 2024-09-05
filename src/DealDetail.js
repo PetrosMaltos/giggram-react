@@ -6,7 +6,7 @@ import Loading from './components/Loading';
 import './DealDetail.css';
 
 const DealDetail = () => {
-  const { dealId } = useParams(); // Получение ID из URL
+  const { dealId } = useParams();
   const [deal, setDeal] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -14,7 +14,7 @@ const DealDetail = () => {
   useEffect(() => {
     const fetchDeal = async () => {
       try {
-        const dealDoc = doc(db, 'deals', dealId); // Убедитесь, что коллекция и ID корректны
+        const dealDoc = doc(db, 'deals', dealId);
         const dealSnapshot = await getDoc(dealDoc);
         if (dealSnapshot.exists()) {
           setDeal(dealSnapshot.data());
@@ -47,22 +47,19 @@ const DealDetail = () => {
     }
   };
 
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
+  const handleFreezeFunds = async () => {
+    if (!deal) return;
+
+    try {
+      const dealRef = doc(db, 'deals', dealId);
+      await updateDoc(dealRef, {
+        paymentStatus: 'frozen',
+      });
+      alert('Средства заморожены.');
+    } catch (error) {
+      console.error('Ошибка при заморозке средств:', error);
     }
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    };
-  }, []);
+  };
 
   if (loading) {
     return <Loading />;
@@ -74,7 +71,6 @@ const DealDetail = () => {
 
   return (
     <div className="deal-detail">
-      <h1>Детали сделки</h1>
       <div className="deal-info">
         <p><strong>Статус сделки:</strong> {deal.status}</p>
         <p><strong>Статус оплаты:</strong> {deal.paymentStatus}</p>
@@ -82,9 +78,22 @@ const DealDetail = () => {
         <p><strong>Фрилансер:</strong> {deal.freelancerName}</p>
         <p><strong>Описание работы:</strong> {deal.description}</p>
       </div>
-      {deal.status === 'in-progress' && (
-        <button onClick={handleCompleteDeal}>Завершить сделку</button>
-      )}
+
+      <div className="deal-steps">
+        {deal.paymentStatus === 'not-frozen' && (
+          <button onClick={handleFreezeFunds}>Заморозить средства</button>
+        )}
+        {deal.status === 'in-progress' && (
+          <div className="work-phase">
+            <h2>Работа</h2>
+            <p>Здесь заказчик и фрилансер могут обмениваться файлами и сообщениями.</p>
+            {/* Добавить функциональность для обмена файлами */}
+          </div>
+        )}
+        {deal.status === 'in-progress' && (
+          <button onClick={handleCompleteDeal}>Завершить сделку</button>
+        )}
+      </div>
     </div>
   );
 };

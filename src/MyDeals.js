@@ -14,24 +14,22 @@ const MyDeals = () => {
       try {
         const user = auth.currentUser;
         if (user) {
-          // Получаем данные пользователя для определения его роли
           const userRef = doc(db, 'users', user.uid);
           const userSnap = await getDoc(userRef);
           if (userSnap.exists()) {
             const userData = userSnap.data();
             setUserRole(userData.role);
   
-            // Запрашиваем сделки на основе роли
             let q;
             if (userData.role === 'freelancer') {
               q = query(collection(db, 'deals'), where('freelancerId', '==', user.uid));
             } else if (userData.role === 'client') {
-              q = query(collection(db, 'deals'), where('clientId', '==', user.uid));
+              q = query(collection(db, 'deals'), where('createdBy', '==', user.uid));
             } else {
               console.error('Неизвестная роль пользователя');
               return;
             }
-            
+  
             const querySnapshot = await getDocs(q);
             const dealsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setDeals(dealsData);
@@ -78,9 +76,12 @@ const MyDeals = () => {
       <div className="deals-list">
         {deals.map((deal) => (
           <Link to={`/deal/${deal.id}`} key={deal.id} className="deal-item">
-            <h2>{deal.title}</h2>
+            <h2>{deal.projectTitle}</h2>
+            <p>Этап: {deal.stage}</p>
+            <p>Цена: {deal.price} руб.</p>
             <p>Статус: {deal.status === 'completed' ? 'Завершена' : 'В процессе'}</p>
             <p>Оплата: {deal.paymentStatus === 'frozen' ? 'Заморожена' : 'Ожидание'}</p>
+            <p>Контрагент: {deal.counterparty}</p>
           </Link>
         ))}
       </div>

@@ -1,47 +1,79 @@
 import React, { useState, useEffect } from 'react';
+import { db, auth } from './firebaseConfig';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import OrderCard from './components/OrderCard';
+import Loading from './components/Loading';
 import './MyOrders.css';
 
 const MyOrders = () => {
-  const orders = [
-    { id: 1, title: 'Заказ 1', description: 'Описание заказа 1', tags: ['тег1', 'тег2'], timeAgo: '1 час назад', price: '500' },
-    { id: 2, title: 'Заказ 2', description: 'Описание заказа 2', tags: ['тег3', 'тег4'], timeAgo: '2 часа назад', price: '1000' },
-    // Добавьте больше данных заказов
-  ];
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
+    const user = auth.currentUser;
+    if (!user) {
+      console.warn('Пользователь не авторизован');
+      setLoading(false);
+      return;
     }
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
+    console.log('Пользователь авторизован с UID:', user.uid);
+
+    const ordersRef = collection(db, 'orders');
+    const q = query(ordersRef, where('createdBy', '==', user.uid));
+
+    // Используем onSnapshot для получения данных в реальном времени
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      if (querySnapshot.empty) {
+        console.log('Нет заказов для данного пользователя.');
+        setOrders([]);
+      } else {
+        const ordersList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        console.log('Найденные заказы:', ordersList);
+        setOrders(ordersList);
       }
+      setLoading(false);
+    }, (error) => {
+      console.error('Ошибка при получении заказов:', error);
+      setLoading(false);
+    });
+
+    return () => {
+      unsubscribe();
     };
-  }, []);
+  }, []); // Зависимости пусты, запрос выполнится один раз при монтировании
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="my-orders-page">
       <header>
-        <h1>Мои Заказы</h1>
+        <h1>Мои заказы</h1>
       </header>
       <div className="orders-list">
-        {orders.map(order => (
-          <OrderCard 
+        {orders.length > 0 ? (
+          orders.map(order => (
+            <OrderCard
             key={order.id}
+            id={order.id}
             title={order.title}
-            description={order.description}
             tags={order.tags}
-            timeAgo={order.timeAgo}
+            description={order.description}
+            createdAt={order.createdAt}
             price={order.price}
+            responses={order.responses}
+            views={order.views}
+            isAssigned={order.isAssigned}
+            status={order.status}  
           />
-        ))}
+          ))
+        ) : (
+          <div className="no-orders-message">У вас нет заказов</div>
+        )}
       </div>
     </div>
   );
