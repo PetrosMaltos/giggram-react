@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FaShare } from 'react-icons/fa';
+import { FaShare, FaCopy } from 'react-icons/fa';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
 import './Profile.css';
@@ -36,6 +36,17 @@ const StarRating = React.memo(({ rating = 1 }) => {
   );
 });
 
+const translateRole = (role) => {
+  switch (role) {
+    case 'freelancer':
+      return 'Фрилансер';
+    case 'client':
+      return 'Заказчик';
+    default:
+      return 'Неизвестная роль';
+  }
+};
+
 const OtherProfile = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
@@ -46,11 +57,9 @@ const OtherProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        console.log('Fetching user with ID:', userId);
         const userDocRef = doc(db, 'users', userId);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          console.log('User data:', userDoc.data());
           setUser(userDoc.data());
         } else {
           setError('User not found');
@@ -62,6 +71,12 @@ const OtherProfile = () => {
     };
     fetchUser();
   }, [userId]);
+
+  const handleCopyClick = () => {
+    if (user && user.telegramUsername) {
+      navigator.clipboard.writeText(user.telegramUsername);
+    }
+  };
 
   if (error) {
     return <p>{error}</p>;
@@ -78,17 +93,17 @@ const OtherProfile = () => {
           <img className="round" src={user.avatar || placeholderAvatar} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
-          {/* Заменяем кнопку "Редактировать" на "Сообщение" */}
-          <button className="primary" onClick={() => navigate(`/chat/${user.username}`)}>Сообщение</button>
-          <button className="primary"><FaShare /></button>
+          <button className="primary ghost" onClick={handleCopyClick}>
+            <FaCopy className="copy-icon" /> Копировать @Telegram
+          </button>
           <div className="rating">
             <h6>Рейтинг</h6>
             <StarRating rating={user.rating} />
           </div>
           <div className="links">
-            <Link to={`/user/${userId}/orders`}>Мои Заказы</Link>
-            <Link to={`/user/${userId}/services`}>Мои Услуги</Link>
-            <Link to={`/user/${userId}/projects`}>Мои проекты</Link>
+            <Link to={`/user/${userId}/orders`}>Заказы</Link>
+            <Link to={`/user/${userId}/services`}>Услуги</Link>
+            <Link to={`/user/${userId}/projects`}>Проекты</Link>
           </div>
           <div className="skills">
             <h6>Навыки</h6>
@@ -108,7 +123,7 @@ const OtherProfile = () => {
               <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-              <span>Роль:</span> {user.userType}
+              <span>Роль:</span> {translateRole(user.role)}
             </div>
           </div>
         </div>

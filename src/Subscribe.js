@@ -45,7 +45,7 @@ const Subscribe = () => {
           >
             <h2>Годовая подписка</h2>
             <div className="price">3950 руб.</div>
-            <div className="discount">-45% Скидка</div>
+            <div className="discount">-70% Скидка</div>
             <div className="option-description">Получите доступ ко всем функциям и уникальным привилегиям.</div>
           </div>
         </div>

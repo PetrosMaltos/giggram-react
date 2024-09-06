@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, query, where, getDocs, updateDoc } from 'firebase/firestore'; // Добавьте updateDoc сюда
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateEmail } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -152,4 +152,4 @@ const handlePayment = async (amount, orderId, userId) => {
 
 
 // Экспорт необходимых Firebase модулей
-export { db, storage, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc, getDoc };
+export { db, storage, collection, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onSnapshot, signInWithPopup, doc, getDoc, updateDoc };

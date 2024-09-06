@@ -10,6 +10,7 @@ import Categories from './components/Categories';
 import LogoAnimation from './components/LogoAnimation';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
+import { MdOutlineMoodBad } from "react-icons/md";
 import { getAuth } from 'firebase/auth';
 
 const SearchResult = ({ result, onClick, isCurrentUser }) => {
@@ -223,11 +224,18 @@ const Main = () => {
       <section className="featured-orders-section">
         <h2>Новые заказы</h2>
         <div className="main-list">
-          {latestOrders.map((order) => (
-            <div key={order.id} onClick={() => navigate(`/orders/${order.id}`)}>
-              <OrderCard {...order} />
+          {latestOrders.length > 0 ? (
+            latestOrders.map((order) => (
+              <div key={order.id} onClick={() => navigate(`/orders/${order.id}`)}>
+                <OrderCard {...order} />
+              </div>
+            ))
+          ) : (
+            <div className="no-orders-message">
+              <MdOutlineMoodBad className="no-orders-emoji" />
+              Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже.
             </div>
-          ))}
+          )}
         </div>
       </section>
       <section className="categories-section">

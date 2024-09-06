@@ -4,6 +4,7 @@ import { FaSearch, FaAngleDown, FaAngleUp, FaPlus } from 'react-icons/fa';
 import Navbar from './components/Navbar';
 import { db, collection, onSnapshot } from './firebaseConfig';
 import './Orders.css';
+import { MdOutlineMoodBad } from "react-icons/md";
 
 const Orders = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -297,8 +298,14 @@ const Orders = () => {
           isAssigned={order.isAssigned}
           status={order.status}  
         />
-        
-        )) : <p>Нынче заказов нэт :(</p>}
+      
+        )) : 
+        <div className="no-orders-message">
+          <MdOutlineMoodBad className="no-orders-emoji" />
+        </div>}
+        <div className="no-orders-message">
+        Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже.
+      </div>
       </div>
       <div className="pagination-controls">
         {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, index) => (

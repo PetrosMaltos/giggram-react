@@ -100,13 +100,15 @@
     font-size: 14px;
     color: #8a8a8a;
     margin-bottom: 10px;
-    flex-grow: 1; /* Позволяет описанию занимать оставшееся пространство */
+    flex-grow: 1;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
   }
   
+  /* Стили для кнопки лайка */
   .like-button {
+    transition: 0.3s;
     background: none;
     border: none;
     font-size: 24px;
@@ -117,40 +119,37 @@
     color: #ff2f2f;
     position: relative;
     outline: none;
+    user-select: none; /* Убирает выделение текста при клике */
+    -webkit-tap-highlight-color: transparent; /* Убирает выделение на мобильных */
   }
   
   .like-button:active {
-    background: none; /* Убирает фон при нажатии */
-    border: none; /* Убирает границу при нажатии */
-    box-shadow: none; /* Убирает тень при нажатии */
+    transition: 0.3s;
+    background: none;
+    border: none;
+    box-shadow: none;
   }
   
-  
-  
   .like-button .like-count {
+    transition: 0.3s;
     font-size: 14px;
     margin-left: 8px;
   }
   
-  .like-button.liked .like-icon {
-    color: red;
-    transform: scale(1.2); /* Увеличение и анимация при нажатии */
-    animation: pulse 0.6s ease-in-out;
+  .like-icon {
+    transition: transform 0.3s ease-in-out; /* Плавное увеличение при нажатии */
   }
   
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
+  /* Анимация для увеличения иконки лайка */
+  .like-button.liked .like-icon {
+    transition: 0.3s;
+    transform: scale(1.1); /* Увеличение иконки */
+  }
+  
+  /* Убираем анимацию назад после клика */
+  .like-button .like-icon {
+    transition: 0.2s;
+    transform: scale(1); /* Возвращение к исходному размеру */
   }
 
   .search-section3 {

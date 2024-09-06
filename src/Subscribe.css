@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #121212; /* Темный фон страницы */
+    background-color: #000000; /* Темный фон страницы */
     font-family: 'Montserrat', sans-serif;
   }
   
@@ -12,7 +12,7 @@
     max-width: 100%;
     width: 90%;
     padding: 20px;
-    background-color: #1e1e1e; /* Темный фон контейнера */
+    background-color: #161616; /* Темный фон контейнера */
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Глубокая тень для темной темы */
     text-align: center;
@@ -52,7 +52,7 @@
   
   .subscription-option h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
   .price {

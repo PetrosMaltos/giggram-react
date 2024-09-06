@@ -98,43 +98,43 @@ const Help = () => {
         <h2>Остались вопросы?</h2>
         <form onSubmit={handleSubmit} className="contact-form">
           <label>
-            Имя:
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder='Имя'
             />
           </label>
           <label>
-            Email:
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder='Почта'
             />
           </label>
           <label>
-            Тема:
             <input
               type="text"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
               required
+              placeholder='Тема'
             />
           </label>
           <label>
-            Сообщение:
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               rows="5"
               required
+              placeholder='Сообщение'
             />
           </label>
           <button type="submit" className="submit-button">Отправить</button>

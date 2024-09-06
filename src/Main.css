@@ -288,3 +288,14 @@ html, body {
     height: auto;
   }
 }
+
+.no-orders-message {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.no-orders-emoji {
+  font-size: 30px;
+}

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import Navbar from './components/Navbar';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FaShare, FaTelegramPlane, FaCopy } from 'react-icons/fa';
+import { faStar, faSync } from '@fortawesome/free-solid-svg-icons';
+import { FaCopy } from 'react-icons/fa';
 import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
-import { db } from './firebaseConfig'; // Импорт Firebase конфигурации
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const StarRating = React.memo(({ rating = 1 }) => {
@@ -25,12 +22,12 @@ const StarRating = React.memo(({ rating = 1 }) => {
 });
 
 const Profile = () => {
-  const { user, loading } = useUser();
+  const { user, loading, updateUser } = useUser();
   const navigate = useNavigate();
-  const placeholderAvatar = 'https://via.placeholder.com/120';
+  const placeholderAvatar = 'https://miro.medium.com/v2/resize:fit:720/1*W35QUSvGpcLuxPo3SRTH4w.png';
   const avatarUrl = user && user.avatar ? user.avatar : placeholderAvatar;
 
-  const [inviteCount, setInviteCount] = useState(0); // Состояние для количества приглашений
+  const [inviteCount, setInviteCount] = useState(0);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -41,7 +38,7 @@ const Profile = () => {
           const invitesRef = collection(db, 'invites');
           const q = query(invitesRef, where('userId', '==', user.uid));
           const querySnapshot = await getDocs(q);
-          setInviteCount(querySnapshot.size); // Устанавливаем количество приглашений
+          setInviteCount(querySnapshot.size);
         } catch (error) {
           console.error('Ошибка при получении количества приглашений:', error);
         }
@@ -61,6 +58,16 @@ const Profile = () => {
         return 'Неизвестная роль';
     }
   };
+
+  const handleUpdateClick = async () => {
+    try {
+      // Загрузка данных пользователя снова
+      window.location.reload();
+    } catch (error) {
+      console.error('Ошибка при обновлении данных пользователя:', error);
+    }
+  };
+  
 
   if (loading) {
     return <Loading />;
@@ -98,14 +105,16 @@ const Profile = () => {
       <Navbar />
       <div className="profile-content">
         <div className="card-container">
-          <img className="round" src={avatarUrl} alt="user" />
+          <img className="round" src={avatarUrl || placeholderAvatar} alt="user" />
           <h3>{user.username}</h3>
           <p>{user.description || 'Нет описания'}</p>
           <div className="button-group">
             <button className="primary" onClick={handleEditClick}>Редактировать</button>
-            <button className="primary"><FaShare/></button>
             <button className="primary ghost" onClick={handleCopyClick}>
-              <FaCopy className="copy-icon" /> Копировать @username
+              <FaCopy className="copy-icon" /> Копировать @Telegram
+            </button>
+            <button className="refresh-button" onClick={handleUpdateClick}>
+              <FontAwesomeIcon icon={faSync} />
             </button>
           </div>
           <div className="rating">

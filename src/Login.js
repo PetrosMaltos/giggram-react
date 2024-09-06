@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,14 +11,24 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const auth = getAuth();
+
+  useEffect(() => {
+    // Проверяем, если пользователь уже аутентифицирован
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate('/main'); // Перенаправляем на главную страницу
+      }
+    });
+    return () => unsubscribe();
+  }, [auth, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const auth = getAuth();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/profile');
+      navigate('/main');
     } catch (err) {
       console.error('Ошибка входа:', err.message);
       setError('Ошибка входа. Проверьте данные и попробуйте снова.');
