@@ -298,14 +298,12 @@ const Orders = () => {
           isAssigned={order.isAssigned}
           status={order.status}  
         />
-      
-        )) : 
-        <div className="no-orders-message">
-          <MdOutlineMoodBad className="no-orders-emoji" />
-        </div>}
-        <div className="no-orders-message">
-        Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже.
-      </div>
+        )
+        ) : (
+          <div className="no-orders-message2">
+            Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже
+          </div>
+        )}
       </div>
       <div className="pagination-controls">
         {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, index) => (

@@ -1,62 +1,141 @@
-
-
+/* Основные стили с тёмной темой */
 .deal-detail {
   padding: 40px;
-  background-color: var(--bg-color);
-  border-radius: 8px;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: var(--text-color);
+  background-color: #000000; /* Тёмный фон */
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: 40px auto;
+  color: #f1f1f1; /* Светлый текст */
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
 
+/* Слайдер */
+.slider {
+  text-align: center;
+  padding: 20px;
+  background-color: #000000; /* Ещё темнее фон */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05); /* Лёгкие тени */
+  border: 1px solid #444; /* Тонкая граница */
+  -webkit-user-select: none; /* Отключаем выделение */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent; /* Убираем подсветку на мобильных устройствах */
+  -webkit-user-drag: none; /* Отключаем перетаскивание */
+  -webkit-user-modify: read-only; /* Запрещаем изменение */
+}
+
+.slider h2 {
+  font-size: 30px;
+  color: #6200ff; /* Яркий акцентный цвет */
+  margin-bottom: 20px;
+  letter-spacing: 1.5px; /* Немного расстояния между буквами */
+}
+
+.slider-controls {
+  margin-top: 30px;
+}
+
+.slider-controls button {
+  font-family: 'Montserrat', sans-serif;
+  padding: 12px 28px;
+  margin: 0 10px;
+  background-color: #6200ff; /* Яркий зелёный */
+  color: #ffffff; /* Контрастный тёмный текст */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase; /* Заглавные буквы для важности */
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+
+.slider-controls button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  color: #888;
+}
+
+/* Информация о сделке */
 .deal-info p {
   font-size: 20px;
-  margin: 10px 0;
+  margin: 16px 0;
+  color: #eaeaea;
 }
 
-/* Стили для этапов сделки */
-.deal-steps {
-  margin-top: 40px;
+.deal-info strong {
+  color: #ffffff; /* Белый для выделения */
+  font-size: 22px;
 }
 
-.work-phase {
-  margin-bottom: 20px;
-}
-
+/* Этап работы */
 .work-phase h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 26px;
+  color: #ffcc00; /* Золотистый цвет для премиальности */
+  margin-bottom: 12px;
 }
 
-.deal-actions button {
-  padding: 12px 24px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.deal-actions button:hover {
-  background-color: #45a049;
+.work-phase p {
+  font-size: 18px;
+  color: #dddddd;
 }
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
   .deal-detail {
-      padding: 20px;
+    padding: 20px;
+  }
+
+  .slider h2 {
+    font-size: 26px;
+  }
+
+  .slider-controls button {
+    padding: 10px 20px;
+    font-size: 15px;
+    margin: 0 5px;
   }
 
   .deal-info p {
-      font-size: 18px;
-  }
-
-  .deal-actions button {
-      width: 100%;
-      margin-top: 20px;
+    font-size: 18px;
   }
 }
 
+/* Убираем выделение при фокусе и клике на всех элементах */
+*,
+*::before,
+*::after {
+  outline: none !important; /* Полностью убираем рамку фокуса */
+  box-shadow: none !important; /* Убираем любые тени */
+}
+
+/* Убираем подсветку клика на сенсорных устройствах */
+button, a, input, textarea, select {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent; /* Убираем подсветку на мобильных устройствах */
+  -moz-focusring: none !important; /* Убираем подсветку в Firefox */
+  -webkit-user-select: none; /* Отключаем выделение текста на элементах */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Дополнительные стили для снятия фокуса со ссылок */
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Убираем выделение и подсветку в самом слайдере */
+.slider:focus,
+.slider *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
 

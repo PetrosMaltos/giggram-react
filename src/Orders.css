@@ -356,3 +356,10 @@
   cursor: default;
 }
 
+.no-orders-message2 {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  font-style: italic;
+  width: 300px;
+}
