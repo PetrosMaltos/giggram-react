@@ -1,98 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { db } from './firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import Loading from './components/Loading';
+import React, { useState } from 'react';
 import './DealDetail.css';
 
 const DealDetail = () => {
-  const { dealId } = useParams();
-  const [deal, setDeal] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [currentStep, setCurrentStep] = useState(1);
 
-  useEffect(() => {
-    const fetchDeal = async () => {
-      try {
-        const dealDoc = doc(db, 'deals', dealId);
-        const dealSnapshot = await getDoc(dealDoc);
-        if (dealSnapshot.exists()) {
-          setDeal(dealSnapshot.data());
-        } else {
-          setError('Сделка не найдена.');
-        }
-      } catch (error) {
-        setError('Ошибка загрузки сделки.');
-        console.error('Ошибка загрузки сделки:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const steps = ['Заказ', 'Оплата', 'Работа', 'Отзыв'];
 
-    fetchDeal();
-  }, [dealId]);
-
-  const handleCompleteDeal = async () => {
-    if (!deal) return;
-
-    try {
-      const dealRef = doc(db, 'deals', dealId);
-      await updateDoc(dealRef, {
-        status: 'completed',
-        paymentStatus: 'released',
-      });
-      alert('Сделка завершена, средства выпущены.');
-    } catch (error) {
-      console.error('Ошибка при завершении сделки:', error);
-    }
+  const orderInfo = {
+    title: 'Название заказа',
+    price: '1000 ₽',
+    customer: 'Иван Иванов',
+    performer: 'Алексей Петров',
+    deadlines: '10 дней',
+    reward: 5000, // Пример вознаграждения
   };
 
-  const handleFreezeFunds = async () => {
-    if (!deal) return;
+  // Вычисление вознаграждения с учетом комиссии 10%
+  const commission = 0.1;
+  const rewardWithCommission = (orderInfo.reward * (1 - commission)).toFixed(2);
 
-    try {
-      const dealRef = doc(db, 'deals', dealId);
-      await updateDoc(dealRef, {
-        paymentStatus: 'frozen',
-      });
-      alert('Средства заморожены.');
-    } catch (error) {
-      console.error('Ошибка при заморозке средств:', error);
-    }
-  };
+  const requirements = "Требования к заказу: Необходимо разработать дизайн для веб-приложения с учетом всех современных тенденций. Важно учитывать пользовательский опыт и сделать интерфейс интуитивно понятным.";
 
-  if (loading) {
-    return <Loading />;
-  }
+  const progress = 50; // Пример процента выполнения задания
 
-  if (!deal) {
-    return <div>Сделка не найдена</div>;
-  }
+  const files = [
+    { name: 'Дизайн-макет.pdf', url: '#' },
+    { name: 'Техническое задание.docx', url: '#' },
+  ];
 
   return (
-    <div className="deal-detail">
-      <div className="deal-info">
-        <p><strong>Статус сделки:</strong> {deal.status}</p>
-        <p><strong>Статус оплаты:</strong> {deal.paymentStatus}</p>
-        <p><strong>Заказ:</strong> {deal.orderTitle}</p>
-        <p><strong>Фрилансер:</strong> {deal.freelancerName}</p>
-        <p><strong>Описание работы:</strong> {deal.description}</p>
+    <div className="deal-container">
+      <h1 className="main-title">{orderInfo.title}</h1>
+
+      {/* Этапы */}
+      <div className="steps-nav">
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className={`step ${currentStep === index + 1 ? 'active' : ''}`}
+            onClick={() => setCurrentStep(index + 1)}
+          >
+            {step}
+          </div>
+        ))}
       </div>
 
-      <div className="deal-steps">
-        {deal.paymentStatus === 'not-frozen' && (
-          <button onClick={handleFreezeFunds}>Заморозить средства</button>
-        )}
-        {deal.status === 'in-progress' && (
-          <div className="work-phase">
-            <h2>Работа</h2>
-            <p>Здесь заказчик и фрилансер могут обмениваться файлами и сообщениями.</p>
-            {/* Добавить функциональность для обмена файлами */}
+      
+      {/* Информационный блок */}
+      <div className="order-info">
+        <h2 className="order-title">Информация о заказе</h2>
+        <div className="order-details">
+          <div className="detail-item">
+            <span className="detail-label">Цена:</span> {orderInfo.price}
           </div>
-        )}
-        {deal.status === 'in-progress' && (
-          <button onClick={handleCompleteDeal}>Завершить сделку</button>
-        )}
+          <div className="detail-item">
+            <span className="detail-label">Заказчик:</span> {orderInfo.customer}
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Исполнитель:</span> {orderInfo.performer}
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Сроки:</span> {orderInfo.deadlines}
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Вознаграждение:</span> 
+            <span className="reward-amount"> {rewardWithCommission} ₽</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Описание заказа */}
+      <div className="order-requirements">
+        <h2 className="requirements-title">Описание заказа</h2>
+        <p className="requirements-text">{requirements}</p>
+      </div>
+
+      {/* Прикрепленные файлы */}
+      <div className="files">
+        <h2 className="files-title">Прикрепленные файлы</h2>
+        <ul className="files-list">
+          {files.map((file, index) => (
+            <li key={index}>
+              <a href={file.url} className="file-link">{file.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Кнопка Приступить */}
+      <div className="start-button-container">
+        <button className="start-button">Приступить</button>
       </div>
     </div>
   );

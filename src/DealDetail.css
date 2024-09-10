@@ -1,141 +1,223 @@
-/* Основные стили с тёмной темой */
-.deal-detail {
-  padding: 40px;
-  background-color: #000000; /* Тёмный фон */
-  border-radius: 10px;
-  max-width: 1000px;
-  margin: 40px auto;
-  color: #f1f1f1; /* Светлый текст */
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-/* Слайдер */
-.slider {
-  text-align: center;
+.deal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
   padding: 20px;
-  background-color: #000000; /* Ещё темнее фон */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05); /* Лёгкие тени */
-  border: 1px solid #444; /* Тонкая граница */
-  -webkit-user-select: none; /* Отключаем выделение */
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent; /* Убираем подсветку на мобильных устройствах */
-  -webkit-user-drag: none; /* Отключаем перетаскивание */
-  -webkit-user-modify: read-only; /* Запрещаем изменение */
+  box-sizing: border-box;
 }
 
-.slider h2 {
-  font-size: 30px;
-  color: #6200ff; /* Яркий акцентный цвет */
+.main-title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.steps-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  border-bottom: 2px solid #6200ff;
   margin-bottom: 20px;
-  letter-spacing: 1.5px; /* Немного расстояния между буквами */
 }
 
-.slider-controls {
-  margin-top: 30px;
-}
-
-.slider-controls button {
-  font-family: 'Montserrat', sans-serif;
-  padding: 12px 28px;
-  margin: 0 10px;
-  background-color: #6200ff; /* Яркий зелёный */
-  color: #ffffff; /* Контрастный тёмный текст */
-  border: none;
-  border-radius: 8px;
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
   cursor: pointer;
-  font-size: 18px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px 10px 0 0;
+  background-color: #000000;
+}
+
+.step.active {
+  background-color: #6200ff;
+  color: white;
   font-weight: bold;
-  text-transform: uppercase; /* Заглавные буквы для важности */
-  transition: background-color 0.3s ease, transform 0.2s;
+  transform: scale(1.02);
 }
 
-
-.slider-controls button:disabled {
-  background-color: #555;
-  cursor: not-allowed;
-  color: #888;
+.order-info {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-/* Информация о сделке */
-.deal-info p {
-  font-size: 20px;
-  margin: 16px 0;
-  color: #eaeaea;
-}
-
-.deal-info strong {
-  color: #ffffff; /* Белый для выделения */
+.order-title {
   font-size: 22px;
+  margin-bottom: 15px;
 }
 
-/* Этап работы */
-.work-phase h2 {
-  font-size: 26px;
-  color: #ffcc00; /* Золотистый цвет для премиальности */
-  margin-bottom: 12px;
+.order-details {
+  font-size: 16px;
+  color: #b7b7b7;
 }
 
-.work-phase p {
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+}
+
+.reward-amount {
+  color: #ff4081;
+  font-weight: bold;
+  font-size: 16px;
+  background: linear-gradient(45deg, #5640ff, #ff80ab);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.order-requirements {
+  color: #b7b7b7;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.requirements-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.requirements-text {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.messages {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.messages-title {
+  ffont-size: 22px;
+  margin-bottom: 15px;
+}
+
+.message {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.history {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.history-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.history-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.history-item {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.history-date {
+  font-weight: bold;
+}
+
+.start-button-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.start-button {
+  font-family: 'Montserrat', sans-serif;
   font-size: 18px;
-  color: #dddddd;
+  padding: 12px 30px;
+  color: #fff;
+  background: linear-gradient(45deg, #6200ff, #9940ff);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
 }
 
-/* Мобильная адаптация */
-@media (max-width: 768px) {
-  .deal-detail {
-    padding: 20px;
-  }
-
-  .slider h2 {
-    font-size: 26px;
-  }
-
-  .slider-controls button {
-    padding: 10px 20px;
-    font-size: 15px;
-    margin: 0 5px;
-  }
-
-  .deal-info p {
-    font-size: 18px;
-  }
+.start-button:hover {
+  background: linear-gradient(45deg, #5000cc, #e7407b);
+  transform: scale(1.05);
 }
 
-/* Убираем выделение при фокусе и клике на всех элементах */
-*,
-*::before,
-*::after {
-  outline: none !important; /* Полностью убираем рамку фокуса */
-  box-shadow: none !important; /* Убираем любые тени */
+.start-button:active {
+  background: linear-gradient(45deg, #3d00a2, #c12a6c);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
 }
 
-/* Убираем подсветку клика на сенсорных устройствах */
-button, a, input, textarea, select {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent; /* Убираем подсветку на мобильных устройствах */
-  -moz-focusring: none !important; /* Убираем подсветку в Firefox */
-  -webkit-user-select: none; /* Отключаем выделение текста на элементах */
-  -ms-user-select: none;
-  user-select: none;
+/* Стили для прогресс-бара */
+.progress {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 20px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
-/* Дополнительные стили для снятия фокуса со ссылок */
-a:focus, button:focus, input:focus, textarea:focus, select:focus {
-  outline: none !important;
-  box-shadow: none !important;
+/* Стили для прикрепленных файлов */
+.files {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-/* Убираем выделение и подсветку в самом слайдере */
-.slider:focus,
-.slider *:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-user-select: none !important;
-  user-select: none !important;
+.files-title {
+  font-size: 22px;
+  margin-bottom: 15px;
 }
 
+.files-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.file-link {
+  color: #6200ff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
