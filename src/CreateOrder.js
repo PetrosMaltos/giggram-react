@@ -4,7 +4,7 @@ import { db } from './firebaseConfig';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import './CreateOrder.css';
-import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit } from 'react-icons/fa';
+import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit, FaClock } from 'react-icons/fa';
 
 const categories = [
   'Веб-дизайн',
@@ -17,6 +17,15 @@ const categories = [
   'Переводы'
 ];
 
+const timeOptions = [
+  { label: '1 час', value: 1 },
+  { label: '12 часов', value: 12 },
+  { label: '24 часа', value: 24 },
+  { label: '3 дня', value: 72 },
+  { label: 'Неделя', value: 168 },
+  { label: 'Месяц', value: 720 },
+];
+
 const CreateOrder = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -24,6 +33,7 @@ const CreateOrder = () => {
     category: '',
     price: '',
     tags: '',
+    activeTime: '', // новое поле для выбора времени
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -39,9 +49,9 @@ const CreateOrder = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { title, description, category, price, tags } = formData;
+    const { title, description, category, price, tags, activeTime } = formData;
 
-    if (!title || !description || !category || !price || isNaN(price) || parseFloat(price) <= 0) {
+    if (!title || !description || !category || !price || isNaN(price) || parseFloat(price) <= 0 || !activeTime) {
       setError('Пожалуйста, заполните все поля корректно.');
       return;
     }
@@ -61,6 +71,7 @@ const CreateOrder = () => {
       views: 0,
       responses: [],
       createdAt: Timestamp.now(),
+      activeTime: parseInt(activeTime), // сохраняем активное время в часах
       createdBy: user.uid,
     };
 
@@ -73,26 +84,6 @@ const CreateOrder = () => {
       console.error('Ошибка создания заказа:', error);
     }
   };
-
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
-    }
-
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    };
-  }, []);
 
   return (
     <div className="create-order-page">
@@ -154,6 +145,24 @@ const CreateOrder = () => {
               onChange={handleInputChange}
             />
           </label>
+
+          {/* Новый элемент выбора времени активности */}
+          <label>
+            <FaClock /> Время активности заказа
+            <select
+              name="activeTime"
+              value={formData.activeTime}
+              onChange={handleInputChange}
+              required
+              className="category-select"
+            >
+              <option value="" disabled>Выберите время активности</option>
+              {timeOptions.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </label>
+
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
           <button type="submit" className="submit-button">Создать заказ!</button>

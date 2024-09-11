@@ -6,7 +6,7 @@ const DealDetail = () => {
 
   const steps = ['Заказ', 'Оплата', 'Работа', 'Отзыв'];
 
-  const orderInfo = {
+  const dealInfo = {
     title: 'Название заказа',
     price: '1000 ₽',
     customer: 'Иван Иванов',
@@ -17,7 +17,7 @@ const DealDetail = () => {
 
   // Вычисление вознаграждения с учетом комиссии 10%
   const commission = 0.1;
-  const rewardWithCommission = (orderInfo.reward * (1 - commission)).toFixed(2);
+  const rewardWithCommission = (dealInfo.reward * (1 - commission)).toFixed(2);
 
   const requirements = "Требования к заказу: Необходимо разработать дизайн для веб-приложения с учетом всех современных тенденций. Важно учитывать пользовательский опыт и сделать интерфейс интуитивно понятным.";
 
@@ -30,7 +30,7 @@ const DealDetail = () => {
 
   return (
     <div className="deal-container">
-      <h1 className="main-title">{orderInfo.title}</h1>
+      <h1 className="main-title">{dealInfo.title}</h1>
 
       {/* Этапы */}
       <div className="steps-nav">
@@ -47,20 +47,20 @@ const DealDetail = () => {
 
       
       {/* Информационный блок */}
-      <div className="order-info">
-        <h2 className="order-title">Информация о заказе</h2>
-        <div className="order-details">
+      <div className="deal-info">
+        <h2 className="deal-title">Информация о заказе</h2>
+        <div className="deal-details">
           <div className="detail-item">
-            <span className="detail-label">Цена:</span> {orderInfo.price}
+            <span className="detail-label">Цена:</span> {dealInfo.price}
           </div>
           <div className="detail-item">
-            <span className="detail-label">Заказчик:</span> {orderInfo.customer}
+            <span className="detail-label">Заказчик:</span> {dealInfo.customer}
           </div>
           <div className="detail-item">
-            <span className="detail-label">Исполнитель:</span> {orderInfo.performer}
+            <span className="detail-label">Исполнитель:</span> {dealInfo.performer}
           </div>
           <div className="detail-item">
-            <span className="detail-label">Сроки:</span> {orderInfo.deadlines}
+            <span className="detail-label">Сроки:</span> {dealInfo.deadlines}
           </div>
           <div className="detail-item">
             <span className="detail-label">Вознаграждение:</span> 
@@ -70,7 +70,7 @@ const DealDetail = () => {
       </div>
 
       {/* Описание заказа */}
-      <div className="order-requirements">
+      <div className="deal-requirements">
         <h2 className="requirements-title">Описание заказа</h2>
         <p className="requirements-text">{requirements}</p>
       </div>

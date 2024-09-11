@@ -39,7 +39,7 @@
   transform: scale(1.02);
 }
 
-.order-info {
+.deal-info {
   width: 100%;
   max-width: 600px;
   padding: 20px;
@@ -49,12 +49,12 @@
   margin-bottom: 20px;
 }
 
-.order-title {
+.deal-title {
   font-size: 22px;
   margin-bottom: 15px;
 }
 
-.order-details {
+.deal-details {
   font-size: 16px;
   color: #b7b7b7;
 }
@@ -76,7 +76,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-.order-requirements {
+.deal-requirements {
   color: #b7b7b7;
   width: 100%;
   max-width: 600px;

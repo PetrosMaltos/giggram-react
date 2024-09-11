@@ -22,6 +22,7 @@ const OrderDetail = () => {
   const [userMap, setUserMap] = useState({});
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [remainingResponses, setRemainingResponses] = useState(5);
+  const [creatorData, setCreatorData] = useState(null); // Добавляем состояние для данных создателя
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -55,6 +56,15 @@ const OrderDetail = () => {
 
           updateTimer();
           const timer = setInterval(updateTimer, 60000); // Обновляем каждую минуту
+
+          // Получаем данные создателя заказа
+          if (orderData.createdBy) {
+            const creatorRef = doc(db, 'users', orderData.createdBy);
+            const creatorSnap = await getDoc(creatorRef);
+            if (creatorSnap.exists()) {
+              setCreatorData(creatorSnap.data());
+            }
+          }
 
           return () => clearInterval(timer);
         } else {
@@ -98,8 +108,6 @@ const OrderDetail = () => {
       console.error('Ошибка получения данных пользователя:', error);
     }
   };
-
-  
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
@@ -192,16 +200,16 @@ const OrderDetail = () => {
   return (
     <div className="order-detail">
       <div className="order-info">
-        <div className="client-profile">
+      <div className="client-profile">
           <div className="client-avatar">
-            {userData?.avatar ? (
-              <img src={userData.avatar} alt="Client Avatar" />
+            {creatorData?.avatar ? (
+              <img src={creatorData.avatar} alt="Client Avatar" />
             ) : (
               <div className="default-avatar">A</div>
             )}
           </div>
           <div className="client-info">
-            <div className="client-name">{userData?.username || 'Неизвестный клиент'}</div>
+            <div className="client-name">{creatorData?.username || 'Неизвестный клиент'}</div>
             <div className="client-reviews">
               <AiFillStar className="star-rating" />
               <span>4.4</span>
